@@ -29,7 +29,7 @@ const NavBar: React.FC = () => {
             </Navbar.Brand>
             <Nav className="mr-auto">
                 <Nav.Link href="/">Main</Nav.Link>
-                <Nav.Link href="/profile" disabled>Profile</Nav.Link>
+                <Nav.Link href="/profile">Profile</Nav.Link>
                 <Nav.Link href="/users" disabled>Users</Nav.Link>
             </Nav>
             <Form inline>

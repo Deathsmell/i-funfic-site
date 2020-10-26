@@ -1,0 +1,24 @@
+import React from "react";
+import {AiOutlineUser} from "react-icons/ai";
+import {Button, ButtonGroup} from "react-bootstrap";
+
+const AccountCard: React.FC = () => {
+
+    return (
+        <div>
+            <div className="border border-dark "
+                 style={{width: '15em', height: '15em', backgroundColor: 'grey'}}
+            >
+                <AiOutlineUser size="15em" color="white"/>
+            </div>
+            <hr/>
+            <h1 className="text-center">Username</h1>
+            <ButtonGroup vertical className="w-100">
+                <Button variant="dark">Create new book  </Button>
+                <Button variant="dark">Setting</Button>
+            </ButtonGroup>
+        </div>
+    )
+}
+
+export default AccountCard;

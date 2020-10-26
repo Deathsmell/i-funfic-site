@@ -28,3 +28,13 @@ div.manager-border > button.btn {
   font-size: 25px;
 
 }
+
+tr.book-table-row > td{
+  vertical-align: middle;
+  font-size: 20px;
+}
+
+tr.book-table-header > th{
+  cursor: pointer;
+  font-size: 20px;
+}
