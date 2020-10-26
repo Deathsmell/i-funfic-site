@@ -13,3 +13,18 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.fic-card-img{
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+div.manager-border > button.btn {
+  margin-top: 1rem;
+  margin-right: 2rem;
+  min-width: 100px;
+  min-height: 50px;
+  font-size: 25px;
+
+}
