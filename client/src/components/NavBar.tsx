@@ -30,7 +30,7 @@ const NavBar: React.FC = () => {
             <Nav className="mr-auto">
                 <Nav.Link href="/">Main</Nav.Link>
                 <Nav.Link href="/profile">Profile</Nav.Link>
-                <Nav.Link href="/users" disabled>Users</Nav.Link>
+                <Nav.Link href="/users">Users</Nav.Link>
             </Nav>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
