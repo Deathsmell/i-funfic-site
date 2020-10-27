@@ -7,7 +7,7 @@ const LoginForm: React.FC = () => {
 
 
     return (
-        <Form className="mb-5">
+        <Form>
             <Form.Group controlId="formBasicUsername">
                 <Form.Label>Username or Email</Form.Label>
                 <Form.Control type="text" placeholder="Username"/>
@@ -27,7 +27,7 @@ const LoginForm: React.FC = () => {
             <hr/>
             <LinkContainer to={"/register"}>
                 <div className="text-center">
-                    You <strong>have</strong> account on owr site? <a href="">Register</a>
+                    You <strong>have</strong> account on owr site? <a href="/">Register</a>
                 </div>
             </LinkContainer>
         </Form>

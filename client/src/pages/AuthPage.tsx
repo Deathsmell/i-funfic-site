@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import {Container, Row} from "react-bootstrap";
 import LoginForm from "../components/AuthPage/LoginForm";
 import RegisterForm from "../components/AuthPage/RegisterForm";
+import SocialNetGroupIcons from "../components/AuthPage/SocialNetGroupIcons";
 
 const AuthPage: React.FC = () => {
 
@@ -33,6 +34,7 @@ const AuthPage: React.FC = () => {
                         ? <LoginForm/>
                         : <RegisterForm/>
                     }
+                    <SocialNetGroupIcons/>
                 </Container>
             </Card>
         </Row>
