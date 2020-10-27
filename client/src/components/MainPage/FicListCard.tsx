@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
-import {Fic} from "../MordorsTest";
+import {Fic} from "../../MordorsTest";
 
 const FicListCard: React.FC<Fic> = (
     {

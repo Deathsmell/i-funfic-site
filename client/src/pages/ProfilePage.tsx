@@ -1,7 +1,7 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
-import AccountCard from "../components/AccountCard";
-import UserInfoTabs from "../components/UserInfoTabs";
+import AccountCard from "../components/ProfilePage/AccountCard";
+import UserInfoTabs from "../components/ProfilePage/UserInfoTabs";
 
 
 const ProfilePage: React.FC = () => {

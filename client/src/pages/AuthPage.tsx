@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from "react";
 import Card from "react-bootstrap/Card";
 import {Container, Row} from "react-bootstrap";
-import LoginForm from "../components/LoginForm";
-import RegisterForm from "../components/RegisterForm";
+import LoginForm from "../components/AuthPage/LoginForm";
+import RegisterForm from "../components/AuthPage/RegisterForm";
 
 const AuthPage: React.FC = () => {
 

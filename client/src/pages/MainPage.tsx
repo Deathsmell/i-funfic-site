@@ -1,5 +1,5 @@
 import React from "react";
-import FicListCard from "../components/FicListCard";
+import FicListCard from "../components/MainPage/FicListCard";
 import {mordorsTestFics} from '../MordorsTest'
 
 const MainPage: React.FC = () => {

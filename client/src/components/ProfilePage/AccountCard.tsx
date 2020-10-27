@@ -14,7 +14,7 @@ const AccountCard: React.FC = () => {
             <hr/>
             <h1 className="text-center">Username</h1>
             <ButtonGroup vertical className="w-100">
-                <Button variant="dark">Create new book  </Button>
+                <Button variant="dark">Create new book</Button>
                 <Button variant="dark">Setting</Button>
             </ButtonGroup>
         </div>
