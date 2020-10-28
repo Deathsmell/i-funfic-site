@@ -23,11 +23,4 @@ book_chapters_association(Book, Chapter);
 books_tags_association(Book, Tag);
 book_comments_association(Book, Comment)
 
-export {
-    sequelize,
-    Book,
-    User,
-    Chapter,
-    Tag,
-    Comment
-}
+export default sequelize

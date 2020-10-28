@@ -1,8 +1,14 @@
-import {Model, ModelCtor, Sequelize} from "sequelize";
+import {Model, Sequelize,BuildOptions} from "sequelize";
 import {BookGenres, IBook} from "../interfaces";
 
+export interface BookModel extends Model<IBook>,IBook {}
+export class Book extends Model<BookModel,IBook>{}
+export type BookStatic = typeof Model & {
+    new (values?: object, options?: BuildOptions): BookModel
+}
+
 type DataTypes = typeof import("sequelize/types/lib/data-types");
-export const bookInit = (sequelize: Sequelize, dataTypes: DataTypes): ModelCtor<Model<IBook>> => {
+export const bookInit = (sequelize: Sequelize, dataTypes: DataTypes): BookStatic => {
     return sequelize.define("book", {
         id: {
             type: dataTypes.INTEGER,

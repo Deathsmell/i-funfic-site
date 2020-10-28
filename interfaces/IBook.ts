@@ -1,5 +1,5 @@
 export interface IBook {
-    id: number,
+    id?: number,
     title: string,
     authorId: number,
     rating: number,
@@ -8,14 +8,14 @@ export interface IBook {
 }
 
 export interface IBookChapter {
-    id: number,
+    id?: number,
     number: number,
     title: string,
     text: string,
 }
 
 export interface IBookTag {
-    id: number,
+    id?: number,
     tag: string,
 }
 

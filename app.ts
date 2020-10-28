@@ -1,7 +1,6 @@
-// @ts-ignore
-import express, {Application} from 'express';
+import express, {Application} from "express";
 import {json, urlencoded} from "body-parser";
-import {sequelize} from "./models";
+import sequelize from "./models";
 
 const app: Application = express();
 const PORT: number = Number(process.env.PORT) || 5000;
@@ -21,7 +20,7 @@ app.use(urlencoded({extended: false}));
             .catch((error: Error) => {
                 console.log("Error", error)
             })
-    })
+    }).catch(console.error)
     app.listen(PORT, () => {
         console.log(`App started on ${PORT} port`)
     })
