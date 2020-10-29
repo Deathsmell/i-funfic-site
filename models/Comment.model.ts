@@ -1,14 +1,14 @@
-import {Model, ModelCtor, Sequelize,BuildOptions} from "sequelize"
+import {BuildOptions, Model, Sequelize} from "sequelize"
 import {IComment} from "../interfaces";
 
 export interface CommentModel extends Model<IComment>, IComment {}
 export class Tag extends Model<CommentModel, IComment> {}
-export type BookChapterStatic = typeof Model & {
+export type CommentStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): CommentModel
 }
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
-export const commentInit = (sequelize: Sequelize, dataTypes: DataTypes): ModelCtor<Model<IComment>> => {
+export const CommentFactory = (sequelize: Sequelize, dataTypes: DataTypes): CommentStatic => {
     return sequelize.define("comment", {
         id: {
             type: dataTypes.INTEGER,

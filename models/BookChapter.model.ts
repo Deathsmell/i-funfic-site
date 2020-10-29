@@ -8,7 +8,7 @@ export type BookChapterStatic = typeof Model & {
 }
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
-export const chapterInit = (sequelize: Sequelize, dataTypes: DataTypes): BookChapterStatic => {
+export const ChapterFactory = (sequelize: Sequelize, dataTypes: DataTypes): BookChapterStatic => {
     return sequelize.define("chapter", {
         id: {
             type: dataTypes.INTEGER,

@@ -8,31 +8,31 @@ export type BookStatic = typeof Model & {
 }
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
-export const bookInit = (sequelize: Sequelize, dataTypes: DataTypes): BookStatic => {
+export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookStatic => {
     return sequelize.define("book", {
         id: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true,
         },
         authorId: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: false
         },
         annotation: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: false
         },
         rating: {
-            type: dataTypes.INTEGER,
+            type: DataTypes.INTEGER,
             allowNull: true
         },
         title: {
-            type: dataTypes.STRING,
+            type: DataTypes.STRING,
             allowNull: true
         },
         genres: {
-            type: dataTypes.ENUM(BookGenres.FANTASTIC, BookGenres.ACTION),
+            type: DataTypes.ARRAY(DataTypes.ENUM(BookGenres.FANTASTIC, BookGenres.ACTION)),
             allowNull: true
         },
     }, {});

@@ -8,7 +8,7 @@ export type UserStatic = typeof Model & {
 }
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
-export const userInit = (sequelize: Sequelize, DataTypes: DataTypes): UserStatic => {
+export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserStatic => {
     return sequelize.define("user", {
         id: {
             type: DataTypes.INTEGER,
@@ -28,7 +28,7 @@ export const userInit = (sequelize: Sequelize, DataTypes: DataTypes): UserStatic
             allowNull: false,
         },
         roles: {
-            type: DataTypes.ENUM(Roles.ADMIN, Roles.USER),
+            type: DataTypes.ARRAY(DataTypes.ENUM(Roles.ADMIN, Roles.USER)),
             allowNull: true,
         },
     });

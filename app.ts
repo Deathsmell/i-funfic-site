@@ -1,12 +1,23 @@
-import express, {Application} from "express";
+import express, {Application, Router} from "express";
+import passport from "passport";
+import cors from "cors";
 import {json, urlencoded} from "body-parser";
-import sequelize from "./models";
+import {sequelize} from "./models";
+import {user} from "./routes/user";
+
+declare var console: Console;
 
 const app: Application = express();
 const PORT: number = Number(process.env.PORT) || 5000;
+const router: Router = Router()
 
 app.use(json());
+app.use(cors())
 app.use(urlencoded({extended: false}));
+app.use(passport.initialize())
+
+user(router);
+app.use(router);
 
 
 (function start() {
