@@ -1,5 +1,5 @@
 import React from 'react';
-import {Route, Switch} from 'react-router-dom'
+import { Route, Switch } from 'react-router'
 import MainPage from "./pages/MainPage";
 import FicPage from "./pages/FicPage";
 import AuthPage from "./pages/AuthPage";

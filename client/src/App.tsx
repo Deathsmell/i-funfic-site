@@ -1,18 +1,18 @@
 import React from 'react';
-import {BrowserRouter} from "react-router-dom";
+import {ConnectedRouter} from "connected-react-router";
+import {history} from "./store/history";
 import NavBar from './components/NavBar';
 import Routes from "./routes";
 
 const App: React.FC = () => {
     return (
         <>
-            <BrowserRouter>
+            <ConnectedRouter history={history}>
                 <NavBar/>
                 <div className="container">
-
                     <Routes/>
                 </div>
-            </BrowserRouter>
+            </ConnectedRouter>
         </>
     );
 }
