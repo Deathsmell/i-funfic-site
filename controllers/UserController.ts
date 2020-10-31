@@ -5,6 +5,7 @@ import {IUser} from "../interfaces";
 const UserController = {
     create: async (req: Request, res: Response, next: NextFunction) => {
         const data = <IUser>req.body;
+        console.log(req.body)
         if (data && data.username && data.email && data.password) {
             try {
                 const newUser = await UserService.create(data);

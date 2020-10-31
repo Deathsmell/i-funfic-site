@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {UserApi} from './types'
+import {UserApi} from '../api'
 import UserController from "../controllers/UserController";
 
 export const user = (router: Router) => {

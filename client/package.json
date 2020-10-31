@@ -3,15 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@redux-requests/axios": "^1.0.0",
+    "@redux-requests/core": "^1.2.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@types/jest": "^26.0.15",
-    "@types/node": "^12.0.0",
-    "@types/react": "^16.9.53",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-bootstrap": "^0.24.5",
-    "@types/react-router-dom": "^5.1.6",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "node-sass": "^4.14.1",
@@ -25,6 +21,9 @@
     "react-saga": "^0.3.1",
     "react-scripts": "4.0.0",
     "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-requests": "^1.0.2",
+    "reselect": "^4.0.0",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4"
   },
@@ -53,6 +52,14 @@
     ]
   },
   "devDependencies": {
-    "@types/axios": "^0.14.0"
+    "@types/axios": "^0.14.0",
+    "@types/jest": "^26.0.15",
+    "@types/node": "^14.14.6",
+    "@types/react": "^16.9.55",
+    "@types/react-dom": "^16.9.9",
+    "@types/react-redux": "^7.1.9",
+    "@types/react-router-bootstrap": "^0.24.5",
+    "@types/react-router-dom": "^5.1.6",
+    "@types/redux-logger": "^3.0.8"
   }
 }
