@@ -6,8 +6,9 @@ import bcrypt from "bcrypt"
 import {Op} from "sequelize";
 import {User} from "../models";
 import {RegistrationData} from "../client/src/store/auth/types";
+import {IUser} from "../interfaces";
 
-export interface IVerifiedCallback{
+export interface IVerifiedCallback {
     (error: any, user?: any, info?: object): void;
 }
 
@@ -25,7 +26,13 @@ export const signUp = new CustomStrategy(
             }
         });
         if (userFromDb) return done(null, false, {message: 'User exist'});
-        const user = await User.create({username,email, password: bcryptPassword});
+        const user = await User.create({
+            username,
+            email,
+            password: bcryptPassword,
+            confirm: false,
+            blocked: false
+        });
         return done(null, user, {message: 'Signup successful',});
     }
 )
@@ -37,11 +44,14 @@ export const login = new LocalStrategy(
     },
     async (username, password, done) => {
         console.log("LOGIN STATEGY")
-        const user = await User.findOne({where:{ [Op.or]: [
-                    {email:username},
+        const user = await User.findOne({
+            where: {
+                [Op.or]: [
+                    {email: username},
                     {username: username}
                 ]
-        }});
+            }
+        });
         if (!user) {
             return done(null, false, {message: 'User not found'});
         }
@@ -51,15 +61,18 @@ export const login = new LocalStrategy(
             return done(null, false, {message: 'Wrong Password'});
         }
 
-        console.log(typeof user)
-        const userData = {
+        const userData: IUser = {
+            id: user.id,
             username: user.username,
             email: user.email,
+            blocked: user.blocked,
+            confirm: user.confirm,
+            roles: user.roles,
+            password: ""
         }
         return done(null, userData, {message: 'Logged in Successfully'});
     }
 )
-
 
 export const jwtStrategy = new JwtStrategy(
     {

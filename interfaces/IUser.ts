@@ -4,6 +4,8 @@ export interface IUser {
     email: string,
     password: string,
     roles?: Roles[],
+    blocked?: boolean,
+    confirm?: boolean,
 }
 
 export enum Roles {

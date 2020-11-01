@@ -30,6 +30,17 @@ export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserSta
         roles: {
             type: DataTypes.ARRAY(DataTypes.ENUM(Roles.ADMIN, Roles.USER)),
             allowNull: true,
+            defaultValue: null,
         },
+        blocked: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        },
+        confirm: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+            defaultValue: false
+        }
     });
 }
