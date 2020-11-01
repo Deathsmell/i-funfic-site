@@ -1,7 +1,7 @@
 import {Router} from "express"
-import {UserApi} from '../api'
+import {CREATE_URL} from '../api'
 import UserController from "../controllers/UserController";
 
-export const user = (router: Router) => {
-    router.post(UserApi.CREATE, UserController.create)
+export const userRouter = (router: Router):void => {
+    router.post(CREATE_URL, UserController.create)
 }

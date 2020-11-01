@@ -1,10 +1,9 @@
-import {ChangeField, RegistrationData} from "../types"
+import {RegistrationData} from "../types"
 
 export const REGISTRATION = "AUTH/REGISTRATION"
 
-interface RegistrationRequest {
+export interface IRegistrationAction {
     type: typeof REGISTRATION,
     payload: RegistrationData
 }
 
-export type RegistrationType = RegistrationRequest | ChangeField

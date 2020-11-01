@@ -1,3 +1,1 @@
-export enum UserApi {
-    CREATE = "/user/create",
-}
+export const CREATE_URL = "/user/create"
