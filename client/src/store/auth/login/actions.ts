@@ -1,4 +1,4 @@
-import {AUTHORISE, LOGIN, ILoginData, IAuthorised, IAuthActions} from "./types";
+import {AUTHORISE, LOGIN, ILoginData, ICredentialState, IAuthActions} from "./types";
 import {Action} from "redux";
 
 export interface LoginAction extends Action {
@@ -10,7 +10,7 @@ export const login = (user: ILoginData): LoginAction => ({
     payload: user
 })
 
-export const authorise = (authorised: IAuthorised): IAuthActions => ({
+export const authorise = (authorised: ICredentialState): IAuthActions => ({
     type: AUTHORISE,
     payload: authorised
 })

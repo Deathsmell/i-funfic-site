@@ -9,11 +9,13 @@ export const configPassport = (passport: PassportStatic) => {
     passport.use("login", login)
     passport.use("signup", signUp)
 
-    passport.serializeUser((user: IUser, done) => {
+    passport.serializeUser<IUser,IUser>((user, done) => {
         console.log("SERIALASER", user.username, user.password)
         if (typeof user === "object"){
             user.password = ""
             done(null, user)
+        } else {
+            console.log(user)
         }
     })
 

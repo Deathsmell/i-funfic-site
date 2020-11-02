@@ -2,11 +2,12 @@ import {NextFunction, Request, Response} from "express"
 import passport from "passport"
 import jwt from "jsonwebtoken"
 import {jwtSecret} from "../config/constants";
-import {IAuthorised} from "../client/src/store/auth/login/types";
+import {ICredentialState} from "../client/src/store/auth/login/types";
+import {IUser} from "../interfaces";
 
 const AuthController = {
-    login: async (req: Request, res: Response<IAuthorised>, next: NextFunction) => {
-        passport.authenticate("login",{session: true}, async (err, user, info) => {
+    login: async (req: Request, res: Response<ICredentialState>, next: NextFunction) => {
+        passport.authenticate("login", {session: false}, async (err, user: IUser, info) => {
             try {
                 if (err) {
                     res.status(401).json(info)
@@ -17,9 +18,15 @@ const AuthController = {
                     {},
                     async err => {
                         if (err) return next(err)
-                        console.log("LOGIN CONTROLLER",user)
+                        console.log("LOGIN CONTROLLER", user)
                         const token = jwt.sign(user, jwtSecret)
-                        return res.json({token: token, authorised: true})
+                        return res.json({
+                            token: token,
+                            authorised: true,
+                            roles: user.roles,
+                            id: user.id!,
+                            img: user.img
+                        })
                     }
                 )
             } catch (e) {
@@ -28,14 +35,20 @@ const AuthController = {
         })(req, res, next)
     },
     registration: async (req: Request, res: Response, next: NextFunction) => {
-        passport.authenticate("signup",{session: false},async (err,user,info) => {
+        passport.authenticate("signup", {session: false}, async (err, user, info) => {
             console.log("SIGNUP CONTROLLER", user)
             if (user) {
                 res.status(201).json(info)
             } else {
                 res.status(401).json(info)
             }
-        })(req,res,next)
+        })(req, res, next)
+    },
+    logout: (req: Request, res: Response) => {
+        console.log("LOGOUT CONTROLLER")
+        console.log(req.user);
+        req.logout();
+        res.status(200).send()
     }
 }
 

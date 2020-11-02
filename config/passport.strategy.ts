@@ -7,10 +7,9 @@ import {Op} from "sequelize";
 import {User} from "../models";
 import {RegistrationData} from "../client/src/store/auth/types";
 import {IUser} from "../interfaces";
+import {IVerifiedCallback} from "./types";
 
-export interface IVerifiedCallback {
-    (error: any, user?: any, info?: object): void;
-}
+
 
 export const signUp = new CustomStrategy(
     async (req: Request, done: IVerifiedCallback) => {
@@ -20,15 +19,15 @@ export const signUp = new CustomStrategy(
         const userFromDb = await User.findOne({
             where: {
                 [Op.or]: [
-                    {email},
-                    {username}
+                    {email: email.toLowerCase()},
+                    {username: username.toLowerCase()}
                 ]
             }
         });
         if (userFromDb) return done(null, false, {message: 'User exist'});
         const user = await User.create({
-            username,
-            email,
+            username: username.toLowerCase(),
+            email: email.toLowerCase(),
             password: bcryptPassword,
             confirm: false,
             blocked: false
@@ -47,17 +46,19 @@ export const login = new LocalStrategy(
         const user = await User.findOne({
             where: {
                 [Op.or]: [
-                    {email: username},
-                    {username: username}
+                    {email: username.toLowerCase()},
+                    {username: username.toLowerCase()}
                 ]
             }
         });
         if (!user) {
+            console.log('User not found')
             return done(null, false, {message: 'User not found'});
         }
 
         const validate = await bcrypt.compare(password, user.password)
         if (!validate) {
+            console.log('Wrong Password')
             return done(null, false, {message: 'Wrong Password'});
         }
 

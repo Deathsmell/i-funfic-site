@@ -5,7 +5,7 @@ import createCompressor from 'redux-persist-transform-compress'
 import createSagaMiddleware from "redux-saga"
 import logger from "redux-logger";
 import {composeWithDevTools} from "redux-devtools-extension"
-import {rootReducers, RootState, RootStateKeys} from "./rootReducers";
+import {rootReducers, RootState, RootStateKeys} from "./reducers";
 import {routerMiddleware} from "./history";
 import rootSaga from "../saga";
 
@@ -20,7 +20,7 @@ if (!isProduction) {
 }
 
 let transforms: Transform<any, any>[] = []
-const blacklist: RootStateKeys[] = ["register"]
+const blacklist: RootStateKeys[] = ["registerFields"]
 if (isProduction) {
     const compressor = createCompressor({blacklist});
     transforms = [compressor]

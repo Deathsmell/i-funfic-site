@@ -4,7 +4,7 @@ import cookie from "cookie-parser"
 import session from "express-session"
 import cors from "cors"
 import {json, urlencoded} from "body-parser";
-import {sequelize} from "./models";
+import {dbAuthenticate} from "./models";
 import {configRouter} from "./routes";
 import {configPassport} from "./config/passport";
 
@@ -12,6 +12,7 @@ declare var console: Console;
 
 const app: Application = express();
 const PORT: number = Number(process.env.PORT) || 5000;
+const isProduction = process.env.NODE_ENV === "production"
 const router: Router = Router()
 
 app.use(cors())
@@ -32,18 +33,11 @@ configPassport(passport);
 app.use(router);
 
 
+
+
 (function start() {
     console.log("Starting server...")
-    sequelize.authenticate().then(async () => {
-        console.log("Connect DB")
-        await sequelize.sync({force: true})
-            .then(() => {
-                console.log("Sequelize synced ...")
-            })
-            .catch((error: Error) => {
-                console.log("Error", error)
-            })
-    }).catch(console.error)
+    dbAuthenticate(isProduction);
     app.listen(PORT, () => {
         console.log(`App started on ${PORT} port`)
     })

@@ -9,7 +9,9 @@ import './index.scss'
 const app = (
     <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-            <App/>
+            <div>
+                <App/>
+            </div>
         </PersistGate>
     </Provider>
 )

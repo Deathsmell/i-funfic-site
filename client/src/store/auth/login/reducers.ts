@@ -1,17 +1,20 @@
-import {AUTHORISE, IAuthActions, IAuthorised} from "./types";
+import {AUTHORISE, IAuthActions, ICredentialState} from "./types";
+import {CLEAR_CREDENTIAL} from "../types";
 
 
-const initialState: IAuthorised = {
+const initialState: ICredentialState = {
     authorised: false,
 }
 
 export const authReducer = (
-    state: IAuthorised = initialState,
+    state: ICredentialState = initialState,
     action: IAuthActions
-): IAuthorised => {
+): ICredentialState => {
     switch (action.type) {
         case AUTHORISE:
             return action.payload
+        case CLEAR_CREDENTIAL:
+            return initialState
         default:
             return state
     }

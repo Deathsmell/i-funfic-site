@@ -18,3 +18,6 @@ export interface ChangeField {
 }
 
 export const CLEAR_FIELD = "AUTH/CLEAR_FIELD"
+
+export const LOGOUT = "AUTH/LOGOUT"
+export const CLEAR_CREDENTIAL = "AUTH/CLEAR_CREDENTIAL"

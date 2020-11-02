@@ -1,8 +1,16 @@
-import React from "react";
+import React,{MouseEvent} from "react";
 import {AiOutlineUser} from "react-icons/ai";
 import {Button, ButtonGroup} from "react-bootstrap";
+import {useDispatch} from "react-redux";
+import {logout} from "../../store/auth/actions";
 
 const AccountCard: React.FC = () => {
+
+    const dispatch = useDispatch();
+    const logoutHandler = (event: MouseEvent) => {
+        event.preventDefault()
+        dispatch(logout())
+    }
 
     return (
         <div>
@@ -16,6 +24,9 @@ const AccountCard: React.FC = () => {
             <ButtonGroup vertical className="w-100">
                 <Button variant="dark">Create new book</Button>
                 <Button variant="dark">Setting</Button>
+                <Button variant="danger"
+                        onClick={logoutHandler}
+                >Log out</Button>
             </ButtonGroup>
         </div>
     )

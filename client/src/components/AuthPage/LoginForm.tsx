@@ -2,11 +2,11 @@ import React,{MouseEvent} from "react";
 import {connect, ConnectedProps, useDispatch} from "react-redux";
 import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
-import {RootState} from "../../store/rootReducers";
-import {change, login} from "../../store/auth/action"
+import {RootState} from "../../store/reducers";
+import {change, login} from "../../store/auth/actions"
 
 
-const mapState = ({register}: RootState) => register
+const mapState = ({registerFields}: RootState) => registerFields
 const mapDispatch = {login, change}
 const connector = connect(mapState, mapDispatch)
 

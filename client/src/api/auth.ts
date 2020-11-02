@@ -4,10 +4,12 @@ import {ILoginData} from "../store/auth/login/types";
 
 export const REGISTRATION_URL = "/auth/registration"
 export const LOGIN_URL = "/auth/login"
+export const LOGOUT_URL = "/logout"
 
 const axios = createAxios();
 
 export const AuthApi = {
     registration: async (user: RegistrationData) =>  await axios.post(REGISTRATION_URL,user),
-    login: async (user: ILoginData) => await axios.post(LOGIN_URL,user)
+    login: async (user: ILoginData) => await axios.post(LOGIN_URL,user),
+    logout: async () => await axios.post("/logout")
 }
