@@ -1,6 +1,6 @@
 import React, {MouseEvent} from "react";
 import {connect, ConnectedProps, useDispatch} from "react-redux";
-import {RootState} from "../../store/reducers"
+import {RootState} from "../../store/rootReducers"
 import {change, registration} from "../../store/auth/action"
 import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";

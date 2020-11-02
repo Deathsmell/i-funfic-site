@@ -5,3 +5,4 @@ import { routerMiddleware as createRouterMiddleware } from 'connected-react-rout
 export const history = createBrowserHistory()
 export const routerReducer = connectRouter(history)
 export const routerMiddleware = createRouterMiddleware(history)
+export type RouterReducer = typeof routerReducer

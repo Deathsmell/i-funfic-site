@@ -5,7 +5,7 @@ const initialState: IAuthorised = {
     authorised: false,
 }
 
-export const AuthReducer = (
+export const authReducer = (
     state: IAuthorised = initialState,
     action: IAuthActions
 ): IAuthorised => {
@@ -16,3 +16,5 @@ export const AuthReducer = (
             return state
     }
 }
+
+export type AuthReducer = typeof authReducer

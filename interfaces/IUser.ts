@@ -6,6 +6,7 @@ export interface IUser {
     roles?: Roles[],
     blocked?: boolean,
     confirm?: boolean,
+    img?: string,
 }
 
 export enum Roles {

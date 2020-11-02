@@ -28,4 +28,4 @@ export const authFieldsReducer = (
     }
 }
 
-export type AuthFieldsReducer = ReturnType<typeof authFieldsReducer>;
+export type AuthFieldsReducer = typeof authFieldsReducer

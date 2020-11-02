@@ -1,11 +1,18 @@
-import {Model, Sequelize,BuildOptions} from "sequelize";
+import {BuildOptions, Model, Sequelize} from "sequelize";
 import {IUser, Roles} from "../interfaces";
+import getEnums from "../utils/getEnums";
 
-export interface UserModel extends Model<IUser>,IUser {}
-export class User extends Model<UserModel,IUser>{}
-export type UserStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): UserModel
+export interface UserModel extends Model<IUser>, IUser {
 }
+
+export class User extends Model<UserModel, IUser> {
+}
+
+export type UserStatic = typeof Model & {
+    new(values?: object, options?: BuildOptions): UserModel
+}
+
+
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
 export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserStatic => {
@@ -28,7 +35,7 @@ export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserSta
             allowNull: false,
         },
         roles: {
-            type: DataTypes.ARRAY(DataTypes.ENUM(Roles.ADMIN, Roles.USER)),
+            type: DataTypes.ARRAY(DataTypes.ENUM(...getEnums(Roles))),
             allowNull: true,
             defaultValue: null,
         },
@@ -41,6 +48,10 @@ export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserSta
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
+        },
+        img: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     });
 }

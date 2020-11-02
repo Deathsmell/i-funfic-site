@@ -6,7 +6,7 @@ import {IAuthorised} from "../client/src/store/auth/login/types";
 
 const AuthController = {
     login: async (req: Request, res: Response<IAuthorised>, next: NextFunction) => {
-        passport.authenticate("login",{session: false}, async (err, user, info) => {
+        passport.authenticate("login",{session: true}, async (err, user, info) => {
             try {
                 if (err) {
                     res.status(401).json(info)
