@@ -21,7 +21,8 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
         },
         annotation: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            defaultValue: ""
         },
         rating: {
             type: DataTypes.INTEGER,
@@ -29,7 +30,8 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
         },
         title: {
             type: DataTypes.STRING,
-            allowNull: true
+            allowNull: true,
+            defaultValue: ""
         },
         genres: {
             type: DataTypes.ARRAY(DataTypes.ENUM(BookGenres.FANTASTIC, BookGenres.ACTION)),

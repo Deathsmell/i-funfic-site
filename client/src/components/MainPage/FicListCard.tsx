@@ -1,22 +1,29 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
-import {Fic} from "../../MordorsTest";
+import {IBook} from "../../../../interfaces";
 
-const FicListCard: React.FC<Fic> = (
+const FicListCard: React.FC<IBook> = (
     {
-        tags,
-        genres,
-        img,
-        name,
-        annotation,
-        author,
-        lastUpdate,
+        id,
         rating,
+        authorId,
+        annotation,
+        genres,
+        title,
+        img
     }) => {
+
+    const [tags, setTags] = useState<string[]>([]);
+    const [author, setAuthor] = useState<string>();
+    const lastUpdate = "never"
+
+    useEffect(() =>{
+        console.log("Render list card")
+    },[])
 
     return (
         <div>
@@ -27,7 +34,7 @@ const FicListCard: React.FC<Fic> = (
                           src={img}/>
                 <Card.Header>
                     <div>
-                        <h3>{name}</h3>
+                        <h3>{title}</h3>
                     </div>
                 </Card.Header>
                 <Card.Body>
@@ -44,13 +51,13 @@ const FicListCard: React.FC<Fic> = (
                         <Row className="m-4">
                             <strong>Genres:</strong>
                             &nbsp;
-                            {genres.map((genre, index) =>
+                            {genres && genres.map((genre, index) =>
                                 <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
                         </Row>
                         <Row className="m-4">
                             <strong>Tags:</strong>
                             &nbsp;
-                            {tags.map((tag, index) =>
+                            {tags && tags.map((tag, index) =>
                                 <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)}
                         </Row>
                         <Row className="m-4">

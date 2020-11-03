@@ -1,10 +1,11 @@
 export interface IBook {
     id?: number,
-    title: string,
+    title?: string,
     authorId: number,
-    rating: number,
-    annotation: string,
-    genres: BookGenres[],
+    rating?: number,
+    annotation?: string,
+    genres?: BookGenres[],
+    img?: string
 }
 
 export interface IBookChapter {

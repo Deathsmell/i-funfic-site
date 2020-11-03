@@ -1,17 +1,47 @@
 import React from "react";
 import FicListCard from "../components/MainPage/FicListCard";
-import {mordorsTestFics} from '../MordorsTest'
+import {connect, ConnectedProps} from "react-redux";
+import {getAllBooks} from "../store/book/books.actions";
+import {RootState} from "../store/reducers";
+import {IBook} from "../../../interfaces";
+import {useFetching} from "../hooks/useFetching";
 
-const MainPage: React.FC = () => {
+const mapState = ({books}: RootState): { books: IBook[] } => ({books: books.books})
+const mapDispatch = {getAllBooks}
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>
 
+const MainPage: React.FC<PropsFromRedux> = ({
+                                                books,
+                                                getAllBooks
+                                            }) => {
+
+    useFetching(getAllBooks)
 
     return (
         <div>
-            {mordorsTestFics.map(fic =>
-                <FicListCard {...fic} key={fic.ficId}/>
-            )}
+            {
+                books
+                && ~books.length
+                && books.map(({title, annotation, authorId, genres, id, rating, img}) => {
+
+                        console.log("card")
+                        return (
+                            <FicListCard key={id}
+                                         genres={genres}
+                                         authorId={authorId}
+                                         rating={rating}
+                                         annotation={annotation}
+                                         id={id}
+                                         title={title}
+                                         img={img}
+                            />
+                        )
+                    }
+                )
+            }
         </div>
     )
 }
 
-export default MainPage;
+export default connector(MainPage);

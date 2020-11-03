@@ -32,9 +32,7 @@ function* registrationWorker(action: IRegistrationAction) {
 }
 
 function* logoutWorker(){
-    console.log("LOGOUT WORKER")
     yield call(AuthApi.logout)
-    console.log("LOGOUT WORKER BEGIN")
     yield put({type:CLEAR_CREDENTIAL})
     yield put(push(MAIN_PAGE_URL))
 }

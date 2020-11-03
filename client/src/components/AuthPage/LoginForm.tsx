@@ -4,9 +4,10 @@ import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
 import {RootState} from "../../store/reducers";
 import {change, login} from "../../store/auth/actions"
+import {RegistrationData} from "../../store/auth/types";
 
 
-const mapState = ({registerFields}: RootState) => registerFields
+const mapState = ({registerFields}: RootState):RegistrationData => registerFields
 const mapDispatch = {login, change}
 const connector = connect(mapState, mapDispatch)
 
