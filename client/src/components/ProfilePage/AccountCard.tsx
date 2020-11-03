@@ -12,6 +12,11 @@ const AccountCard: React.FC = () => {
         dispatch(logout())
     }
 
+    const createBookHandler = (event: MouseEvent) => {
+        event.preventDefault()
+        console.log("Nothing TODO")
+    }
+
     return (
         <div>
             <div className="border border-dark "
@@ -22,7 +27,9 @@ const AccountCard: React.FC = () => {
             <hr/>
             <h1 className="text-center">Username</h1>
             <ButtonGroup vertical className="w-100">
-                <Button variant="dark">Create new book</Button>
+                <Button variant="dark"
+                        onClick={createBookHandler}
+                >Create new book</Button>
                 <Button variant="dark">Setting</Button>
                 <Button variant="danger"
                         onClick={logoutHandler}
