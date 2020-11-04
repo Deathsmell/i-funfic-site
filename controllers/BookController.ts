@@ -22,7 +22,7 @@ const BookController = {
 
     getByUserId: async (req: Request, res: Response<BookResponse>) => {
         try {
-            const {id} = req.body as { id: number };
+            const {id} = req.query;
             const books = await Book.findAll({where: {authorId: id}});
             res.status(200).json({book: books, message: "Success"})
         } catch (e) {

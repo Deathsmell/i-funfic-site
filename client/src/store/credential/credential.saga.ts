@@ -5,13 +5,15 @@ import {authorise, clearCredential} from "./credential.actions"
 import {LOGIN_URL,MAIN_PAGE_URL} from "@api";
 import {AuthApi} from "../../api"
 import {LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
+import {IBookAsyncActions} from "../book/book.interfaces";
+import {getBooksByAuthorId} from "../book/books.actions";
 
 
 function* loginWorker(action: ILoginAction) {
     try {
         const {data} = yield call(AuthApi.login, action.payload);
-        console.log(data)
         yield put<ICredentialAction>(authorise(data))
+        yield put<IBookAsyncActions>(getBooksByAuthorId(data.id))
         yield put(push("/"))
     } catch (e) {
         console.error(e)

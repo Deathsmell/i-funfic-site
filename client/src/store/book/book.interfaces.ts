@@ -1,9 +1,17 @@
 import {IBook} from "../../../../interfaces";
-import {ALL_BOOKS, AUTHOR_BOOKS, CREATE_BOOK, GET_ALL_BOOKS, GET_AUTHOR_BOOKS, UPDATE_BOOK} from "./books.constants";
+import {
+    SET_ALL_BOOKS,
+    SET_AUTHOR_BOOKS,
+    CREATE_BOOK,
+    GET_ALL_BOOKS,
+    GET_AUTHOR_BOOKS,
+    UPDATE_BOOK,
+    ADD_AUTHOR_BOOK
+} from "./books.constants";
 
 export interface IBookActions {
-    type: typeof ALL_BOOKS | typeof AUTHOR_BOOKS,
-    payload: IBook[],
+    type: typeof SET_ALL_BOOKS | typeof SET_AUTHOR_BOOKS | typeof ADD_AUTHOR_BOOK,
+    payload: IBook | IBook[],
 }
 
 export interface IBookAsyncActions {

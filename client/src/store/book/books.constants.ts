@@ -1,7 +1,8 @@
 
-export const ALL_BOOKS = "BOOK/ALL"
+export const SET_ALL_BOOKS = "BOOK/SET_ALL"
 export const GET_ALL_BOOKS = "BOOK/GET_ALL_BOOKS"
-export const AUTHOR_BOOKS = "BOOK/AUTHOR_BOOKS"
+export const SET_AUTHOR_BOOKS = "BOOK/SET_AUTHOR_BOOKS"
+export const ADD_AUTHOR_BOOK = "BOOK/ADD_AUTHOR_BOOK"
 export const GET_AUTHOR_BOOKS = "BOOK/GET_AUTHOR_BOOKS"
 export const CREATE_BOOK = "BOOK/CREATE"
 export const UPDATE_BOOK = "BOOK/UPDATE"

@@ -1,15 +1,28 @@
 import {IBook} from "../../../../interfaces";
-import {ALL_BOOKS, AUTHOR_BOOKS, CREATE_BOOK, GET_ALL_BOOKS, GET_AUTHOR_BOOKS, UPDATE_BOOK} from "./books.constants"
+import {
+    ADD_AUTHOR_BOOK,
+    CREATE_BOOK,
+    GET_ALL_BOOKS,
+    GET_AUTHOR_BOOKS,
+    SET_ALL_BOOKS,
+    SET_AUTHOR_BOOKS,
+    UPDATE_BOOK
+} from "./books.constants"
 import {IBookActions, IBookAsyncActions} from "./book.interfaces"
 
 export const setCommonBooks = (books: IBook[]): IBookActions => ({
-    type: ALL_BOOKS,
+    type: SET_ALL_BOOKS,
     payload: books,
 })
 
 export const setMyBooks = (books: IBook[]): IBookActions => ({
-    type: AUTHOR_BOOKS,
+    type: SET_AUTHOR_BOOKS,
     payload: books,
+})
+
+export const addMyBook = (book: IBook): IBookActions => ({
+    type: ADD_AUTHOR_BOOK,
+    payload: book
 })
 
 export const getAllBooks = (): IBookAsyncActions => ({

@@ -1,5 +1,5 @@
 import {IBook} from "../../../../interfaces";
-import {ALL_BOOKS, AUTHOR_BOOKS} from "./books.constants";
+import {ADD_AUTHOR_BOOK, SET_ALL_BOOKS, SET_AUTHOR_BOOKS} from "./books.constants";
 import {IBookActions} from "./book.interfaces"
 
 export interface IBooksState {
@@ -17,18 +17,23 @@ export const bookReducer = (
     action: IBookActions
 ): IBooksState => {
     switch (action.type){
-        case ALL_BOOKS:
+        case SET_ALL_BOOKS:
             return {
                 ...state,
-                books: action.payload
+                books: action.payload as IBook[]
             }
-        case AUTHOR_BOOKS:
+        case SET_AUTHOR_BOOKS:
+            return {
+                ...state,
+                myBook: action.payload as IBook[]
+            }
+        case ADD_AUTHOR_BOOK:
             return {
                 ...state,
                 myBook: [
                     ...state.myBook,
-                    ...action.payload
-            ]
+                    action.payload as IBook
+                ]
             }
         default: return state
     }

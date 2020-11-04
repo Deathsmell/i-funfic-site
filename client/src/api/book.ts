@@ -1,5 +1,5 @@
 import axios from "./fetch"
-import {LIST_BOOKS_URL,BOOK_CREATE_URL} from "@api"
+import {LIST_BOOKS_URL, BOOK_CREATE_URL, BOOKS_BY_USER_ID_URL} from "@api"
 import {IBook} from "../../../interfaces";
 
 export interface ICreateBookRequest {
@@ -11,5 +11,6 @@ export interface ICreateBookRequest {
 
 export const BookApi = {
     getAll: async () => await axios.get(LIST_BOOKS_URL),
-    create: async (book: IBook) => await axios.post(BOOK_CREATE_URL,book)
+    create: async (book: IBook) => await axios.post(BOOK_CREATE_URL, book),
+    getByAuthorId: async (id: number) => await axios.get(BOOKS_BY_USER_ID_URL, {params:{id}}),
 }
