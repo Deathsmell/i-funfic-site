@@ -11,6 +11,30 @@ interface BookResponse {
 }
 
 const BookController = {
+    deleteBook: async (req: Request, res: Response<BookResponse>) => {
+        try {
+            const {id}: { id: number } = req.body;
+            const status = await Book.destroy({where: {id}});
+            console.log(status)
+            res.status(200).send()
+        } catch (e) {
+            res.status(500).send()
+            console.log(e)
+        }
+    },
+    getById: async (req: Request, res: Response<BookResponse>) => {
+        try {
+            const {id} = req.query;
+            const book = await Book.findOne({where: {id}});
+            if (book) {
+                res.status(200).json({book, message: "Success"})
+            } else {
+                res.status(400).json({message: "Not found. Check params"})
+            }
+        } catch (e) {
+            res.status(500).json({message: e.message})
+        }
+    },
     getAll: async (req: Request, res: Response<BookResponse>) => {
         try {
             const books = await Book.findAll();
@@ -33,7 +57,7 @@ const BookController = {
     createBook: async (req: Request, res: Response<BookResponse>) => {
         console.log("create")
         try {
-            const reqBook:IBook = req.body;
+            const reqBook: IBook = req.body;
             const book = await Book.create(reqBook);
             res.status(200).json({book, message: "Success create new book"})
         } catch (e) {
@@ -44,11 +68,15 @@ const BookController = {
     updateBook: async (req: Request, res: Response<BookResponse>) => {
         try {
             const {authorId, annotation, genres, id, rating, title} = req.body as IBook;
-            const [number,book] = await Book.update({annotation, title, genres}, {where: {[Op.and]: [{id}, {authorId}]}});
+            const [number, book] = await Book.update({
+                annotation,
+                title,
+                genres
+            }, {where: {[Op.and]: [{id}, {authorId}]}});
             if (number === 1) {
                 res.status(200).json({book, message: "Successful updated"})
             } else {
-                throw Error(`Updated ${number} books.`)
+                res.status(400).json({message: `Updated ${number} books.`})
             }
         } catch (e) {
             res.status(500).json({message: e.message})

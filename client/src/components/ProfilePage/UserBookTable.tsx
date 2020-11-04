@@ -4,11 +4,11 @@ import ManageBookButtons from "./ManageBookButtons";
 import {FaLongArrowAltDown, FaLongArrowAltUp} from "react-icons/fa";
 import {RootState} from "../../store/reducers";
 import {connect, ConnectedProps} from "react-redux";
-import {getBooksByAuthorId} from "../../store/book/books.actions";
+import {getBooksByAuthorIdFetch} from "../../store/book/books.actions";
 
 
 const mapProps = ({books}: RootState) => books
-const mapDispatch = {getBooksByAuthorId}
+const mapDispatch = {getBooksByAuthorId: getBooksByAuthorIdFetch}
 const connector = connect(mapProps, mapDispatch);
 type PropsFromRedux = ConnectedProps<typeof connector>
 
@@ -68,7 +68,9 @@ const UserBookTable: React.FC<PropsFromRedux> = ({
                 myBook && myBook.length !== 0
                     ? myBook.map(({title,id,rating}) =>
                         (
-                            <tr className="book-table-row">
+                            <tr className="book-table-row"
+                                key={id}
+                            >
                                 <td>{id}</td>
                                 <td>{title}</td>
                                 <td>{rating}</td>

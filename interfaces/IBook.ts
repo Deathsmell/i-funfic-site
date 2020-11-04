@@ -1,8 +1,8 @@
 export interface IBook {
     id?: number,
     title?: string,
-    authorId: number,
-    authorName: string,
+    authorId?: number,
+    authorName?: string,
     rating?: number,
     annotation?: string,
     genres?: BookGenres[],

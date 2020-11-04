@@ -1,4 +1,4 @@
-import {CREATE_BOOK, GET_ALL_BOOKS, GET_AUTHOR_BOOKS} from "./books.constants"
+import {CREATE_AUTHOR_BOOK, DELETE_AUTHOR_BOOK, GET_ALL_BOOKS, GET_AUTHOR_BOOKS} from "./books.constants"
 import {IBookActions, IBookAsyncActions} from "./book.interfaces"
 import {call, put, takeEvery} from "redux-saga/effects"
 import {BookApi} from "../../api";
@@ -7,41 +7,50 @@ import {IBook} from "../../../../interfaces";
 import {push} from "connected-react-router";
 
 function* allBookWorker() {
-    console.log("Book worker")
     try {
         const {data}: { data: { message?: string, book: IBook[] } } = yield call(BookApi.getAll);
         console.log(data)
-        yield put<IBookActions>(setCommonBooks(data.book))
+        yield put<IBookActions<IBook[]>>(setCommonBooks(data.book))
     } catch (e) {
         console.error(e)
     }
 }
 
-function* createBookWorker(action: IBookAsyncActions) {
+function* createBookWorker(action: IBookAsyncActions<IBook>) {
     try {
         const {data}: { data: { message?: string, book: IBook } }
-            = yield call(BookApi.create, action.payload as IBook);
-        yield put<IBookActions>(addMyBook(data.book))
+            = yield call(BookApi.create, action.payload);
+        yield put<IBookActions<IBook>>(addMyBook(data.book))
         yield put(push("/profile"))
     } catch (e) {
         console.error(e)
     }
 }
 
-function* authorBookWorker(action: IBookAsyncActions) {
-    console.log("Author book worker", action.payload)
+function* authorBookWorker(action: IBookAsyncActions<number>) {
     try {
         const {data}: { data: { message?: string, book: IBook[] } }
-            = yield call(BookApi.getByAuthorId, action.payload as number);
-        yield put<IBookActions>(setMyBooks(data.book))
+            = yield call(BookApi.getByAuthorId, action.payload);
+        yield put<IBookActions<IBook[]>>(setMyBooks(data.book))
     } catch (e) {
-        console.log(e);
+        console.error(e);
+    }
+}
+
+function* deleteAuthorBookWorker(action: IBookAsyncActions<IBook>) {
+    try {
+        const user = action.payload;
+        if (user && user.id){
+            yield call(BookApi.deleteById,user.id);
+        }
+    } catch (e) {
+        console.error(e)
     }
 }
 
 export default function* watcher() {
-    console.log("BOOK WATCHER")
     yield takeEvery<IBookAsyncActions>(GET_ALL_BOOKS, allBookWorker)
-    yield takeEvery<IBookAsyncActions>(CREATE_BOOK, createBookWorker)
-    yield takeEvery<IBookAsyncActions>(GET_AUTHOR_BOOKS, authorBookWorker)
+    yield takeEvery<IBookAsyncActions<IBook>>(CREATE_AUTHOR_BOOK, createBookWorker)
+    yield takeEvery<IBookAsyncActions<number>>(GET_AUTHOR_BOOKS, authorBookWorker)
+    yield takeEvery<IBookAsyncActions<IBook>>(DELETE_AUTHOR_BOOK,deleteAuthorBookWorker)
 }

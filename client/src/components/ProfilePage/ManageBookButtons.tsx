@@ -1,12 +1,16 @@
 import React, {MouseEvent} from "react";
 import {Button, ButtonGroup, ButtonToolbar, OverlayTrigger, Tooltip} from "react-bootstrap";
 import {MdChromeReaderMode, MdDeleteForever, MdModeEdit} from "react-icons/md";
+import {useDispatch} from "react-redux";
+import {deleteBookFetch} from "../../store/book/books.actions";
 
 interface Prop {
     id: number
 }
+
 const ManageBookButtons: React.FC<Prop> = ({id}) => {
 
+    const dispatch = useDispatch();
 
     const readHandler = (e: MouseEvent) => {
         e.preventDefault()
@@ -21,7 +25,7 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
 
     const deleteHandler = (e: MouseEvent) => {
         e.preventDefault()
-        console.log("Delete book " + id)
+        dispatch(deleteBookFetch(id))
     }
 
     return (
@@ -33,7 +37,7 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
                         <Tooltip id={`tooltip-read`}
                                  onClick={readHandler}
                         >
-                                Read
+                            Read
                         </Tooltip>
                     }
                 >
@@ -51,23 +55,24 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
                         </Tooltip>
                     }
                 >
-                <Button variant="outline-warning">
-                    <MdModeEdit size="25px" color="black"/>
-                </Button>
+                    <Button variant="outline-warning">
+                        <MdModeEdit size="25px" color="black"/>
+                    </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
                     placement={"top"}
                     overlay={
                         <Tooltip id={`tooltip-delete`}
-                                 onClick={deleteHandler}
                         >
                             Delete
                         </Tooltip>
                     }
                 >
-                <Button variant="outline-danger">
-                    <MdDeleteForever size="25px" color="black"/>
-                </Button>
+                    <Button variant="outline-danger"
+                            onClick={deleteHandler}
+                    >
+                        <MdDeleteForever size="25px" color="black"/>
+                    </Button>
                 </OverlayTrigger>
             </ButtonGroup>
         </ButtonToolbar>

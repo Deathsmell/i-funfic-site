@@ -3,7 +3,7 @@ import DropImage from "../DropImage";
 import {Button, Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId, selectorUsername} from "../../store/credential/credential.selectors";
-import {createBook} from "../../store/book/books.actions";
+import {createBookFetch} from "../../store/book/books.actions";
 
 
 const BookCard = () => {
@@ -28,7 +28,7 @@ const BookCard = () => {
         e.preventDefault()
         console.log(authorId)
         if (authorId && authorName){
-            dispatch(createBook({
+            dispatch(createBookFetch({
                 authorId,
                 annotation,
                 title,
