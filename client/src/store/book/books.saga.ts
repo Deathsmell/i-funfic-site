@@ -1,7 +1,7 @@
 import {GET_ALL_BOOKS} from "./books.constants"
 import {IBookActions, IBookAsyncActions} from "./book.interfaces"
 import {call, put, takeEvery} from "redux-saga/effects"
-import {BookApi} from "../../api/book";
+import {BookApi} from "../../api";
 import {setCommonBooks} from "./books.actions";
 
 function* allBookWorker() {

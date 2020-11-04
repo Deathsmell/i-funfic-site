@@ -1,9 +1,6 @@
-import {createAxios} from "./fetch";
+import axios from "./fetch";
+import {CREATE_URL} from "@api"
 import {IUser} from "../../../interfaces";
-
-export const CREATE_URL = "/user/create"
-
-const axios = createAxios();
 
 export const UserApi = {
     CREATE_URL: "/user/create",

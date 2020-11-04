@@ -5,14 +5,18 @@
   "author": "Alexander Mitskevich <johndeathsmell@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node app.ts",
-    "dev": "nodemon app.ts"
+    "server:start": "ts-node app.ts",
+    "server:dev": "nodemon app.ts",
+    "client:dev": "yarn --cwd ./client start",
+    "client:build": "yarn --cwd ./client build",
+    "dev": "concurrently \"yarn server:dev\" \"yarn client:dev\""
   },
   "dependencies": {
     "@tsconfig/node12": "^1.0.7",
     "@types/cors": "^2.8.8",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",

@@ -7,7 +7,7 @@ import {Op} from "sequelize";
 import {User} from "../models";
 import {RegistrationData} from "../client/src/store/credential/credential.costants";
 import {IUser} from "../interfaces";
-import {IVerifiedCallback} from "./types";
+import {IVerifiedCallback} from "./interfaces";
 
 
 

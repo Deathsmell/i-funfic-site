@@ -7,12 +7,11 @@ import {json, urlencoded} from "body-parser";
 import {dbAuthenticate} from "./models";
 import {configRouter} from "./routes";
 import {configPassport} from "./config/passport";
+import {PORT,isProduction} from "./config/constants";
 
 declare var console: Console;
 
 const app: Application = express();
-const PORT: number = Number(process.env.PORT) || 5000;
-const isProduction = process.env.NODE_ENV === "production"
 const router: Router = Router()
 
 app.use(cors())

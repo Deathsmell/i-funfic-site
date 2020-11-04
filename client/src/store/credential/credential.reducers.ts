@@ -20,32 +20,3 @@ export const credentialReducer = (
 }
 
 export type CredentialReducer = typeof credentialReducer
-
-
-// const initialState: RegistrationData = {
-//     username: "",
-//     email: "",
-//     password: "",
-// }
-//
-// export const authFieldsReducer = (
-//     state: RegistrationData = initialState,
-//     action: IChangeFieldAction): RegistrationData => {
-//     switch (action.type) {
-//         case CHANGE_FIELD:
-//             return {
-//                 ...state,
-//                 ...action.payload
-//             }
-//         case CLEAR_FIELD:
-//             return {
-//                 email: "",
-//                 password: "",
-//                 username: "",
-//             }
-//         default:
-//             return state
-//     }
-// }
-//
-// export type AuthFieldsReducer = typeof authFieldsReducer

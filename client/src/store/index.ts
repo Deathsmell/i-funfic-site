@@ -8,10 +8,9 @@ import {composeWithDevTools} from "redux-devtools-extension"
 import {rootReducers, RootState, RootStateKeys} from "./reducers";
 import {routerMiddleware} from "./history";
 import rootSaga from "./saga";
+import {isProduction} from "@config/constants";
 
 const sagaMiddleware = createSagaMiddleware()
-
-const isProduction = process.env.NODE_ENV === "production"
 
 let middleware:Middleware[]  = [routerMiddleware,sagaMiddleware];
 

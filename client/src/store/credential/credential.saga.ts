@@ -2,8 +2,8 @@ import {call, put, takeLeading} from "@redux-saga/core/effects";
 import {push} from "connected-react-router";
 import {ICredentialAction, ILoginAction, IRegistrationAction} from "./credential.interfaces"
 import {authorise, clearCredential} from "./credential.actions"
-import {AuthApi, LOGIN_URL} from "../../api";
-import {MAIN_PAGE_URL} from "../../api/fetch";
+import {LOGIN_URL,MAIN_PAGE_URL} from "@api";
+import {AuthApi} from "../../api"
 import {LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
 
 

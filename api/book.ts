@@ -1,0 +1,1 @@
+export const LIST_BOOKS_URL = "/book/all"
