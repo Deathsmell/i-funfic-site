@@ -1,5 +1,5 @@
 export const BASE_URL = "http://localhost:5000"
-export const REGISTRATION_URL = "/auth/registration"
-export const LOGIN_URL = "/auth/login"
+export const REGISTRATION_URL = "/credential/registration"
+export const LOGIN_URL = "/credential/login"
 export const CREATE_URL = "/user/create"
 export const LOGOUT_URL = "/logout"

@@ -1,5 +1,6 @@
 import {IBook} from "../../../../interfaces";
-import {ALL_BOOKS, AUTHOR_BOOKS, IBookActions} from "./books.types";
+import {ALL_BOOKS, AUTHOR_BOOKS} from "./books.constants";
+import {IBookActions} from "./book.interfaces"
 
 export interface IBooksState {
     books: IBook[],

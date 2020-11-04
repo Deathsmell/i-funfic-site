@@ -4,7 +4,7 @@ import mordorLogo from '../mordor_logo.png'
 import {LinkContainer} from 'react-router-bootstrap'
 import {RootState} from "../store/reducers";
 import {useDispatch, useSelector} from "react-redux";
-import {ICredentialState} from "../store/auth/login/types";
+import {ICredentialState} from "../store/credential/credential.interfaces";
 import {push} from "connected-react-router";
 import {Roles} from "../../../interfaces";
 

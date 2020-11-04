@@ -1,11 +1,5 @@
 import {IBook} from "../../../../interfaces";
-
-export const ALL_BOOKS = "BOOK/ALL"
-export const GET_ALL_BOOKS = "BOOK/GET_ALL_BOOKS"
-export const AUTHOR_BOOKS = "BOOK/AUTHOR_BOOKS"
-export const GET_AUTHOR_BOOKS = "BOOK/GET_AUTHOR_BOOKS"
-export const CREATE_BOOK = "BOOK/CREATE"
-export const UPDATE_BOOK = "BOOK/UPDATE"
+import {ALL_BOOKS, AUTHOR_BOOKS, CREATE_BOOK, GET_ALL_BOOKS, GET_AUTHOR_BOOKS, UPDATE_BOOK} from "./books.constants";
 
 export interface IBookActions {
     type: typeof ALL_BOOKS | typeof AUTHOR_BOOKS,

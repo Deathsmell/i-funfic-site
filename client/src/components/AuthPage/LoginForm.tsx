@@ -1,29 +1,31 @@
-import React,{MouseEvent} from "react";
+import React, {ChangeEvent, MouseEvent, useState} from "react";
 import {connect, ConnectedProps, useDispatch} from "react-redux";
 import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
-import {RootState} from "../../store/reducers";
-import {change, login} from "../../store/auth/actions"
-import {RegistrationData} from "../../store/auth/types";
+import {login} from "../../store/credential/credential.actions"
 
 
-const mapState = ({registerFields}: RootState):RegistrationData => registerFields
-const mapDispatch = {login, change}
+const mapState = null
+const mapDispatch = {login}
 const connector = connect(mapState, mapDispatch)
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
 
-const LoginForm: React.FC<PropsFromRedux> = ({
-                                                 children,
-                                                 password,
-                                                 username,
-                                                 change,
-                                                 login
-                                             }) => {
-
+const LoginForm: React.FC<PropsFromRedux> = ({login}) => {
 
     const dispatch = useDispatch();
+    const [username,setUsername] = useState<string>("");
+    const [password,setPassword] = useState<string>("")
+
+    const usernameHandler = (e:ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value)
+    }
+
+    const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
+    }
+
     const loginHandler = async (event: MouseEvent) => {
         event.preventDefault()
         await dispatch(login({
@@ -40,7 +42,7 @@ const LoginForm: React.FC<PropsFromRedux> = ({
                               name="username"
                               placeholder="Username"
                               value={username}
-                              onChange={change}
+                              onChange={usernameHandler}
                 />
                 <Form.Text className="text-muted">
                     You can enter username or email address
@@ -52,7 +54,7 @@ const LoginForm: React.FC<PropsFromRedux> = ({
                               name="password"
                               placeholder="Password"
                               value={password}
-                              onChange={change}
+                              onChange={passwordHandler}
                 />
             </Form.Group>
             <Row className="justify-content-center">

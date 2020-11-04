@@ -1,13 +1,15 @@
-import {ALL_BOOKS, GET_ALL_BOOKS, IBookActions, IBookAsyncActions} from "./books.types"
+import {GET_ALL_BOOKS} from "./books.constants"
+import {IBookActions, IBookAsyncActions} from "./book.interfaces"
 import {call, put, takeEvery} from "redux-saga/effects"
 import {BookApi} from "../../api/book";
+import {setCommonBooks} from "./books.actions";
 
 function* allBookWorker() {
     console.log("Book worker")
     try {
         const {data} = yield call(BookApi.getAll);
         console.log(data)
-        yield put<IBookActions>({type: ALL_BOOKS, payload: data.book})
+        yield put<IBookActions>(setCommonBooks(data.book))
     } catch (e) {
         console.error(e)
     }

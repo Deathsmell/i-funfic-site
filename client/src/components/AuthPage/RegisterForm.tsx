@@ -1,27 +1,40 @@
-import React, {MouseEvent} from "react";
+import React, {ChangeEvent, MouseEvent, useState} from "react";
 import {connect, ConnectedProps, useDispatch} from "react-redux";
-import {RootState} from "../../store/reducers"
-import {change, registration} from "../../store/auth/actions"
+import {registration} from "../../store/credential/credential.actions"
 import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 
-const mapState = ({registerFields}: RootState) => registerFields
-const mapDispatch = {registration, change}
+const mapState = null
+const mapDispatch = {registration}
 const connector = connect(mapState, mapDispatch);
 
 type PropsFromRedux = ConnectedProps<typeof connector>
 
-const RegisterForm: React.FC<PropsFromRedux> = ({
-                                                    children,
-                                                    ...props
-                                                }) => {
+const RegisterForm: React.FC<PropsFromRedux> = ({registration}) => {
+
     const dispatch = useDispatch();
+    const [username,setUsername] = useState<string>("");
+    const [password,setPassword] = useState<string>("")
+    const [email, setEmail] = useState<string>("");
+
+    const usernameHandler = (e:ChangeEvent<HTMLInputElement>) => {
+        setUsername(e.target.value)
+    }
+
+    const passwordHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value)
+    }
+
+    const emailHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value)
+    }
+
     const registrationHandler = async (e: MouseEvent) => {
         e.preventDefault()
         dispatch(registration({
-            password: props.password,
-            email: props.email,
-            username: props.username
+            password,
+            email,
+            username,
         }));
     }
 
@@ -31,9 +44,9 @@ const RegisterForm: React.FC<PropsFromRedux> = ({
                 <Form.Label>Username</Form.Label>
                 <Form.Control type="username"
                               name="username"
-                              value={props.username}
+                              value={username}
                               placeholder="Username"
-                              onChange={props.change}
+                              onChange={usernameHandler}
                 />
                 <Form.Text className="text-muted">
                     Enter you username
@@ -43,9 +56,9 @@ const RegisterForm: React.FC<PropsFromRedux> = ({
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email"
                               name="email"
-                              value={props.email}
+                              value={email}
                               placeholder="Enter email"
-                              onChange={props.change}
+                              onChange={emailHandler}
                 />
                 <Form.Text className="text-muted">
                     We'll never share your email with anyone else.
@@ -55,9 +68,9 @@ const RegisterForm: React.FC<PropsFromRedux> = ({
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password"
                               name="password"
-                              value={props.password}
+                              value={password}
                               placeholder="Password"
-                              onChange={props.change}
+                              onChange={passwordHandler}
                 />
             </Form.Group>
             <Row className="justify-content-center">

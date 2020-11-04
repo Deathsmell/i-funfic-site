@@ -1,15 +1,14 @@
 import {createAxios} from "./fetch"
-import {RegistrationData} from "../store/auth/types";
-import {ILoginData} from "../store/auth/login/types";
+import {ILoginData,IRegistrationData} from "../store/credential/credential.interfaces";
 
-export const REGISTRATION_URL = "/auth/registration"
-export const LOGIN_URL = "/auth/login"
+export const REGISTRATION_URL = "/credential/registration"
+export const LOGIN_URL = "/credential/login"
 export const LOGOUT_URL = "/logout"
 
 const axios = createAxios();
 
 export const AuthApi = {
-    registration: async (user: RegistrationData) =>  await axios.post(REGISTRATION_URL,user),
+    registration: async (user: IRegistrationData) =>  await axios.post(REGISTRATION_URL,user),
     login: async (user: ILoginData) => await axios.post(LOGIN_URL,user),
     logout: async () => await axios.post("/logout")
 }

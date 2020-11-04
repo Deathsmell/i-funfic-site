@@ -1,18 +1,16 @@
 import {combineReducers} from "redux";
-import {AuthFieldsReducer, authFieldsReducer, AuthReducer, authReducer} from "./auth/reducers";
+import {CredentialReducer, credentialReducer} from "./credential/credential.reducers";
 import {bookReducer,BooksReducers} from "./book/books.reducers"
 import {RouterReducer, routerReducer} from "./history";
 
 interface IRootReducer {
-    registerFields: AuthFieldsReducer,
-    credential: AuthReducer,
+    credential: CredentialReducer,
     router: RouterReducer,
     books: BooksReducers
 }
 
 const reducers: IRootReducer = {
-    registerFields: authFieldsReducer,
-    credential: authReducer,
+    credential: credentialReducer,
     router: routerReducer,
     books: bookReducer
 };

@@ -7,7 +7,7 @@ import logger from "redux-logger";
 import {composeWithDevTools} from "redux-devtools-extension"
 import {rootReducers, RootState, RootStateKeys} from "./reducers";
 import {routerMiddleware} from "./history";
-import rootSaga from "../saga";
+import rootSaga from "./saga";
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -19,12 +19,14 @@ if (!isProduction) {
     middleware = [...middleware,logger]
 }
 
+
+const blacklist: RootStateKeys[] = []
 let transforms: Transform<any, any>[] = []
-const blacklist: RootStateKeys[] = ["registerFields"]
 if (isProduction) {
     const compressor = createCompressor({blacklist});
     transforms = [compressor]
 }
+
 const persistConfig: PersistConfig<RootState> = {
     key: 'root',
     storage,

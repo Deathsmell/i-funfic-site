@@ -2,7 +2,7 @@ import React,{MouseEvent} from "react";
 import {AiOutlineUser} from "react-icons/ai";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {useDispatch} from "react-redux";
-import {logout} from "../../store/auth/actions";
+import {logout} from "../../store/credential/credential.actions";
 
 const AccountCard: React.FC = () => {
 
