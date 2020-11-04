@@ -31,9 +31,10 @@ const BookController = {
     },
 
     createBook: async (req: Request, res: Response<BookResponse>) => {
+        console.log("create")
         try {
-            const {id} = req.body as { id: number };
-            const book = await Book.create({authorId: id});
+            const reqBook:IBook = req.body;
+            const book = await Book.create(reqBook);
             res.status(200).json({book, message: "Success create new book"})
         } catch (e) {
             res.status(500).json({message: e.message})

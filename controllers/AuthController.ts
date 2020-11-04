@@ -2,7 +2,7 @@ import {NextFunction, Request, Response} from "express"
 import passport from "passport"
 import jwt from "jsonwebtoken"
 import {jwtSecret} from "../config/constants";
-import {ICredentialState} from "../client/src/store/credential/login/types";
+import {ICredentialState} from "../client/src/store/credential/credential.interfaces";
 import {IUser} from "../interfaces";
 
 const AuthController = {
@@ -25,7 +25,8 @@ const AuthController = {
                             authorised: true,
                             roles: user.roles,
                             id: user.id!,
-                            img: user.img
+                            img: user.img,
+                            username: user.username
                         })
                     }
                 )

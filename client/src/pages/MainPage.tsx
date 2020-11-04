@@ -23,7 +23,7 @@ const MainPage: React.FC<PropsFromRedux> = ({
             {
                 books
                 && ~books.length
-                && books.map(({title, annotation, authorId, genres, id, rating, img}) => {
+                && books.map(({title, annotation, authorId, genres, id, rating, image,authorName}) => {
 
                         console.log("card")
                         return (
@@ -34,7 +34,8 @@ const MainPage: React.FC<PropsFromRedux> = ({
                                          annotation={annotation}
                                          id={id}
                                          title={title}
-                                         img={img}
+                                         image={image}
+                                         authorName={authorName}
                             />
                         )
                     }

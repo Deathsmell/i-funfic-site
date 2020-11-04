@@ -25,7 +25,10 @@ export const bookReducer = (
         case AUTHOR_BOOKS:
             return {
                 ...state,
-                myBook: action.payload
+                myBook: [
+                    ...state.myBook,
+                    ...action.payload
+            ]
             }
         default: return state
     }

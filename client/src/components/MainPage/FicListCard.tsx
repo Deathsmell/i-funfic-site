@@ -14,11 +14,11 @@ const FicListCard: React.FC<IBook> = (
         annotation,
         genres,
         title,
-        img
+        image,
+        authorName
     }) => {
 
     const [tags, setTags] = useState<string[]>([]);
-    const [author, setAuthor] = useState<string>();
     const lastUpdate = "never"
 
     useEffect(() =>{
@@ -31,7 +31,7 @@ const FicListCard: React.FC<IBook> = (
                 <Card.Img variant="top"
                           className="fic-card-img"
                           style={{maxHeight: '200px'}}
-                          src={img}/>
+                          src={image}/>
                 <Card.Header>
                     <div>
                         <h3>{title}</h3>
@@ -41,7 +41,7 @@ const FicListCard: React.FC<IBook> = (
                     <Card.Title>
                         <Row className="text-left">
                             <Col className="justify-content-start">
-                                Autor: {author}
+                                Autor: {authorName}
                             </Col>
                             <Col className="text-right">
                                 Reiting: {rating}

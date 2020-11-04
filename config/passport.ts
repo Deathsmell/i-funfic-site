@@ -1,4 +1,4 @@
-import {PassportStatic} from "passport"
+import {PassportStatic} from "passport";
 import {User} from "../models";
 import {IUser} from "../interfaces";
 import {jwtStrategy, login, signUp} from "./passport.strategy";

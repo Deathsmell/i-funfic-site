@@ -21,8 +21,9 @@ export const getBooksByAuthorId = (id: number): IBookAsyncActions => ({
     payload: id
 })
 
-export const createBook = (): IBookAsyncActions => ({
-    type: CREATE_BOOK
+export const createBook = (book: IBook): IBookAsyncActions => ({
+    type: CREATE_BOOK,
+    payload: book
 })
 
 export const updateBook = (book: IBook): IBookAsyncActions => ({

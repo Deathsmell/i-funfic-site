@@ -7,7 +7,8 @@ export interface ICredentialState {
     token?: string,
     roles?: Roles[],
     img?: string,
-    id?: number
+    id?: number,
+    username?: string
 }
 
 export interface ICredentialAction  {

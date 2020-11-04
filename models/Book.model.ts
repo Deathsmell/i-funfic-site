@@ -37,6 +37,14 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
             type: DataTypes.ARRAY(DataTypes.ENUM(BookGenres.FANTASTIC, BookGenres.ACTION)),
             allowNull: true
         },
+        image: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        authorName: {
+            type: DataTypes.STRING,
+            allowNull: false
+        }
     }, {});
 }
 
