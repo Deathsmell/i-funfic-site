@@ -1,5 +1,5 @@
 import React from "react";
-import DropImage from "./DropImage";
+import DropImage from "../DropImage";
 import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 
 

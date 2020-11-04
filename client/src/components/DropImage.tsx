@@ -1,20 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {DropEvent, FileRejection, useDropzone} from 'react-dropzone';
 import {Image} from "react-bootstrap";
+import {CloudinaryApi} from "../api";
 
 const DropImage = () => {
 
-    const [image,setImage] = useState<string>("holder.js/250x350?text=Drop img here");
+    const [image, setImage] = useState<string>("holder.js/250x350?text=Drop img here");
 
-    useEffect(()=> {
+    useEffect(() => {
         console.log(image)
-    },[image])
+    }, [image])
 
-    function onDrop<T extends File>(file:T[],reg:FileRejection[],event: DropEvent){
-        setImage("http://www.kartinki24.ru/uploads/gallery/main/511/kartinki24_ru_towers_15.jpg")
+    function onDrop<T extends File>(file: T[], reg: FileRejection[]) {
+        CloudinaryApi.upload(file[0]).then(resp => {
+            setImage(resp.data.url)
+        })
+        if (reg.length) {
+            console.log("some error")
+        }
     }
 
-    const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
+    const {getRootProps, getInputProps} = useDropzone({
         maxFiles: 1,
         accept: "image/*",
         onDrop
@@ -26,6 +32,7 @@ const DropImage = () => {
                 <input {...getInputProps()} />
                 <Image src={image}
                        thumbnail
+                       style={{minHeight: 350, minWidth: 225}}
                 />
             </div>
         </section>

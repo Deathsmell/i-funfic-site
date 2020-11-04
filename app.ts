@@ -3,6 +3,7 @@ import passport from "passport";
 import cookie from "cookie-parser"
 import session from "express-session"
 import cors from "cors"
+import fileUpload from "express-fileupload"
 import {json, urlencoded} from "body-parser";
 import {dbAuthenticate} from "./models";
 import {configRouter} from "./routes";
@@ -15,6 +16,7 @@ const app: Application = express();
 const router: Router = Router()
 
 app.use(cors())
+app.use(fileUpload({uriDecodeFileNames:true}))
 app.use(json());
 app.use(cookie());
 app.use(session({
