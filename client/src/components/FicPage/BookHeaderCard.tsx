@@ -1,29 +1,34 @@
-import React from "react";
+import React, {useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
-import {Fic} from "../../MordorsTest";
 import Badge from "react-bootstrap/Badge";
 import Image from "react-bootstrap/Image";
+import {IBook} from "../../../../interfaces";
 
-const FicHeaderCard: React.FC<Fic> = (
+const BookHeaderCard: React.FC<IBook> = (
     {
+        id,
+        title,
+        createdAt,
+        updatedAt,
         rating,
-        author,
+        authorName,
+        image,
+        authorId,
         annotation,
-        name,
-        img,
         genres,
-        tags,
     }
 ) => {
+
+    const [tags] = useState([]);
 
     return (
         <Card className="mt-3">
             <Row style={{height: '100%'}}>
                 <Col lg={3} className="m-2">
-                    <Image src={img} rounded className="fic-card-img"/>
+                    <Image src={image} rounded className="fic-card-img"/>
                 </Col>
                 <Col className="">
                     <Container className="mt-3">
@@ -31,7 +36,7 @@ const FicHeaderCard: React.FC<Fic> = (
                             <Col className="text-left">
                                 <h1>
                                     <strong>
-                                        {name}
+                                        {title}
                                     </strong>
                                 </h1>
                             </Col>
@@ -45,17 +50,17 @@ const FicHeaderCard: React.FC<Fic> = (
                         </Row>
                         <Row className="m-1">
                             <h4>
-                                Author: {author}
+                                Author: {authorName}
                             </h4>
                         </Row>
                         <Row className="m-1">
                             Genres: &nbsp;
-                            {genres.map((genre, index) =>
+                            {genres && genres.map((genre, index) =>
                                 <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
                         </Row>
                         <Row className="m-1">
                             Tags:&nbsp;
-                            {tags.map((tag, index) =>
+                            {tags && tags.map((tag, index) =>
                                 <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)}
                         </Row>
                         <Row className="m-1">
@@ -69,4 +74,4 @@ const FicHeaderCard: React.FC<Fic> = (
     )
 }
 
-export default FicHeaderCard
+export default BookHeaderCard

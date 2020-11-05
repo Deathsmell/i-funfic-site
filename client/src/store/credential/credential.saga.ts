@@ -2,10 +2,10 @@ import {call, put, takeLeading} from "@redux-saga/core/effects";
 import {push} from "connected-react-router";
 import {ICredentialAction, ILoginAction, IRegistrationAction} from "./credential.interfaces"
 import {authorise, clearCredential} from "./credential.actions"
-import {LOGIN_URL,MAIN_PAGE_URL} from "@api";
+import {LOGIN_URL, MAIN_PAGE_URL} from "@api";
 import {AuthApi} from "../../api"
 import {LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
-import {IBookAsyncActions} from "../book/book.interfaces";
+import {IBookAsyncActionsById} from "../book/book.interfaces";
 import {getBooksByAuthorIdFetch} from "../book/books.actions";
 
 
@@ -13,7 +13,7 @@ function* loginWorker(action: ILoginAction) {
     try {
         const {data} = yield call(AuthApi.login, action.payload);
         yield put<ICredentialAction>(authorise(data))
-        yield put<IBookAsyncActions<number>>(getBooksByAuthorIdFetch(data.id))
+        yield put<IBookAsyncActionsById>(getBooksByAuthorIdFetch(data.id))
         yield put(push("/"))
     } catch (e) {
         console.error(e)

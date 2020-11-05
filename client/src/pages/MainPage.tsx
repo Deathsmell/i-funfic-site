@@ -1,5 +1,5 @@
 import React from "react";
-import FicListCard from "../components/MainPage/FicListCard";
+import BookListCard from "../components/MainPage/BookListCard";
 import {connect, ConnectedProps} from "react-redux";
 import {getAllBooksFetch} from "../store/book/books.actions";
 import {RootState} from "../store/reducers";
@@ -23,19 +23,12 @@ const MainPage: React.FC<PropsFromRedux> = ({
             {
                 books
                 && ~books.length
-                && books.map(({title, annotation, authorId, genres, id, rating, image,authorName}) => {
+                && books.map((book) => {
 
                         console.log("card")
                         return (
-                            <FicListCard key={id}
-                                         genres={genres}
-                                         authorId={authorId}
-                                         rating={rating}
-                                         annotation={annotation}
-                                         id={id}
-                                         title={title}
-                                         image={image}
-                                         authorName={authorName}
+                            <BookListCard key={book.id}
+                                          {...book}
                             />
                         )
                     }

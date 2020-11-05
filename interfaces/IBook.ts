@@ -6,7 +6,9 @@ export interface IBook {
     rating?: number,
     annotation?: string,
     genres?: BookGenres[],
-    image?: string
+    image?: string,
+    updatedAt?: Date,
+    createdAt?: Date,
 }
 
 export interface IBookChapter {

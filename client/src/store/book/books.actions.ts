@@ -1,5 +1,6 @@
 import {IBook} from "../../../../interfaces";
 import {
+    ADD_BOOK,
     ADD_AUTHOR_BOOK,
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
@@ -9,45 +10,55 @@ import {
     SET_AUTHOR_BOOKS,
     UPDATE_AUTHOR_BOOK
 } from "./books.constants"
-import {IBookActions, IBookAsyncActions} from "./book.interfaces"
+import {
+    IBookActions,
+    IBookAsyncActions,
+    IBookAsyncActionsByBook,
+    IBookAsyncActionsById,
+    IBooksActions
+} from "./book.interfaces"
 
-export const setCommonBooks = (books: IBook[]): IBookActions<IBook[]> => ({
+export const setCommonBooks = (books: IBook[]): IBooksActions => ({
     type: SET_ALL_BOOKS,
-    payload: books,
+    books: books,
 })
 
-export const setMyBooks = (books: IBook[]): IBookActions<IBook[]> => ({
+export const setMyBooks = (books: IBook[]): IBooksActions=> ({
     type: SET_AUTHOR_BOOKS,
-    payload: books,
+    books: books,
 })
 
-export const addMyBook = (book: IBook): IBookActions<IBook> => ({
+export const addBook = (book: IBook): IBookActions => ({
+    type: ADD_BOOK,
+    book: book
+})
+
+export const addMyBook = (book: IBook): IBookActions => ({
     type: ADD_AUTHOR_BOOK,
-    payload: book
+    book: book
 })
 
 export const getAllBooksFetch = (): IBookAsyncActions => ({
     type: GET_ALL_BOOKS,
-    payload: null
 })
 
-export const getBooksByAuthorIdFetch = (id: number): IBookAsyncActions<number> => ({
+export const getBooksByAuthorIdFetch = (id: number): IBookAsyncActionsById => ({
     type: GET_AUTHOR_BOOKS,
-    payload: id
+    id: id
 })
 
-export const createBookFetch = (book: IBook): IBookAsyncActions<IBook> => ({
+export const createBookFetch = (book: IBook): IBookAsyncActionsByBook => ({
     type: CREATE_AUTHOR_BOOK,
-    payload: book
+    book: book
 })
 
-export const updateBookFetch = (book: IBook): IBookAsyncActions<IBook> => ({
+export const updateBookFetch = (book: IBook): IBookAsyncActionsByBook => ({
     type: UPDATE_AUTHOR_BOOK,
-    payload: book
+    book: book
 })
 
-export const deleteBookFetch = (id: number): IBookAsyncActions<IBook> => ({
+export const deleteBookFetch = (id: number): IBookAsyncActionsByBook => ({
     type: DELETE_AUTHOR_BOOK,
-    payload: {id}
+    book: {id}
 })
 

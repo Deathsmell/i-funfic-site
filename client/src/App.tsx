@@ -5,13 +5,12 @@ import NavBar from './components/NavBar';
 import Routes from "./routes";
 
 const App: React.FC = () => {
+
     return (
         <>
             <ConnectedRouter history={history}>
                 <NavBar/>
-                <div className="container">
-                    <Routes/>
-                </div>
+                <Routes/>
             </ConnectedRouter>
         </>
     );

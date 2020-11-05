@@ -3,18 +3,18 @@
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  monospace;
 }
 
-.fic-card-img{
+.fic-card-img {
   object-fit: cover;
   width: 100%;
   height: 100%;
@@ -29,12 +29,16 @@ div.manager-border > button.btn {
 
 }
 
-tr.book-table-row > td{
+tr.book-table-row > td {
   vertical-align: middle;
   font-size: 20px;
 }
 
-tr.book-table-header > th{
+tr.book-table-header > th {
   cursor: pointer;
   font-size: 20px;
+}
+
+.chapter-list {
+  overflow-y: auto;
 }

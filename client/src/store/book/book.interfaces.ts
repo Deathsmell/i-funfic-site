@@ -1,6 +1,7 @@
 import {IBook} from "../../../../interfaces";
 import {
     ADD_AUTHOR_BOOK,
+    ADD_BOOK,
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
     GET_ALL_BOOKS,
@@ -10,19 +11,31 @@ import {
     UPDATE_AUTHOR_BOOK
 } from "./books.constants";
 
-export interface IBookActions<T extends IBook | IBook[]> {
+export interface IBooksActions {
     type: typeof SET_ALL_BOOKS
         | typeof SET_AUTHOR_BOOKS
-        | typeof ADD_AUTHOR_BOOK
-        | typeof DELETE_AUTHOR_BOOK,
-    payload:T,
+    books: IBook[],
 }
 
-export interface IBookAsyncActions<T extends IBook | number | null = null > {
+export interface IBookActions {
+    type: typeof ADD_AUTHOR_BOOK
+        | typeof ADD_BOOK
+        | typeof DELETE_AUTHOR_BOOK,
+    book: IBook,
+}
+
+export interface IBookAsyncActions {
     type: typeof GET_ALL_BOOKS
-        | typeof GET_AUTHOR_BOOKS
-        | typeof CREATE_AUTHOR_BOOK
+}
+
+export interface IBookAsyncActionsByBook {
+    type: typeof CREATE_AUTHOR_BOOK
         | typeof UPDATE_AUTHOR_BOOK
         | typeof DELETE_AUTHOR_BOOK
-    payload: T
+    book: IBook
+}
+
+export interface IBookAsyncActionsById {
+    type: typeof GET_AUTHOR_BOOKS
+    id: number
 }

@@ -1,4 +1,4 @@
-import React,{MouseEvent} from "react";
+import React, {MouseEvent} from "react";
 import {AiOutlineUser} from "react-icons/ai";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {useDispatch} from "react-redux";
@@ -6,6 +6,7 @@ import {logout} from "../../store/credential/credential.actions";
 import {push} from "connected-react-router";
 
 const AccountCard: React.FC = () => {
+
 
     const dispatch = useDispatch();
     const logoutHandler = (event: MouseEvent) => {
@@ -16,6 +17,10 @@ const AccountCard: React.FC = () => {
     const createBookHandler = (event: MouseEvent) => {
         event.preventDefault()
         dispatch(push("/create"))
+    }
+
+    const settingHandler = (e : MouseEvent) => {
+        e.preventDefault()
     }
 
     return (
@@ -31,7 +36,9 @@ const AccountCard: React.FC = () => {
                 <Button variant="dark"
                         onClick={createBookHandler}
                 >Create new book</Button>
-                <Button variant="dark">Setting</Button>
+                <Button variant="dark"
+                        onClick={settingHandler}
+                >Setting</Button>
                 <Button variant="danger"
                         onClick={logoutHandler}
                 >Log out</Button>

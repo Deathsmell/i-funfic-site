@@ -5,7 +5,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 
-const FicCommentList: React.FC = () => {
+const BookCommentList: React.FC = () => {
 
     const src = "https://avatars.mds.yandex.net/get-pdb/1976636/ac1ce1a1-c9a4-4355-9a49-73627c1b9aab/s1200";
 
@@ -39,4 +39,4 @@ const FicCommentList: React.FC = () => {
     )
 }
 
-export default FicCommentList;
+export default BookCommentList;

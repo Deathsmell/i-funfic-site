@@ -3,6 +3,7 @@ import {Button, ButtonGroup, ButtonToolbar, OverlayTrigger, Tooltip} from "react
 import {MdChromeReaderMode, MdDeleteForever, MdModeEdit} from "react-icons/md";
 import {useDispatch} from "react-redux";
 import {deleteBookFetch} from "../../store/book/books.actions";
+import {push} from "connected-react-router";
 
 interface Prop {
     id: number
@@ -10,11 +11,11 @@ interface Prop {
 
 const ManageBookButtons: React.FC<Prop> = ({id}) => {
 
-    const dispatch = useDispatch();
 
+    const dispatch = useDispatch();
     const readHandler = (e: MouseEvent) => {
         e.preventDefault()
-        console.log("Read book " + id)
+        dispatch(push(`/book/${id}`))
     }
 
     const editHandler = (e: MouseEvent) => {
@@ -35,27 +36,28 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
                     placement={"top"}
                     overlay={
                         <Tooltip id={`tooltip-read`}
-                                 onClick={readHandler}
                         >
                             Read
                         </Tooltip>
                     }
                 >
-                    <Button variant="outline-info">
+                    <Button variant="outline-info"
+                            onClick={readHandler}
+                    >
                         <MdChromeReaderMode size="25px" color="black"/>
                     </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
                     placement={"top"}
                     overlay={
-                        <Tooltip id={`tooltip-edit`}
-                                 onClick={editHandler}
-                        >
+                        <Tooltip id={`tooltip-edit`}>
                             Edit
                         </Tooltip>
                     }
                 >
-                    <Button variant="outline-warning">
+                    <Button variant="outline-warning"
+                            onClick={editHandler}
+                    >
                         <MdModeEdit size="25px" color="black"/>
                     </Button>
                 </OverlayTrigger>
