@@ -1,4 +1,4 @@
-import axios from "./fetch";
+import axios from "./fetch"
 import {CREATE_URL} from "@api"
 import {IUser} from "../../../interfaces";
 

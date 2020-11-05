@@ -1,6 +1,5 @@
 import express, {Application, Router} from "express";
 import passport from "passport";
-import cookie from "cookie-parser"
 import session from "express-session"
 import cors from "cors"
 import fileUpload from "express-fileupload"
@@ -8,32 +7,39 @@ import {json, urlencoded} from "body-parser";
 import {dbAuthenticate} from "./models";
 import {configRouter} from "./routes";
 import {configPassport} from "./config/passport";
-import {PORT,isProduction} from "./config/constants";
+import {isProduction, PORT} from "./config/constants";
 
 declare var console: Console;
 
 const app: Application = express();
 const router: Router = Router()
 
-app.use(cors())
-app.use(fileUpload({uriDecodeFileNames:true}))
-app.use(json());
-app.use(cookie());
-app.use(session({
-    secret: "secret keyboard cat",
-    cookie: {secure: false},
-    resave: false,
-    saveUninitialized: false
+
+app.use(cors({
+    origin: ["http://localhost:3000", "http://localhost:5000"],
+    credentials: true,
+    optionsSuccessStatus: 200,
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+
 }))
+app.use(express.static("public"));
+app.use(json());
 app.use(urlencoded({extended: false}));
+app.use(session({
+    secret: "secret",
+    cookie: {
+        httpOnly: false,
+        secure: false,
+    },
+    name: "JSONID"
+}))
+app.use(fileUpload({uriDecodeFileNames: true}))
 app.use(passport.initialize());
 app.use(passport.session())
 
 configRouter(router);
 configPassport(passport);
 app.use(router);
-
-
 
 
 (function start() {

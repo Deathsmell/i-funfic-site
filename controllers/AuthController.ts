@@ -7,7 +7,8 @@ import {IUser} from "../interfaces";
 
 const AuthController = {
     login: async (req: Request, res: Response<ICredentialState>, next: NextFunction) => {
-        passport.authenticate("login", {session: false}, async (err, user: IUser, info) => {
+        passport.authenticate("login", {session: false }, async (err, user: IUser, info) => {
+            console.log(info)
             try {
                 if (err) {
                     res.status(401).json(info)
@@ -15,11 +16,15 @@ const AuthController = {
 
                 req.login(
                     user,
-                    {},
                     async err => {
-                        if (err) return next(err)
+                        if (err) {
+                            console.log("ERROR", err)
+                            return next(err)
+                        }
                         console.log("LOGIN CONTROLLER", user)
                         const token = jwt.sign(user, jwtSecret)
+                        console.log("LOGINED USER", req.user);
+                        console.log("COOKIE", req.cookies)
                         return res.json({
                             token: token,
                             authorised: true,
@@ -31,7 +36,7 @@ const AuthController = {
                     }
                 )
             } catch (e) {
-
+                console.log(e);
             }
         })(req, res, next)
     },
@@ -47,8 +52,8 @@ const AuthController = {
     },
     logout: (req: Request, res: Response) => {
         console.log("LOGOUT CONTROLLER")
-        console.log(req.user);
         req.logout();
+        console.log(req.isAuthenticated());
         res.status(200).send()
     }
 }

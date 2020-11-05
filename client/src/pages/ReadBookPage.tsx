@@ -6,7 +6,7 @@ const ReadBookPage: React.FC = () => {
 
 
     const [chapters] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
-    const { height } = useWindowDimensions();
+    const {height} = useWindowDimensions();
 
     return (
         <Row noGutters>
@@ -28,118 +28,13 @@ const ReadBookPage: React.FC = () => {
                     </ListGroup>
                 </div>
             </Col>
-                <Col lg={8}
-                     className={"ml-5"}
-                     style={{textAlign: "justify"}}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad asperiores autem beatae consectetur,
-                    consequatur, distinctio dolore dolorum earum excepturi exercitationem illo labore molestiae mollitia
-                    nulla quam quasi quisquam veniam voluptas.
-                </Col>
+            <Col lg={8}
+                 className={"ml-5"}
+                 style={{textAlign: "justify"}}>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laboriosam minima nobis non numquam
+                quod? Ab, ad cumque magnam modi nesciunt odit quam sunt ut. Asperiores eaque exercitationem perferendis
+                veritatis.
+            </Col>
         </Row>
     )
 }

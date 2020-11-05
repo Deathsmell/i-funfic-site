@@ -17,3 +17,8 @@ export const selectorAuthorise = createSelector(
     selectCredential,
     credential => credential.authorised
 )
+
+export const selectorToken = createSelector(
+    selectCredential,
+    credential => credential.token
+)

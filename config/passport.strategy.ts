@@ -5,16 +5,15 @@ import {ExtractJwt, Strategy as JwtStrategy} from "passport-jwt"
 import bcrypt from "bcrypt"
 import {Op} from "sequelize";
 import {User} from "../models";
-import {RegistrationData} from "../client/src/store/credential/credential.costants";
+import {IRegistrationData} from "../client/src/store/credential/credential.interfaces";
 import {IUser} from "../interfaces";
 import {IVerifiedCallback} from "./interfaces";
-
 
 
 export const signUp = new CustomStrategy(
     async (req: Request, done: IVerifiedCallback) => {
         console.log("SIGN UP STRATEGY")
-        const {password, email, username} = <RegistrationData>req.body;
+        const {password, email, username} = <IRegistrationData>req.body;
         const bcryptPassword = await bcrypt.hash(password, 12);
         const userFromDb = await User.findOne({
             where: {
@@ -52,13 +51,13 @@ export const login = new LocalStrategy(
             }
         });
         if (!user) {
-            console.log('User not found')
+            console.error('User not found')
             return done(null, false, {message: 'User not found'});
         }
 
         const validate = await bcrypt.compare(password, user.password)
         if (!validate) {
-            console.log('Wrong Password')
+            console.error('Wrong Password')
             return done(null, false, {message: 'Wrong Password'});
         }
 
@@ -74,6 +73,7 @@ export const login = new LocalStrategy(
         return done(null, userData, {message: 'Logged in Successfully'});
     }
 )
+
 
 export const jwtStrategy = new JwtStrategy(
     {
@@ -94,3 +94,5 @@ export const jwtStrategy = new JwtStrategy(
         }
     }
 )
+
+

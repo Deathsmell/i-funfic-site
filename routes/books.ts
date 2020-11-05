@@ -8,13 +8,13 @@ import {
     GET_BOOK_URL,
     LIST_BOOKS_URL,
 } from "../api"
-
+import {ensureAuthenticated} from "../config/passport";
 
 export const booksRouter = (router: IRouter): void => {
     router.get(LIST_BOOKS_URL, BookController.getAll)
-    router.get(BOOKS_BY_USER_ID_URL, BookController.getByUserId)
-    router.post(BOOK_CREATE_URL, BookController.createBook)
-    router.post(BOOK_UPDATE_URL, BookController.updateBook)
-    router.delete(DELETE_AUTHOR_BOOK_URL, BookController.deleteBook)
     router.get(GET_BOOK_URL, BookController.getById)
+    router.get(BOOKS_BY_USER_ID_URL,ensureAuthenticated, BookController.getByUserId)
+    router.post(BOOK_CREATE_URL,ensureAuthenticated, BookController.createBook)
+    router.post(BOOK_UPDATE_URL,ensureAuthenticated, BookController.updateBook)
+    router.delete(DELETE_AUTHOR_BOOK_URL,ensureAuthenticated, BookController.deleteBook)
 }

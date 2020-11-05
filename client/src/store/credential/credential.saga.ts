@@ -12,6 +12,8 @@ import {getBooksByAuthorIdFetch} from "../book/books.actions";
 function* loginWorker(action: ILoginAction) {
     try {
         const {data} = yield call(AuthApi.login, action.payload);
+        console.log("LOGIN")
+        localStorage.setItem("token",data.token)
         yield put<ICredentialAction>(authorise(data))
         yield put<IBookAsyncActionsById>(getBooksByAuthorIdFetch(data.id))
         yield put(push("/"))
@@ -31,6 +33,7 @@ function* registrationWorker(action: IRegistrationAction) {
 }
 
 function* logoutWorker() {
+    localStorage.removeItem("token")
     yield call(AuthApi.logout)
     yield put(clearCredential())
     yield put(push(MAIN_PAGE_URL))

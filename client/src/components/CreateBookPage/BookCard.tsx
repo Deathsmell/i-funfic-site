@@ -1,4 +1,4 @@
-import React, {MouseEvent,ChangeEvent, useState} from "react";
+import React, {ChangeEvent, MouseEvent, useState} from "react";
 import DropImage from "../DropImage";
 import {Button, Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
@@ -15,27 +15,24 @@ const BookCard = () => {
     const authorName = useSelector(selectorUsername);
     const dispatch = useDispatch();
 
-    const titleHandler = (e : ChangeEvent<HTMLInputElement>) => {
+    const titleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
     }
 
-    const annotationHandler = (e : ChangeEvent<HTMLInputElement>) => {
+    const annotationHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setAnnotation(e.target.value)
     }
 
 
     const createBookHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
-        console.log(authorId)
-        if (authorId && authorName){
-            dispatch(createBookFetch({
-                authorId,
-                annotation,
-                title,
-                image,
-                authorName
-            }))
-        }
+        dispatch(createBookFetch({
+            authorId,
+            annotation,
+            title,
+            image,
+            authorName
+        }))
     }
 
     return (
@@ -60,7 +57,7 @@ const BookCard = () => {
                             </InputGroup>
                         </Row>
                         <Row className="">
-                            <InputGroup className="mb-3 pr-3" >
+                            <InputGroup className="mb-3 pr-3">
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="gainers">Gainers</InputGroup.Text>
                                 </InputGroup.Prepend>

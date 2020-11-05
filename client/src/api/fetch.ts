@@ -1,8 +1,7 @@
 import axios from "axios";
 import {BASE_URL} from "@api";
 
-const createAxios = () => axios.create({
+export default axios.create({
     baseURL: BASE_URL,
+    withCredentials: true
 })
-
-export default createAxios()
