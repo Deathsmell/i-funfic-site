@@ -1,12 +1,12 @@
 import React, {MouseEvent} from "react";
-import BookHeaderCard from "../components/FicPage/BookHeaderCard";
-import BookManagerBorder from "../components/FicPage/BookManagerBorder";
-import BookCommentList from "../components/FicPage/BookCommentList";
+import BookHeaderCard from "../components/BookPage/BookHeaderCard";
+import BookManagerBorder from "../components/BookPage/BookManagerBorder";
+import BookCommentList from "../components/BookPage/BookCommentList";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorBook} from "../store/book/books.selectors";
 import {useParams} from "react-router";
 import {selectorAuthorise} from "../store/credential/credential.selectors";
-import {Button} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 import {goBack} from "connected-react-router";
 
 const BookPage: React.FC = () => {
@@ -24,7 +24,7 @@ const BookPage: React.FC = () => {
 
     if (book && book.authorId && book.id) {
         return (
-            <>
+            <Container>
                 <BookHeaderCard {...book}/>
                 <BookManagerBorder authorId={book.authorId}
                                    bookId={book.id}
@@ -41,7 +41,7 @@ const BookPage: React.FC = () => {
                         )
 
                 }
-            </>
+            </Container>
         )
     } else {
         return (

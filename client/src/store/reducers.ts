@@ -1,18 +1,21 @@
 import {combineReducers} from "redux";
 import {CredentialReducer, credentialReducer} from "./credential/credential.reducers";
 import {bookReducer,BooksReducers} from "./book/books.reducers"
-import {RouterReducer, routerReducer} from "./history";
+import {chaptersReducer,ChapterReducer} from "./chapters/chapters.reducers"
+import {RouterReducer, routerReducer} from "./router/history";
 
 interface IRootReducer {
     credential: CredentialReducer,
     router: RouterReducer,
-    books: BooksReducers
+    books: BooksReducers,
+    chapters: ChapterReducer
 }
 
 const reducers: IRootReducer = {
     credential: credentialReducer,
     router: routerReducer,
-    books: bookReducer
+    books: bookReducer,
+    chapters: chaptersReducer,
 };
 export const rootReducers = combineReducers(reducers);
 

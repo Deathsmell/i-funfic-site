@@ -5,6 +5,7 @@ import {getAllBooksFetch} from "../store/book/books.actions";
 import {RootState} from "../store/reducers";
 import {IBook} from "../../../interfaces";
 import {useFetching} from "../hooks/useFetching";
+import {Container} from "react-bootstrap";
 
 const mapState = ({books}: RootState): { books: IBook[] } => ({books: books.books})
 const mapDispatch = {getAllBooks: getAllBooksFetch}
@@ -19,7 +20,7 @@ const MainPage: React.FC<PropsFromRedux> = ({
     useFetching(getAllBooks)
 
     return (
-        <div>
+        <Container>
             {
                 books
                 && ~books.length
@@ -34,7 +35,7 @@ const MainPage: React.FC<PropsFromRedux> = ({
                     }
                 )
             }
-        </div>
+        </Container>
     )
 }
 

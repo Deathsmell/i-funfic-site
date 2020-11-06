@@ -11,6 +11,9 @@ import {BookApi} from "../../api";
 import {addBook, addMyBook, setCommonBooks, setMyBooks} from "./books.actions";
 import {IBook} from "../../../../interfaces";
 import {push} from "connected-react-router";
+import {ApplicationDynamicMap} from "../../routes";
+import {IChapterActionById} from "../chapters/chapters.interfaces";
+import {deleteChapterByBookId} from "../chapters/chapters.actions";
 
 function* allBookWorker() {
     try {
@@ -26,11 +29,9 @@ function* createBookWorker(action: IBookAsyncActionsByBook) {
     try {
         const {data}: { data: { message?: string, book: IBook } }
             = yield call(BookApi.create, action.book);
-        console.log("add test1", addMyBook(data.book).type)
         yield put<IBookActions>(addMyBook(data.book))
-        console.log("add book2", addBook(data.book).type)
         yield put<IBookActions>(addBook(data.book))
-        yield put(push("/profile"))
+        yield put(push(ApplicationDynamicMap.editBookPage(data.book.id!)))
     } catch (e) {
         console.error(e)
     }
@@ -48,9 +49,10 @@ function* authorBookWorker(action: IBookAsyncActionsById) {
 
 function* deleteAuthorBookWorker(action: IBookAsyncActionsByBook) {
     try {
-        const user = action.book;
-        if (user && user.id) {
-            yield call(BookApi.deleteById, user.id);
+        const book = action.book;
+        if (book && book.id) {
+            yield call(BookApi.deleteById, book.id);
+            yield put<IChapterActionById>(deleteChapterByBookId(book.id))
         }
     } catch (e) {
         console.error(e)

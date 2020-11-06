@@ -1,19 +1,24 @@
-import React, {ChangeEvent, MouseEvent, useState} from "react";
+import React, {ChangeEvent} from "react";
 import DropImage from "../DropImage";
-import {Button, Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
-import {useDispatch, useSelector} from "react-redux";
-import {selectorUserId, selectorUsername} from "../../store/credential/credential.selectors";
-import {createBookFetch} from "../../store/book/books.actions";
+import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 
 
-const BookCard = () => {
+interface Props {
+    imageState: [(string | undefined), React.Dispatch<string | undefined>],
+    annotationState: [(string | undefined), React.Dispatch<string | undefined>],
+    titleState: [(string | undefined), React.Dispatch<string| undefined>],
+}
 
-    const [image, setImage] = useState<string | undefined>();
-    const [annotation, setAnnotation] = useState<string>("");
-    const [title, setTitle] = useState<string>("");
-    const authorId = useSelector(selectorUserId);
-    const authorName = useSelector(selectorUsername);
-    const dispatch = useDispatch();
+const BookCard: React.FC<Props> = ({
+                                       imageState,
+                                       titleState,
+                                       annotationState
+                                   }) => {
+
+
+    const [annotation, setAnnotation] = annotationState
+    const [title, setTitle] = titleState
+    const [image, setImage] = imageState
 
     const titleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
@@ -21,18 +26,6 @@ const BookCard = () => {
 
     const annotationHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setAnnotation(e.target.value)
-    }
-
-
-    const createBookHandler = (e: MouseEvent<HTMLButtonElement>) => {
-        e.preventDefault()
-        dispatch(createBookFetch({
-            authorId,
-            annotation,
-            title,
-            image,
-            authorName
-        }))
     }
 
     return (
@@ -93,15 +86,6 @@ const BookCard = () => {
                         </Row>
                     </Container>
                 </Col>
-            </Row>
-            <Row className="justify-content-center">
-                <Button variant="primary"
-                        size="lg"
-                        className="mb-3"
-                        onClick={createBookHandler}
-                >
-                    Create
-                </Button>
             </Row>
         </Card>
     )

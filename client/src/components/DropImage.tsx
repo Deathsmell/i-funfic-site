@@ -5,7 +5,7 @@ import {CloudinaryApi} from "../api";
 
 type Props = {
     image?: string,
-    setImage: React.Dispatch<React.SetStateAction<string | undefined>>
+    setImage: React.Dispatch<string | undefined>
 }
 
 const DropImage: React.FC<Props> = ({image,setImage}) => {

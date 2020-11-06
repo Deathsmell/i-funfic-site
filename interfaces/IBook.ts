@@ -13,7 +13,8 @@ export interface IBook {
 
 export interface IBookChapter {
     id?: number,
-    number: number,
+    bookId: number,
+    number?: number,
     title: string,
     text: string,
 }

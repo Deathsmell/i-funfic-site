@@ -1,14 +1,33 @@
-import React from "react";
+import React, {MouseEvent} from "react";
 import {Container, Table} from "react-bootstrap";
+import {IBookChapter} from "../../../../interfaces";
+import {useDispatch} from "react-redux";
+import {push} from "connected-react-router";
+import {ApplicationDynamicMap} from "../../routes";
 
-const ListChapters = () => {
-    
-    
+interface Props {
+    chapters?: IBookChapter[]
+    bookId: number
+}
+
+const ListChapters: React.FC<Props> = ({
+                                           chapters,
+                                           bookId
+                                       }) => {
+
+
+    const dispatch = useDispatch();
+
+    const createChapterHandler = (e: MouseEvent) => {
+        e.preventDefault()
+        dispatch(push(ApplicationDynamicMap.createChapterPage(bookId)))
+    }
+
     return (
         <Container className={"mt-5"}>
             <Table
-                   bordered
-                   hover
+                bordered
+                hover
             >
                 <thead>
                 <tr>
@@ -19,22 +38,25 @@ const ListChapters = () => {
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>1 minute ago</td>
-                    <td>@action</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Jacob</td>
-                    <td>1 month ago</td>
-                    <td>@action</td>
-                </tr>
+                {
+                    chapters && chapters.map(({number, title}) => {
+                            return (
+                                <tr>
+                                    <td>{number}</td>
+                                    <td>{title}</td>
+                                    <td>1 minute ago</td>
+                                    <td>@action</td>
+                                </tr>
+                            )
+                        }
+                    )
+                }
                 <tr>
                     <td colSpan={4}
                         className={"text-center"}
-                    >Add new chapter</td>
+                        onClick={createChapterHandler}
+                    >Add new chapter
+                    </td>
                 </tr>
                 </tbody>
             </Table>

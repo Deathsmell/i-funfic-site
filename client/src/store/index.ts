@@ -6,7 +6,7 @@ import createSagaMiddleware from "redux-saga"
 import logger from "redux-logger";
 import {composeWithDevTools} from "redux-devtools-extension"
 import {rootReducers, RootState, RootStateKeys} from "./reducers";
-import {routerMiddleware} from "./history";
+import {routerMiddleware} from "./router/history";
 import rootSaga from "./saga";
 import {isProduction} from "@config/constants";
 

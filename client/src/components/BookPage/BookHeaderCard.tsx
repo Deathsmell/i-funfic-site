@@ -25,7 +25,7 @@ const BookHeaderCard: React.FC<IBook> = (
     const [tags] = useState([]);
 
     return (
-        <Card className="mt-3">
+        <Card className="mt-4">
             <Row style={{height: '100%'}}>
                 <Col lg={3} className="m-2">
                     <Image src={image} rounded className="fic-card-img"/>

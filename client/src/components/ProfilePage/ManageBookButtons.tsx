@@ -4,6 +4,7 @@ import {MdChromeReaderMode, MdDeleteForever, MdModeEdit} from "react-icons/md";
 import {useDispatch} from "react-redux";
 import {deleteBookFetch} from "../../store/book/books.actions";
 import {push} from "connected-react-router";
+import {ApplicationDynamicMap} from "../../routes";
 
 interface Prop {
     id: number
@@ -15,12 +16,12 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
     const dispatch = useDispatch();
     const readHandler = (e: MouseEvent) => {
         e.preventDefault()
-        dispatch(push(`/book/${id}`))
+        dispatch(push(ApplicationDynamicMap.readBookPage(id)))
     }
 
     const editHandler = (e: MouseEvent) => {
         e.preventDefault()
-        console.log("Edit book " + id)
+        dispatch(push(ApplicationDynamicMap.editBookPage(id)))
 
     }
 

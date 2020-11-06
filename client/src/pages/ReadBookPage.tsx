@@ -1,12 +1,28 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Col, ListGroup, Row} from "react-bootstrap";
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import {useParams} from "react-router";
+import {useSelector} from "react-redux";
+import {selectorChapters} from "../store/chapters/chapters.selectors";
+import {selectorHash} from "../store/router/router.selectors";
 
 const ReadBookPage: React.FC = () => {
 
-
-    const [chapters] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]);
+    const {id} = useParams<{ id: string }>();
+    const chapters = useSelector(selectorChapters(Number(id)));
     const {height} = useWindowDimensions();
+    const hash = useSelector(selectorHash);
+
+    const [text, setText] = useState<string>("");
+
+    useEffect(function changeChaptersText() {
+        const chapterNumber = hash.replace(/#link/, "");
+        if (chapterNumber) {
+            const chapterText = chapters.find(({number}) => number === Number(chapterNumber));
+            setText(chapterText ? chapterText.text : "Empty")
+        }
+    }, [hash])
+
 
     return (
         <Row noGutters>
@@ -20,9 +36,12 @@ const ReadBookPage: React.FC = () => {
                                className="chapter-list"
                                style={{minHeight: height - 30, maxHeight: height - 30}}
                     >
-                        {chapters.map((number, index) => (
-                            <ListGroup.Item action href={`#link${number}`}>
-                                Chapter {number}
+                        {chapters.sort((a, b) => a.number! - b.number!).map(({number, title}) => (
+                            <ListGroup.Item action
+                                            key={number}
+                                            href={`#link${number}`}
+                            >
+                                {number}. {title}
                             </ListGroup.Item>))
                         }
                     </ListGroup>
@@ -31,9 +50,7 @@ const ReadBookPage: React.FC = () => {
             <Col lg={8}
                  className={"ml-5"}
                  style={{textAlign: "justify"}}>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis, laboriosam minima nobis non numquam
-                quod? Ab, ad cumque magnam modi nesciunt odit quam sunt ut. Asperiores eaque exercitationem perferendis
-                veritatis.
+                {text}
             </Col>
         </Row>
     )

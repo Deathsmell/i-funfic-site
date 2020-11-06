@@ -7,6 +7,7 @@ import Badge from "react-bootstrap/Badge";
 import {IBook} from "../../../../interfaces";
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
+import {ApplicationDynamicMap} from "../../routes";
 
 const BookListCard: React.FC<IBook> = ({
                                            id,
@@ -27,7 +28,7 @@ const BookListCard: React.FC<IBook> = ({
 
     const readHandler = (e: MouseEvent) => {
         e.preventDefault()
-        dispatch(push(`/book/${id}`))
+        dispatch(push(ApplicationDynamicMap.bookPage(id!)))
     }
 
     return (

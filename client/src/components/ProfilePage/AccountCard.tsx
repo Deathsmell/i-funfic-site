@@ -4,6 +4,7 @@ import {Button, ButtonGroup} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {logout} from "../../store/credential/credential.actions";
 import {push} from "connected-react-router";
+import {ApplicationMap} from "../../routes";
 
 const AccountCard: React.FC = () => {
 
@@ -16,7 +17,7 @@ const AccountCard: React.FC = () => {
 
     const createBookHandler = (event: MouseEvent) => {
         event.preventDefault()
-        dispatch(push("/create"))
+        dispatch(push(ApplicationMap.CREATE_BOOK_PAGE))
     }
 
     const settingHandler = (e : MouseEvent) => {

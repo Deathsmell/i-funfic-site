@@ -1,6 +1,6 @@
 import React from 'react';
 import {ConnectedRouter} from "connected-react-router";
-import {history} from "./store/history";
+import {history} from "./store/router/history";
 import NavBar from './components/NavBar';
 import Routes from "./routes";
 

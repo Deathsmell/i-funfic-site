@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {ICredentialState} from "../store/credential/credential.interfaces";
 import {push} from "connected-react-router";
 import {Roles} from "../../../interfaces";
+import {ApplicationMap} from "../routes";
 
 
 const NavBar: React.FC = () => {
@@ -43,16 +44,16 @@ const NavBar: React.FC = () => {
                     Mordor
                 </Navbar.Brand>
                 <Nav className="mr-auto">
-                    <Nav.Link href="/"
+                    <Nav.Link href={ApplicationMap.MAIN_PAGE}
                               onClick={pushHandler}
                     >Main</Nav.Link>
                     {authorised
-                    && <Nav.Link href={`/profile`}
+                    && <Nav.Link href={ApplicationMap.PROFILE_PAGE}
                                  onClick={pushHandler}
                     >Profile</Nav.Link>
                     }
                     {authorised && roles?.some(isAdmin)
-                    && <Nav.Link href="/users"
+                    && <Nav.Link href={ApplicationMap.USERS_PAGE}
                                  onClick={pushHandler}
                     >Users</Nav.Link>
                     }

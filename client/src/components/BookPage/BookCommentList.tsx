@@ -10,8 +10,7 @@ const BookCommentList: React.FC = () => {
     const src = "https://avatars.mds.yandex.net/get-pdb/1976636/ac1ce1a1-c9a4-4355-9a49-73627c1b9aab/s1200";
 
     return (
-        <Container className="mt-4">
-            <Card>
+            <Card className="mt-4">
                 <Card.Body>
                     <Row>
                         <Col lg={2} className="text-center">
@@ -35,7 +34,6 @@ const BookCommentList: React.FC = () => {
                 </Card.Body>
                 <Card.Footer className="text-muted text-center">2 days ago</Card.Footer>
             </Card>
-        </Container>
     )
 }
 
