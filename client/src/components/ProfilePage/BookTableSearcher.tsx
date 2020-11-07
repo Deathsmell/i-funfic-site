@@ -1,24 +1,70 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import {Dropdown, DropdownButton, FormControl, InputGroup} from "react-bootstrap";
+import {IFilterBookTableState} from "./UserInfoTabs";
 
-const BookTableSearcher: React.FC = () => {
+
+interface IKeys {
+    title: string,
+    genres: string,
+    all: string,
+}
+
+export type FilterKeys = keyof IKeys
+
+const KEYS: IKeys = {
+    title: "Book name",
+    genres: "Genres",
+    all: "All"
+}
+
+interface Props {
+    filterState: [IFilterBookTableState, React.Dispatch<React.SetStateAction<IFilterBookTableState>>]
+}
+
+const BookTableSearcher: React.FC<Props> = ({filterState}) => {
+
+    const [filter, setFilter] = filterState
+
+    const filterHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setFilter((prev) => ({...prev, string: e.target.value}))
+    }
+
+    const [title, setTitle] = useState<string>(KEYS.all);
+
+    const changeFilterHandler = (eventKey: any) => {
+        setTitle(eventKey);
+        const strings = Object.keys(KEYS) as Array<FilterKeys>;
+        const type = strings.find(key => KEYS[key] === eventKey) as FilterKeys;
+        setFilter((prev) => ({...prev, type: type}))
+    }
 
     return (
-            <InputGroup className="my-4">
-                <DropdownButton
-                    as={InputGroup.Prepend}
-                    variant="outline-secondary"
-                    title="Dropdown"
-                    id="input-group-dropdown-1"
-                >
-                    <Dropdown.Item href="#">Book name</Dropdown.Item>
-                    <Dropdown.Item href="#">Tags</Dropdown.Item>
-                    <Dropdown.Item href="#">Genres</Dropdown.Item>
-                    <Dropdown.Divider/>
-                    <Dropdown.Item href="#">All</Dropdown.Item>
-                </DropdownButton>
-                <FormControl aria-describedby="basic-addon1"/>
-            </InputGroup>
+        <InputGroup className="my-4">
+            <DropdownButton
+                as={InputGroup.Prepend}
+                variant="outline-secondary"
+                title={title}
+                id="profile-book-filter"
+            >
+                <Dropdown.Item eventKey={KEYS.title}
+                               href="#"
+                               onSelect={changeFilterHandler}
+                >{KEYS.title}</Dropdown.Item>
+                <Dropdown.Item href="#"
+                               eventKey={KEYS.genres}
+                               onSelect={changeFilterHandler}
+                >{KEYS.genres}</Dropdown.Item>
+                <Dropdown.Divider/>
+                <Dropdown.Item href="#"
+                               eventKey={KEYS.all}
+                               onSelect={changeFilterHandler}
+                >All</Dropdown.Item>
+            </DropdownButton>
+            <FormControl aria-describedby="profile-book-filter"
+                         value={filter.string}
+                         onChange={filterHandler}
+            />
+        </InputGroup>
     )
 }
 
