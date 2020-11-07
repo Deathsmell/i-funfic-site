@@ -30,6 +30,11 @@ const ListChapters: React.FC<Props> = ({
                 hover
             >
                 <thead>
+                <tr className="text-center">
+                    <th colSpan={4}>
+                        <h3>Chapters table</h3>
+                    </th>
+                </tr>
                 <tr>
                     <th className={"col-1"}>#</th>
                     <th className={"col-6"}>Chapter name</th>

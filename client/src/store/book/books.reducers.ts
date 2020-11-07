@@ -4,7 +4,7 @@ import {
     ADD_BOOK,
     DELETE_AUTHOR_BOOK,
     SET_ALL_BOOKS,
-    SET_AUTHOR_BOOKS
+    SET_AUTHOR_BOOKS, UPDATE_AUTHOR_BOOK,
 } from "./books.constants";
 import {IBookActions, IBooksActions} from "./book.interfaces"
 
@@ -26,26 +26,26 @@ export const bookReducer = (
         case SET_ALL_BOOKS:
             return {
                 ...state,
-                books: action.books as IBook[]
+                books: action.books
             }
         case SET_AUTHOR_BOOKS:
             return {
                 ...state,
-                myBook: action.books as IBook[]
+                myBook: action.books
             }
         case ADD_AUTHOR_BOOK:
             return {
                 ...state,
                 myBook: [
-                    ...state.myBook,
-                    action.book as IBook
+                    ...state.myBook.filter(({id}) => id !== action.book.id),
+                    action.book
                 ]
             }
         case ADD_BOOK:
             return {
                 ...state,
                 books: [
-                    ...state.books,
+                    ...state.books.filter(({id}) => id !== action.book.id),
                     action.book
                 ]
             }
@@ -55,6 +55,14 @@ export const bookReducer = (
                 myBook: state.myBook
                     .filter(({id}) => id !== action.book.id)
 
+            }
+        case UPDATE_AUTHOR_BOOK:
+            return {
+                ...state,
+                myBook: [
+                    ...state.myBook.filter(({id}) => id !== action.book.id),
+                    action.book
+                ]
             }
         default:
             return state

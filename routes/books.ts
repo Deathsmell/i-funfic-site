@@ -15,6 +15,6 @@ export const booksRouter = (router: IRouter): void => {
     router.get(GET_BOOK_URL, BookController.getById)
     router.get(BOOKS_BY_USER_ID_URL,ensureAuthenticated, BookController.getByUserId)
     router.post(BOOK_CREATE_URL,ensureAuthenticated, BookController.createBook)
-    router.post(BOOK_UPDATE_URL,ensureAuthenticated, BookController.updateBook)
+    router.put(BOOK_UPDATE_URL,ensureAuthenticated, BookController.updateBook)
     router.delete(DELETE_AUTHOR_BOOK_URL,ensureAuthenticated, BookController.deleteBook)
 }

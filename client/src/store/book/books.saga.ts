@@ -1,4 +1,10 @@
-import {CREATE_AUTHOR_BOOK, DELETE_AUTHOR_BOOK, GET_ALL_BOOKS, GET_AUTHOR_BOOKS} from "./books.constants"
+import {
+    CREATE_AUTHOR_BOOK,
+    DELETE_AUTHOR_BOOK,
+    GET_ALL_BOOKS,
+    GET_AUTHOR_BOOKS,
+    UPDATE_AUTHOR_BOOK,
+} from "./books.constants"
 import {
     IBookActions,
     IBookAsyncActions,
@@ -59,9 +65,18 @@ function* deleteAuthorBookWorker(action: IBookAsyncActionsByBook) {
     }
 }
 
+function* updateAuthorBookWorker(action: IBookAsyncActionsByBook) {
+    try {
+        yield call(BookApi.update, action.book);
+    } catch (e) {
+        console.error(e)
+    }
+}
+
 export default function* watcher() {
     yield takeEvery<IBookAsyncActions>(GET_ALL_BOOKS, allBookWorker)
     yield takeEvery<IBookAsyncActionsByBook>(CREATE_AUTHOR_BOOK, createBookWorker)
     yield takeEvery<IBookAsyncActionsById>(GET_AUTHOR_BOOKS, authorBookWorker)
     yield takeEvery<IBookAsyncActionsByBook>(DELETE_AUTHOR_BOOK, deleteAuthorBookWorker)
+    yield takeEvery<IBookAsyncActionsByBook>(UPDATE_AUTHOR_BOOK, updateAuthorBookWorker)
 }

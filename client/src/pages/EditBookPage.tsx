@@ -38,7 +38,7 @@ const EditBookPage: React.FC = () => {
 
     return (
         <div>
-            <h1 className={"text-center"}>Create page</h1>
+            <h1 className={"text-center"}>Edit book page</h1>
             <BookCard annotationState={annotationState}
                       imageState={imageState}
                       titleState={titleState}
@@ -46,7 +46,7 @@ const EditBookPage: React.FC = () => {
             <Row className="justify-content-center">
                 <Button variant="primary"
                         size="lg"
-                        className="mb-3"
+                        className="mt-5"
                         onClick={updateBookHandler}
                 >
                     Save updates

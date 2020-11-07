@@ -1,14 +1,13 @@
 import {IBook} from "../../../../interfaces";
 import {
-    ADD_BOOK,
     ADD_AUTHOR_BOOK,
+    ADD_BOOK,
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
     GET_ALL_BOOKS,
     GET_AUTHOR_BOOKS,
     SET_ALL_BOOKS,
-    SET_AUTHOR_BOOKS,
-    UPDATE_AUTHOR_BOOK
+    SET_AUTHOR_BOOKS, UPDATE_AUTHOR_BOOK,
 } from "./books.constants"
 import {
     IBookActions,
@@ -53,6 +52,11 @@ export const createBookFetch = (book: IBook): IBookAsyncActionsByBook => ({
 })
 
 export const updateBookFetch = (book: IBook): IBookAsyncActionsByBook => ({
+    type: UPDATE_AUTHOR_BOOK,
+    book: book
+})
+
+export const updateBook = (book: IBook) : IBookActions => ({
     type: UPDATE_AUTHOR_BOOK,
     book: book
 })
