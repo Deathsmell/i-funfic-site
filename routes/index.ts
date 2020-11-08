@@ -4,6 +4,7 @@ import {userRouter} from "./user"
 import {booksRouter} from "./books"
 import {cloudinaryRouter} from "./cloudinary";
 import {chapterRouter} from "./chapter";
+import {adminRouter} from "./admin";
 
 export const configRouter = (router: Router): void => {
     authRouter(router)
@@ -11,4 +12,5 @@ export const configRouter = (router: Router): void => {
     booksRouter(router)
     cloudinaryRouter(router)
     chapterRouter(router)
+    adminRouter(router)
 }

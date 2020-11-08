@@ -2,15 +2,25 @@ import React, {useState} from "react";
 import {Tab, Tabs} from "react-bootstrap";
 import UserBookTable from "./UserBookTable";
 import BookTableSearcher, {FilterKeys} from "./BookTableSearcher";
+import {ICredentialState} from "../../store/credential/credential.interfaces";
+import {IBook} from "../../../../interfaces";
 
 export interface IFilterBookTableState {
     type: FilterKeys,
     string: string
 }
 
-const UserInfoTabs: React.FC = () => {
+interface Props {
+    credential: ICredentialState,
+    books: IBook[]
+}
 
-    const filterState = useState<IFilterBookTableState>({type: "all", string:""});
+const UserInfoTabs: React.FC<Props> = ({
+                                           books,
+                                           credential
+                                       }) => {
+
+    const filterState = useState<IFilterBookTableState>({type: "all", string: ""});
 
     return (
         <Tabs defaultActiveKey="information" id="uncontrolled-tab-example">
@@ -22,7 +32,7 @@ const UserInfoTabs: React.FC = () => {
             </Tab>
             <Tab eventKey="table" title="Book table">
                 <BookTableSearcher filterState={filterState}/>
-                <UserBookTable filterState={filterState}/>
+                <UserBookTable books={books} filterState={filterState}/>
             </Tab>
         </Tabs>
     )

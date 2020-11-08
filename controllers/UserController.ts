@@ -1,9 +1,11 @@
-import {NextFunction, Request, Response} from "express"
+import {Request, Response} from "express"
 import UserService from "../services/UserService";
 import {IUser} from "../interfaces";
+import {User} from "../models";
+import {IErrorResponse, IResponse, IUsersResponse} from "../interfaces/IResponse";
 
 const UserController = {
-    create: async (req: Request, res: Response, next: NextFunction) => {
+    create: async (req: Request, res: Response<IUsersResponse | IErrorResponse>) => {
         const data = <IUser>req.body;
         console.log(req.body)
         if (data && data.username && data.email && data.password) {
@@ -15,6 +17,25 @@ const UserController = {
             }
         } else {
             res.status(500).json({message: "Input empty. Check you input data."})
+        }
+    },
+    getAll: async (req: Request, res: Response<IUsersResponse | IErrorResponse>) => {
+        try {
+            const users = await User.findAll();
+            res.status(200).json({users, message: "Success"})
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({message: "Some error on get all users"})
+        }
+    },
+    deleteUser: async (req: Request, res: Response<IResponse>) => {
+        try {
+            const {id} = req.body as { id: number };
+            await User.destroy({where: {id}})
+            res.status(200).send()
+        } catch (e) {
+            console.error(e)
+            res.status(500).send()
         }
     }
 }

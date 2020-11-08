@@ -1,7 +1,7 @@
 import {NextFunction, Request, Response} from "express"
 import {PassportStatic} from "passport"
 import {User} from "../models";
-import {IUser} from "../interfaces";
+import {IUser, Roles} from "../interfaces";
 import {jwtStrategy, login, signUp} from "./passport.strategy";
 
 export const configPassport = (passport: PassportStatic) => {
@@ -34,5 +34,16 @@ export const ensureAuthenticated = (req: Request, res: Response, next: NextFunct
         next()
     } else {
         res.status(401).json({message: "Please authenticate"})
+    }
+}
+
+export const ensureAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated()){
+        const user = await req.user as IUser;
+        const isAdmin = user.roles?.includes(Roles.ADMIN);
+        console.log(user.roles);
+        isAdmin ? next() : res.status(403).send()
+    } else {
+        res.status(401).send()
     }
 }

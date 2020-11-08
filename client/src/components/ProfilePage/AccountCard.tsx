@@ -1,15 +1,34 @@
-import React, {MouseEvent} from "react";
+import React, {MouseEvent, useEffect, useState} from "react";
 import {AiOutlineUser} from "react-icons/ai";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {useDispatch} from "react-redux";
 import {logout} from "../../store/credential/credential.actions";
 import {push} from "connected-react-router";
 import {ApplicationMap} from "../../routes";
+import {IUser} from "../../../../interfaces";
+import {AdminApi} from "../../api";
 
-const AccountCard: React.FC = () => {
+
+interface Props {
+    isAdmin: boolean,
+    user?: IUser
+}
+
+const AccountCard: React.FC<Props> = ({
+                                          isAdmin,
+                                          user
+                                      }) => {
 
 
     const dispatch = useDispatch();
+    const [blocked, setBlocked] = useState<boolean>();
+
+    useEffect(() => {
+        if (user && user.blocked){
+            setBlocked(user.blocked)
+        }
+    })
+
     const logoutHandler = (event: MouseEvent) => {
         event.preventDefault()
         dispatch(logout())
@@ -20,8 +39,24 @@ const AccountCard: React.FC = () => {
         dispatch(push(ApplicationMap.CREATE_BOOK_PAGE))
     }
 
-    const settingHandler = (e : MouseEvent) => {
+    const blockHandler = (e: MouseEvent) => {
         e.preventDefault()
+        console.log("blocking", user)
+        if (!blocked) {
+            AdminApi.blockUser(user?.id!).then(() => {
+                setBlocked(true)
+            }).catch(e => {
+                console.error(e)
+            })
+        }
+        if (blocked){
+            AdminApi.unblockUser(user?.id!).then(() => {
+                setBlocked(false)
+            }).catch(e => {
+                console.error(e)
+            })
+        }
+
     }
 
     return (
@@ -37,12 +72,21 @@ const AccountCard: React.FC = () => {
                 <Button variant="dark"
                         onClick={createBookHandler}
                 >Create new book</Button>
-                <Button variant="dark"
-                        onClick={settingHandler}
-                >Setting</Button>
-                <Button variant="danger"
-                        onClick={logoutHandler}
-                >Log out</Button>
+                {isAdmin && user && (
+                    <>
+                        <Button variant="warning"
+                                onClick={blockHandler}
+                        >{blocked ? "unblock" : "block"}</Button>
+                    </>
+                )
+                }
+                {
+                    !user && (
+                        <Button variant="danger"
+                                onClick={logoutHandler}
+                        >Log out</Button>
+                    )
+                }
             </ButtonGroup>
         </div>
     )

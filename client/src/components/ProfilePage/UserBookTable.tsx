@@ -1,20 +1,13 @@
-import React, {MouseEvent, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Table} from "react-bootstrap";
 import ManageBookButtons from "./ManageBookButtons";
 import {FaLongArrowAltDown, FaLongArrowAltUp} from "react-icons/fa";
-import {RootState} from "../../store/reducers";
-import {connect, ConnectedProps} from "react-redux";
-import {getBooksByAuthorIdFetch} from "../../store/book/books.actions";
 import {IBook} from "../../../../interfaces";
 import {IFilterBookTableState} from "./UserInfoTabs";
 
 
-const mapProps = ({books}: RootState) => books
-const mapDispatch = {getBooksByAuthorId: getBooksByAuthorIdFetch}
-const connector = connect(mapProps, mapDispatch);
-type PropsFromRedux = ConnectedProps<typeof connector>
-
 interface Props {
+    books: IBook[]
     filterState: [IFilterBookTableState, React.Dispatch<React.SetStateAction<IFilterBookTableState>>]
 }
 
@@ -24,8 +17,8 @@ const arrow = {
 
 type Sorter = ((a: IBook, b: IBook) => number)
 
-const UserBookTable: React.FC<PropsFromRedux & Props> = ({
-                                                             myBook,
+const UserBookTable: React.FC<Props> = ({
+                                                             books,
                                                              filterState
                                                          }) => {
 
@@ -157,8 +150,8 @@ const UserBookTable: React.FC<PropsFromRedux & Props> = ({
             </thead>
             <tbody className="text-center">
             {
-                myBook && myBook.length !== 0
-                    ? myBook.sort(sorter).filter(filterHandler).map(({title, id, rating}) =>
+                books && books.length !== 0
+                    ? books.sort(sorter).filter(filterHandler).map(({title, id, rating}) =>
                         (
                             <tr className="book-table-row"
                                 key={id}
@@ -183,4 +176,4 @@ const UserBookTable: React.FC<PropsFromRedux & Props> = ({
     )
 }
 
-export default connector(UserBookTable);
+export default UserBookTable;
