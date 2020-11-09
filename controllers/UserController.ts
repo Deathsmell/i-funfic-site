@@ -1,8 +1,9 @@
 import {Request, Response} from "express"
 import UserService from "../services/UserService";
 import {IUser} from "../interfaces";
-import {User} from "../models";
-import {IErrorResponse, IResponse, IUsersResponse} from "../interfaces/IResponse";
+import {Book, User} from "../models";
+import {IErrorResponse, IProfileResponse, IResponse, IUsersResponse} from "../interfaces/IResponse";
+import {IProfile} from "../interfaces/IProfile";
 
 const UserController = {
     create: async (req: Request, res: Response<IUsersResponse | IErrorResponse>) => {
@@ -27,6 +28,25 @@ const UserController = {
             console.error(e)
             res.status(500).json({message: "Some error on get all users"})
         }
+    },
+    getProfile: async (req: Request, res: Response<IProfileResponse | IErrorResponse>) => {
+        try {
+            const {id} = req.query as { id: string };
+            const {id: userId, blocked, img, username, email, roles, confirm, books} = await User.findOne({
+                where: {id: Number(id)},
+                include: Book
+            }) as IProfile;
+            res.status(200).json({
+                user: {id: userId,confirm,roles, email, username,img,blocked,password:""},
+                books,
+                message: ""
+            })
+        } catch (e) {
+            console.error(e)
+            res.status(401).json({message: e.message})
+        }
+
+
     },
     deleteUser: async (req: Request, res: Response<IResponse>) => {
         try {

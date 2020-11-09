@@ -47,3 +47,15 @@ export const ensureAdmin = async (req: Request, res: Response, next: NextFunctio
         res.status(401).send()
     }
 }
+
+export const ensureCurrentUser = async (req: Request, res: Response, next: NextFunction) => {
+    if (req.isAuthenticated()){
+        const user = await req.user as IUser;
+        const {id:paramsId} = req.query as {id: string}
+        const equalId = user.id === Number(paramsId);
+        console.log(equalId,user.id,paramsId)
+        equalId ? next() : res.status(403).send()
+    } else {
+        res.status(401).send()
+    }
+}

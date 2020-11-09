@@ -1,8 +1,10 @@
 import {Request, Response} from "express"
-import {IBook} from "../interfaces";
+import {IUser, Roles} from "../interfaces";
 import {Book, User} from "../models";
 import {IErrorResponse, IProfileResponse, IResponse} from "../interfaces/IResponse";
 import {IProfile} from "../interfaces/IProfile";
+import {UserModel} from "../models/User.model";
+import {isAdmin} from "../utils/adminUtils";
 
 const AdminController = {
     blockUser: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
@@ -26,7 +28,6 @@ const AdminController = {
         }
     },
     getUserProfile: async (req: Request, res: Response<IProfileResponse | IErrorResponse>) => {
-        console.log("GET PROFILE")
         try {
             const {id} = req.query as { id: string };
             const {books, password, img, username, email, roles, confirm, blocked, id: userID} = await User.findOne({
@@ -35,13 +36,47 @@ const AdminController = {
             }) as IProfile;
             res.status(200).json({
                 books: books,
-                user: {id:userID, blocked, confirm, roles, email, username, img, password},
+                user: {id: userID, blocked, confirm, roles, email, username, img, password},
                 message: "Success get profile"
             })
         } catch (e) {
             console.error(e)
         }
-    }
+    },
+    setAdminRole: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
+        try {
+            const {id} = req.body as { id: number };
+            const user = await User.findOne({where:{id}}) as IUser & UserModel;
+            if (!isAdmin(user.roles)){
+                user.roles ? user.roles.push(Roles.ADMIN) : user.roles = [Roles.ADMIN]
+                user.save({fields:["roles"]})
+                console.log("SAVED")
+            } else if (user.roles) {
+                res.status(400).json({message: "Updating dont needed"})
+            }
+            res.status(200).json({message: "Successful updated"})
+        } catch (e) {
+            console.error(e.message)
+            res.status(400).json({message: "Some error when set admin role"})
+        }
+    },
+    removeAdminRole: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
+        console.log("REMOVE ROLE")
+        try {
+            const {id} = req.body as { id: number };
+            const user = await User.findOne({where:{id}}) as IUser & UserModel;
+            if (user.roles && isAdmin(user.roles)){
+                user.roles = [Roles.USER]
+                user.save({fields:["roles"]})
+            } else if (user.roles) {
+                res.status(400).json({message: "Updating dont needed"})
+            }
+            res.status(200).json({message: "Successful updated"})
+        } catch (e) {
+            console.error(e.message)
+            res.status(400).json({message: "Some error when remove admin role"})
+        }
+    },
 }
 
 export default AdminController

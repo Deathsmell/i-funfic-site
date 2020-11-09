@@ -8,27 +8,27 @@ export interface IResponse {
 export interface IErrorResponse extends IResponse{}
 
 export interface IUserResponse extends IResponse {
-    user?: IUser,
+    user: IUser,
 }
 
 export interface IUsersResponse extends IResponse {
-    users?: IUser[]
+    users: IUser[]
 }
 
 export interface IBookResponse extends IResponse {
-    book?: IBook
+    book: IBook
 }
 
 export interface IBooksResponse extends IResponse {
-    books?: IBook[]
+    books: IBook[]
 }
 
 export interface IChapterResponse extends IResponse {
-    chapter?: IBookChapter
+    chapter: IBookChapter
 }
 
 export interface IChaptersResponse extends IResponse {
-    chapters?: IBookChapter[]
+    chapters: IBookChapter[]
 }
 
 export interface IProfileResponse extends IUserResponse,IBooksResponse {}

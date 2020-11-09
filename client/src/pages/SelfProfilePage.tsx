@@ -1,8 +1,12 @@
-import React from "react";
-import {connect, ConnectedProps} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {AxiosError} from "axios"
+import {connect, ConnectedProps, useDispatch} from "react-redux";
 import {RootState} from "../store/reducers";
-import {getBooksByAuthorIdFetch} from "../store/book/books.actions";
+import {getBooksByAuthorIdFetch, setMyBooks} from "../store/book/books.actions";
 import ProfilePage from "./ProfilePage";
+import {IUser} from "../../../interfaces";
+import {UserApi} from "../api";
+import {IErrorResponse} from "../../../interfaces/IResponse";
 
 const mapProps = ({books: {myBook}, credential}: RootState) => ({myBook, credential})
 const mapDispatch = {getBooksByAuthorId: getBooksByAuthorIdFetch}
@@ -14,9 +18,31 @@ const SelfProfilePage: React.FC<PropsFromRedux> = ({
                                                        credential,
                                                    }) => {
 
-    return (
-        <ProfilePage myBook={myBook} credential={credential}/>
-    )
+    const dispatch = useDispatch();
+    const [user, setUser] = useState<IUser>();
+
+    useEffect(function getCurrentUserInformation() {
+        if (!user) {
+            UserApi.getProfile(credential.id!).then(({data: {user, books}}) => {
+                setUser(user)
+                dispatch(setMyBooks(books))
+            }).catch((e: AxiosError<IErrorResponse>) => {
+                console.error(e.message)
+            })
+        }
+    })
+
+    if (user) {
+        return (
+            <ProfilePage myBook={myBook} user={user}/>
+        )
+    } else {
+        return (
+            <>
+                Loading...
+            </>
+        )
+    }
 }
 
 export default connector(SelfProfilePage);

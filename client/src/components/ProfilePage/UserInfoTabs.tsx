@@ -2,8 +2,7 @@ import React, {useState} from "react";
 import {Tab, Tabs} from "react-bootstrap";
 import UserBookTable from "./UserBookTable";
 import BookTableSearcher, {FilterKeys} from "./BookTableSearcher";
-import {ICredentialState} from "../../store/credential/credential.interfaces";
-import {IBook} from "../../../../interfaces";
+import {IBook, IUser} from "../../../../interfaces";
 
 export interface IFilterBookTableState {
     type: FilterKeys,
@@ -11,13 +10,12 @@ export interface IFilterBookTableState {
 }
 
 interface Props {
-    credential: ICredentialState,
+    user: IUser,
     books: IBook[]
 }
 
 const UserInfoTabs: React.FC<Props> = ({
                                            books,
-                                           credential
                                        }) => {
 
     const filterState = useState<IFilterBookTableState>({type: "all", string: ""});
