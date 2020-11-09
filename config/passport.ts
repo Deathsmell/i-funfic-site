@@ -52,7 +52,8 @@ export const ensureCurrentUser = async (req: Request, res: Response, next: NextF
     if (req.isAuthenticated()){
         const user = await req.user as IUser;
         const {id:paramsId} = req.query as {id: string}
-        const equalId = user.id === Number(paramsId);
+        const {id:bodyId} = req.body as {id: number}
+        const equalId = user.id === Number(paramsId) || user.id === bodyId;
         console.log(equalId,user.id,paramsId)
         equalId ? next() : res.status(403).send()
     } else {

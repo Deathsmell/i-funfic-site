@@ -6,5 +6,5 @@ export type IFetchResponse<T extends IResponse> = Promise<AxiosResponse<T>>
 
 export default axios.create({
     baseURL: BASE_URL,
-    withCredentials: true
+    withCredentials: true,
 })

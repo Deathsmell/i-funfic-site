@@ -1,7 +1,7 @@
 import axios, {IFetchResponse} from "./fetch"
-import {CREATE_USER_URL, GET_ALL_USER_URL, GET_CURRENT_USER_PROFILE_URL} from "@api"
+import {CREATE_USER_URL, GET_ALL_USER_URL, GET_CURRENT_USER_PROFILE_URL, UPDATE_CURRENT_USER_INFORMATION} from "@api"
 import {IUser} from "../../../interfaces";
-import {IProfileResponse, IUserResponse, IUsersResponse} from "../../../interfaces/IResponse";
+import {IProfileResponse, IResponse, IUserResponse, IUsersResponse} from "../../../interfaces/IResponse";
 
 export const UserApi = {
     create: async (user: IUser): IFetchResponse<IUserResponse> =>
@@ -11,6 +11,8 @@ export const UserApi = {
         await axios.get(GET_ALL_USER_URL),
 
     getProfile: async (id: number): IFetchResponse<IProfileResponse> =>
-        await axios.get(GET_CURRENT_USER_PROFILE_URL,{params:{id}})
+        await axios.get(GET_CURRENT_USER_PROFILE_URL, {params: {id}}),
 
+    update: async (user: IUser): IFetchResponse<IResponse> =>
+        await axios.post(UPDATE_CURRENT_USER_INFORMATION, {id:user.id,user})
 }

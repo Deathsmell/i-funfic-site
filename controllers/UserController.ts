@@ -37,7 +37,7 @@ const UserController = {
                 include: Book
             }) as IProfile;
             res.status(200).json({
-                user: {id: userId,confirm,roles, email, username,img,blocked,password:""},
+                user: {id: userId, confirm, roles, email, username, img, blocked, password: ""},
                 books,
                 message: ""
             })
@@ -48,7 +48,7 @@ const UserController = {
 
 
     },
-    deleteUser: async (req: Request, res: Response<IResponse>) => {
+    deleteUser: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
         try {
             const {id} = req.body as { id: number };
             await User.destroy({where: {id}})
@@ -57,7 +57,22 @@ const UserController = {
             console.error(e)
             res.status(500).send()
         }
-    }
+    },
+    update: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
+        try {
+            const {id, user: {username, email, img}} = req.body as { id: number, user: IUser };
+            const user = await User.findOne({where: {id}});
+            if (user && (user.username !== username || user.email !== email || user.img !== img)) {
+                await User.update({username,email,img},{where: {id}})
+            } else {
+                res.status(401).json({message: "Some error then update user information"})
+            }
+            res.status(200).send()
+        } catch (e) {
+            console.error(e)
+            res.status(500).send()
+        }
+    },
 }
 
 export default UserController

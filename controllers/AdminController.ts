@@ -46,11 +46,10 @@ const AdminController = {
     setAdminRole: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
         try {
             const {id} = req.body as { id: number };
-            const user = await User.findOne({where:{id}}) as IUser & UserModel;
-            if (!isAdmin(user.roles)){
+            const user = await User.findOne({where: {id}}) as IUser & UserModel;
+            if (!isAdmin(user.roles)) {
                 user.roles ? user.roles.push(Roles.ADMIN) : user.roles = [Roles.ADMIN]
-                user.save({fields:["roles"]})
-                console.log("SAVED")
+                user.save({fields: ["roles"]})
             } else if (user.roles) {
                 res.status(400).json({message: "Updating dont needed"})
             }
@@ -61,13 +60,12 @@ const AdminController = {
         }
     },
     removeAdminRole: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
-        console.log("REMOVE ROLE")
         try {
             const {id} = req.body as { id: number };
-            const user = await User.findOne({where:{id}}) as IUser & UserModel;
-            if (user.roles && isAdmin(user.roles)){
+            const user = await User.findOne({where: {id}}) as IUser & UserModel;
+            if (user.roles && isAdmin(user.roles)) {
                 user.roles = [Roles.USER]
-                user.save({fields:["roles"]})
+                user.save({fields: ["roles"]})
             } else if (user.roles) {
                 res.status(400).json({message: "Updating dont needed"})
             }
@@ -75,6 +73,16 @@ const AdminController = {
         } catch (e) {
             console.error(e.message)
             res.status(400).json({message: "Some error when remove admin role"})
+        }
+    },
+    updateUserProfile: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
+        try {
+            const {id, user: {id: userId, img, email, username, roles, blocked, confirm}} = req.body as { id: number, user: IUser };
+            await User.update({id: userId, img, email, username, roles, blocked, confirm}, {where: {id}});
+            res.status(200).send()
+        } catch (e) {
+            console.error(e)
+            res.status(500).send()
         }
     },
 }
