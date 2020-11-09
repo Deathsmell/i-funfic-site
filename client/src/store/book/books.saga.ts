@@ -1,3 +1,4 @@
+import {AxiosResponse} from "axios";
 import {
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
@@ -15,17 +16,17 @@ import {
 import {call, put, takeEvery} from "redux-saga/effects"
 import {BookApi} from "../../api";
 import {addBook, addMyBook, setCommonBooks, setMyBooks} from "./books.actions";
-import {IBook} from "../../../../interfaces";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
 import {IChapterActionById} from "../chapters/chapters.interfaces";
 import {deleteChapterByBookId} from "../chapters/chapters.actions";
+import {IBookResponse, IBooksResponse} from "../../../../interfaces/IResponse";
 
 function* allBookWorker() {
     try {
-        const {data}: { data: { message?: string, book: IBook[] } } = yield call(BookApi.getAll);
+        const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAll);
         console.log(data)
-        yield put<IBooksActions>(setCommonBooks(data.book))
+        yield put<IBooksActions>(setCommonBooks(data.books))
     } catch (e) {
         console.error(e)
     }
@@ -33,8 +34,8 @@ function* allBookWorker() {
 
 function* createBookWorker(action: IBookAsyncActionsByBook) {
     try {
-        const {data}: { data: { message?: string, book: IBook } }
-            = yield call(BookApi.create, action.book);
+        const {data}: AxiosResponse<IBookResponse>
+            = yield call(BookApi.create, action.book) ;
         yield put<IBookActions>(addMyBook(data.book))
         yield put<IBookActions>(addBook(data.book))
         yield put(push(ApplicationDynamicMap.editBookPage(data.book.id!)))
@@ -45,9 +46,9 @@ function* createBookWorker(action: IBookAsyncActionsByBook) {
 
 function* authorBookWorker(action: IBookAsyncActionsById) {
     try {
-        const {data}: { data: { message?: string, book: IBook[] } }
+        const {data}: AxiosResponse<IBooksResponse>
             = yield call(BookApi.getByAuthorId, action.id);
-        yield put<IBooksActions>(setMyBooks(data.book))
+        yield put<IBooksActions>(setMyBooks(data.books))
     } catch (e) {
         console.error(e);
     }
