@@ -25,7 +25,6 @@ import {IBookResponse, IBooksResponse} from "../../../../interfaces/IResponse";
 function* allBookWorker() {
     try {
         const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAll);
-        console.log(data)
         yield put<IBooksActions>(setCommonBooks(data.books))
     } catch (e) {
         console.error(e)

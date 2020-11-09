@@ -38,25 +38,30 @@ export const ensureAuthenticated = (req: Request, res: Response, next: NextFunct
 }
 
 export const ensureAdmin = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         const user = await req.user as IUser;
         const isAdmin = user.roles?.includes(Roles.ADMIN);
-        console.log(user.roles);
-        isAdmin ? next() : res.status(403).send()
+        console.log(isAdmin)
+        if (isAdmin) next()
+        else {
+            req.logout()
+            res.status(403).send()
+        }
     } else {
-        res.status(401).send()
+        res.status(401).json({message: "Please authenticate"})
     }
+
 }
 
 export const ensureCurrentUser = async (req: Request, res: Response, next: NextFunction) => {
-    if (req.isAuthenticated()){
+    if (req.isAuthenticated()) {
         const user = await req.user as IUser;
-        const {id:paramsId} = req.query as {id: string}
-        const {id:bodyId} = req.body as {id: number}
+        const {id: paramsId} = req.query as { id: string }
+        const {id: bodyId} = req.body as { id: number }
         const equalId = user.id === Number(paramsId) || user.id === bodyId;
-        console.log(equalId,user.id,paramsId)
+        console.log(equalId, user.id, paramsId)
         equalId ? next() : res.status(403).send()
     } else {
-        res.status(401).send()
+        res.status(401).json({message: "Please authenticate"})
     }
 }

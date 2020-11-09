@@ -44,7 +44,7 @@ const BookController = {
         try {
             const {id} = req.query as ParamIdRequest;
             const books = await Book.findAll({where: {authorId: id}});
-            res.status(200).json({books, message: "Success"})
+            res.status(200).json({books: books || [], message: "Success"})
         } catch (e) {
             res.status(500).json({message: e.message})
         }

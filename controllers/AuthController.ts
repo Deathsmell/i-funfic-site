@@ -47,6 +47,10 @@ const AuthController = {
     logout: (req: Request, res: Response) => {
         req.logout();
         res.status(200).send()
+    },
+    checkSuccess: async (req: Request, res: Response) => {
+        const user = await req.user;
+        res.status(200).json({user})
     }
 }
 

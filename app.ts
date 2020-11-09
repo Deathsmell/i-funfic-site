@@ -1,4 +1,5 @@
 import express, {Application, Router} from "express";
+import path from "path"
 import passport from "passport";
 import session from "express-session"
 import cors from "cors"
@@ -41,6 +42,15 @@ configRouter(router);
 configPassport(passport);
 app.use(router);
 
+console.log(process.env.NODE_ENV)
+
+if (process.env.NODE_ENV === "production") {
+    console.log("production")
+    app.use('/', express.static(path.join(__dirname, 'client', 'build')))
+    app.get('*', ((req, res) => {
+        res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+    }))
+}
 
 (function start() {
     console.log("Starting server...")

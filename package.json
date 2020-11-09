@@ -5,7 +5,8 @@
   "author": "Alexander Mitskevich <johndeathsmell@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "server:start": "ts-node app.ts",
+    "server:testprod": "yarn client:build && NODE_ENV=production ts-node app.ts",
+    "server:start": "NODE_ENV=production ts-node app.ts",
     "server:dev": "nodemon app.ts",
     "client:dev": "yarn --cwd ./client start",
     "client:build": "yarn --cwd ./client build",

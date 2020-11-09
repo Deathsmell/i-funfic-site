@@ -1,6 +1,6 @@
 import {Action} from "redux";
 import {ICredentialAction, ICredentialState, ILoginData, ILoginAction, IRegistrationData} from "./credential.interfaces";
-import {AUTHORISE, CLEAR_CREDENTIAL, LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
+import {AUTHORISE, CHECK_AUTH, CLEAR_CREDENTIAL, LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
 
 export const login = (user: ILoginData): ILoginAction => ({
     type: LOGIN,
@@ -23,4 +23,8 @@ export const logout = (): Action => ({
 
 export const clearCredential = (): Action => ({
     type: CLEAR_CREDENTIAL,
+})
+
+export const checkAuth = (): Action => ({
+    type: CHECK_AUTH,
 })

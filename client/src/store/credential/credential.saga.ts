@@ -1,19 +1,20 @@
-import {call, put, takeLeading} from "@redux-saga/core/effects";
+import {call, put, select, takeLeading} from "@redux-saga/core/effects";
 import {push} from "connected-react-router";
 import {ICredentialAction, ILoginAction, IRegistrationAction} from "./credential.interfaces"
 import {authorise, clearCredential} from "./credential.actions"
 import {LOGIN_URL, MAIN_PAGE_URL} from "@api";
 import {AuthApi} from "../../api"
-import {LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
+import {CHECK_AUTH, LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
 import {IBookAsyncActionsById} from "../book/book.interfaces";
 import {getBooksByAuthorIdFetch} from "../book/books.actions";
+import {selectorAuthorise} from "./credential.selectors";
 
 
 function* loginWorker(action: ILoginAction) {
     try {
         const {data} = yield call(AuthApi.login, action.payload);
         console.log("LOGIN")
-        localStorage.setItem("token",data.token)
+        localStorage.setItem("token", data.token)
         yield put<ICredentialAction>(authorise(data))
         yield put<IBookAsyncActionsById>(getBooksByAuthorIdFetch(data.id))
         yield put(push("/"))
@@ -40,8 +41,19 @@ function* logoutWorker() {
 }
 
 
+function* checkWorker() {
+    try {
+        const auth = yield select(selectorAuthorise);
+        if (auth)
+            yield call(AuthApi.check);
+    } catch (e) {
+        yield put(clearCredential())
+    }
+}
+
 export default function* watcher() {
     yield takeLeading(REGISTRATION, registrationWorker)
     yield takeLeading(LOGIN, loginWorker)
     yield takeLeading(LOGOUT, logoutWorker)
+    yield takeLeading(CHECK_AUTH, checkWorker)
 }
