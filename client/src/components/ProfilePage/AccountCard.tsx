@@ -85,15 +85,14 @@ const AccountCard: React.FC<Props> = ({
         <div>
             <DropImage setImage={setImage}
                        image={image}
-                       maxHeight={"15em"}
-                       maxWidth={"15em"}
                        component={
                            <div className="border border-dark"
                                 style={{backgroundColor: 'grey'}}
                            >
                                <AiOutlineUser size={"auto"} color="white"/>
                            </div>
-                       }/>
+                       }
+            />
             <hr/>
             <h1 className="text-center">{user.username}</h1>
             <ButtonGroup vertical className="w-100 mb-4">

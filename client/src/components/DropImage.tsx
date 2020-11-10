@@ -1,29 +1,31 @@
 import React, {useEffect, useRef} from 'react';
 import {FileRejection, useDropzone} from 'react-dropzone';
-import {Image} from "react-bootstrap";
+import {Image, Row} from "react-bootstrap";
 import {CloudinaryApi} from "../api";
 import Holder from "holderjs"
 
 type Props = {
     image?: string,
     setImage: React.Dispatch<string | undefined>
-    maxHeight?: number | string
-    maxWidth?: number | string
+    height?: number | string
+    width?: number | string
     component?: any
+    text?: string
 }
 
 const DropImage: React.FC<Props> = ({
                                         component,
                                         image,
                                         setImage,
-                                        maxHeight = 350,
-                                        maxWidth = 250,
+                                        height = 350,
+                                        width = 250,
+                                        text = "Drop img here"
                                     }) => {
 
     const ref = useRef() as any;
 
     useEffect(() => {
-        if (!component) Holder.run(ref.target)
+        if (!component && !image) Holder.run(ref.target)
     })
 
     function onDrop<T extends File>(file: T[], reg: FileRejection[]) {
@@ -42,21 +44,18 @@ const DropImage: React.FC<Props> = ({
     });
 
     return (
-        <section className="container"
-                 style={{maxHeight, maxWidth}}
-        >
-            <div {...getRootProps({className: 'dropzone'})}>
+        <section className="container">
+            <Row {...getRootProps({className: 'dropzone justify-content-center'})}>
                 <input {...getInputProps()} />
-                {component
-                    ? component
-                    : (
-                        < Image src={image ? image : `holder.js/${maxWidth}x${maxHeight}?text=Drop img here`}
-                                ref={ref}
-                                thumbnail
+                {
+                    component && !image
+                        ? component
+                        : < Image src={image ? image : `holder.js/${width}x${height}?text=${text}`}
+                                  ref={ref}
+                                  thumbnail
                         />
-                    )
                 }
-            </div>
+            </Row>
         </section>
     );
 }
