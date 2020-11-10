@@ -20,9 +20,13 @@ export interface IBooksActions {
 export interface IBookActions {
     type: typeof ADD_AUTHOR_BOOK
         | typeof ADD_BOOK
-        | typeof DELETE_AUTHOR_BOOK
         | typeof UPDATE_AUTHOR_BOOK,
     book: IBook,
+}
+
+export interface IBookActionsById {
+    type: typeof DELETE_AUTHOR_BOOK
+    id: number
 }
 
 export interface IBookAsyncActions {
@@ -32,11 +36,11 @@ export interface IBookAsyncActions {
 export interface IBookAsyncActionsByBook {
     type: typeof CREATE_AUTHOR_BOOK
         | typeof UPDATE_AUTHOR_BOOK
-        | typeof DELETE_AUTHOR_BOOK
     book: IBook
 }
 
 export interface IBookAsyncActionsById {
     type: typeof GET_AUTHOR_BOOKS
+        | typeof DELETE_AUTHOR_BOOK
     id: number
 }

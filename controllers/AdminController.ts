@@ -5,6 +5,8 @@ import {IErrorResponse, IProfileResponse, IResponse} from "../interfaces/IRespon
 import {IProfile} from "../interfaces/IProfile";
 import {UserModel} from "../models/User.model";
 import {isAdmin} from "../utils/adminUtils";
+import {ParamIdRequest} from "../interfaces/IAxiosRequest";
+import {IUserFromDb} from "../interfaces/IUser";
 
 const AdminController = {
     blockUser: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
@@ -27,22 +29,32 @@ const AdminController = {
             res.status(500).json({message: e.message})
         }
     },
+
     getUserProfile: async (req: Request, res: Response<IProfileResponse | IErrorResponse>) => {
         try {
-            const {id} = req.query as { id: string };
-            const {books, password, img, username, email, roles, confirm, blocked, id: userID} = await User.findOne({
-                where: {id: Number(id)},
-                include: Book
-            }) as IProfile;
+            const {id} = req.query as ParamIdRequest;
+            const {
+                books,
+                password,
+                image,
+                username,
+                email,
+                roles,
+                confirm,
+                blocked,
+                id: userID
+            } = await User.findOne({where: {id: Number(id)}, include: Book}) as IUserFromDb as IProfile;
             res.status(200).json({
                 books: books,
-                user: {id: userID, blocked, confirm, roles, email, username, img, password},
+                user: {id: userID, blocked, confirm, roles, email, username, image, password},
                 message: "Success get profile"
             })
         } catch (e) {
             console.error(e)
+            res.status(500).json({message: "Some error when get user profile"})
         }
     },
+
     setAdminRole: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
         try {
             const {id} = req.body as { id: number };
@@ -77,12 +89,13 @@ const AdminController = {
     },
     updateUserProfile: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
         try {
-            const {id, user: {id: userId, img, email, username, roles, blocked, confirm}} = req.body as { id: number, user: IUser };
-            await User.update({id: userId, img, email, username, roles, blocked, confirm}, {where: {id}});
+            const {id, user: {id: userId, image, email, username, roles, blocked, confirm}} =
+                req.body as { id: number, user: IUser };
+            await User.update({id: userId, image, email, username, roles, blocked, confirm}, {where: {id}});
             res.status(200).send()
         } catch (e) {
             console.error(e)
-            res.status(500).send()
+            res.status(500).json({message: "Some error when update user profile"})
         }
     },
 }

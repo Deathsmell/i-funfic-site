@@ -1,28 +1,18 @@
 export interface IBook {
     id?: number,
-    title?: string,
-    authorId?: number,
-    authorName?: string,
-    rating?: number,
-    annotation?: string,
-    genres?: BookGenres[],
-    image?: string,
-    updatedAt?: Date,
-    createdAt?: Date,
-}
-
-export interface IBookChapter {
-    id?: number,
-    bookId: number,
-    number?: number,
     title: string,
-    text: string,
+    authorId: number,
+    authorName: string,
+    rating?: number,
+    annotation: string,
+    genres: BookGenres[],
+    image?: string,
+    updatedAt?: string
+    createdAt?: string
 }
 
-export interface IBookTag {
-    id?: number,
-    tag: string,
-}
+export interface IBookFromDb extends Required<IBook>{}
+
 
 export enum BookGenres {
     ACTION = "ACTION",

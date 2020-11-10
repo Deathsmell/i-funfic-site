@@ -4,13 +4,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId, selectorUsername} from "../store/credential/credential.selectors";
 import {createBookFetch} from "../store/book/books.actions";
 import {Button, Row} from "react-bootstrap";
+import {BookGenres, IBook} from "../../../interfaces";
 
 const CreateBookPage: React.FC = () => {
 
     const dispatch = useDispatch();
-    const imageState = useState<string | undefined>();
-    const annotationState = useState<string | undefined>("");
-    const titleState = useState<string | undefined>("");
+    const imageState = useState<string>();
+    const annotationState = useState<string>("");
+    const titleState = useState<string>("");
     const authorId = useSelector(selectorUserId);
     const authorName = useSelector(selectorUsername);
 
@@ -19,13 +20,18 @@ const CreateBookPage: React.FC = () => {
         const [annotation] = annotationState;
         const [image] = imageState;
         const [title] = titleState;
-        dispatch(createBookFetch({
-            authorId,
-            annotation,
-            title,
-            image,
-            authorName
-        }))
+        if (authorId && authorName) {
+            let genres: BookGenres[] = []
+            const book: IBook = {
+                authorId,
+                annotation,
+                title,
+                image,
+                authorName,
+                genres,
+            };
+            dispatch(createBookFetch(book))
+        }
     }
 
     return (

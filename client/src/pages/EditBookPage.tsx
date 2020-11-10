@@ -16,16 +16,16 @@ const EditBookPage: React.FC = () => {
     const chapters = useSelector(selectorChapters(Number(id)))
 
     const [updating, setUpdating] = useState<boolean>(false);
-    const imageState = useState<string | undefined>(book!.image);
-    const annotationState = useState<string | undefined>(book!.annotation);
-    const titleState = useState<string | undefined>(book!.title);
+    const imageState = useState<string | undefined>(book?.image);
+    const annotationState = useState<string>(book?.annotation || "");
+    const titleState = useState<string>(book?.title || "");
 
     const [image] = imageState
     const [annotation] = annotationState
     const [title] = titleState
 
     useEffect(function updateBook() {
-        if (updating) {
+        if (updating && book) {
             dispatch(updateBookFetch({...book, image, annotation, title}))
         }
         setUpdating(false)

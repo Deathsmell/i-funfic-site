@@ -41,7 +41,7 @@ function dbAuthenticate(mode: boolean) {
                         password: bcryptPassword,
                         roles: [Roles.ADMIN, Roles.USER],
                         confirm: true,
-                        img: "https://avatars.mds.yandex.net/get-pdb/1976636/ac1ce1a1-c9a4-4355-9a49-73627c1b9aab/s1200"
+                        image: "https://avatars.mds.yandex.net/get-pdb/1976636/ac1ce1a1-c9a4-4355-9a49-73627c1b9aab/s1200"
                     });
                     console.log("Create admin:",admin.username)
                 }

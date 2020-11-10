@@ -4,14 +4,14 @@ import {Request, Response} from "express"
 import {IBook} from "../interfaces";
 import {BodyIdRequest, ParamIdRequest} from "../interfaces/IAxiosRequest";
 import {IBookResponse, IBooksResponse, IErrorResponse} from "../interfaces/IResponse";
+import {IBookFromDb} from "../interfaces/IBook";
 
 
 const BookController = {
     deleteBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
         try {
             const {id} = req.body as BodyIdRequest;
-            const status = await Book.destroy({where: {id}});
-            console.log(status)
+            await Book.destroy({where: {id}});
             res.status(200).send()
         } catch (e) {
             res.status(500).send()
@@ -21,7 +21,7 @@ const BookController = {
     getById: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
         try {
             const {id} = req.query as ParamIdRequest;
-            const book = await Book.findOne({where: {id}});
+            const book = await Book.findOne({where: {id}}) as IBookFromDb | null;
             if (book) {
                 res.status(200).json({book, message: "Success"})
             } else {
@@ -33,7 +33,7 @@ const BookController = {
     },
     getAll: async (req: Request, res: Response<IBooksResponse | IErrorResponse>) => {
         try {
-            const books = await Book.findAll();
+            const books = await Book.findAll() as IBookFromDb[];
             res.status(200).json({books, message: "Success"})
         } catch (e) {
             res.status(500).json({message: e.message})
@@ -43,7 +43,7 @@ const BookController = {
     getByUserId: async (req: Request, res: Response<IBooksResponse | IErrorResponse>) => {
         try {
             const {id} = req.query as ParamIdRequest;
-            const books = await Book.findAll({where: {authorId: id}});
+            const books = await Book.findAll({where: {authorId: id}}) as IBookFromDb[];
             res.status(200).json({books: books || [], message: "Success"})
         } catch (e) {
             res.status(500).json({message: e.message})
@@ -54,7 +54,7 @@ const BookController = {
         console.log("create")
         try {
             const reqBook = req.body as IBook;
-            const book = await Book.create(reqBook);
+            const book = await Book.create(reqBook) as IBookFromDb;
             res.status(200).json({book, message: "Success create new book"})
         } catch (e) {
             res.status(500).json({message: e.message})

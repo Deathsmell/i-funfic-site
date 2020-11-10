@@ -6,7 +6,12 @@ export interface IUser {
     roles?: Roles[],
     blocked?: boolean,
     confirm?: boolean,
-    img?: string,
+    image?: string,
+}
+
+export interface IUserFromDb extends Required<Omit<IUser, "image" | "roles">>{
+    image?: string
+    roles?: Roles[]
 }
 
 export enum Roles {

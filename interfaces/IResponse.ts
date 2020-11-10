@@ -1,6 +1,7 @@
-import {IUser} from "./IUser";
-import {IBook, IBookChapter} from "./IBook";
+import {IUserFromDb} from "./IUser";
+import {IBookFromDb} from "./IBook";
 import {IUserComment} from "./IComment";
+import {IChapterFromDb} from "./IChapter";
 
 export interface IResponse {
     message?: string
@@ -9,27 +10,28 @@ export interface IResponse {
 export interface IErrorResponse extends IResponse{}
 
 export interface IUserResponse extends IResponse {
-    user: IUser,
+    user: IUserFromDb,
 }
 
 export interface IUsersResponse extends IResponse {
-    users: IUser[]
+    users: IUserFromDb[]
 }
 
 export interface IBookResponse extends IResponse {
-    book: IBook
+    book: IBookFromDb
 }
 
 export interface IBooksResponse extends IResponse {
-    books: IBook[]
+    books: IBookFromDb[]
 }
 
+
 export interface IChapterResponse extends IResponse {
-    chapter: IBookChapter
+    chapter: IChapterFromDb
 }
 
 export interface IChaptersResponse extends IResponse {
-    chapters: IBookChapter[]
+    chapters: IChapterFromDb[]
 }
 
 export interface IProfileResponse extends IUserResponse,IBooksResponse {}

@@ -61,8 +61,8 @@ export const updateBook = (book: IBook) : IBookActions => ({
     book: book
 })
 
-export const deleteBookFetch = (id: number): IBookAsyncActionsByBook => ({
+export const deleteBookFetch = (id: number): IBookAsyncActionsById => ({
     type: DELETE_AUTHOR_BOOK,
-    book: {id}
+    id: id
 })
 

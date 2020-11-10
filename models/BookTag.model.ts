@@ -1,8 +1,8 @@
 import {Model, Sequelize,BuildOptions} from "sequelize"
-import {IBookTag} from "../interfaces";
+import {ITag} from "../interfaces";
 
-export interface BookTagModel extends Model<IBookTag>, IBookTag {}
-export class Tag extends Model<BookTagModel, IBookTag> {}
+export interface BookTagModel extends Model<ITag>, ITag {}
+export class Tag extends Model<BookTagModel, ITag> {}
 export type TagStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): BookTagModel
 }

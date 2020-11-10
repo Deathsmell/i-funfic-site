@@ -1,12 +1,12 @@
 import React, {MouseEvent} from "react";
 import {Container, Table} from "react-bootstrap";
-import {IBookChapter} from "../../../../interfaces";
+import {IChapter} from "../../../../interfaces";
 import {useDispatch} from "react-redux";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
 
 interface Props {
-    chapters?: IBookChapter[]
+    chapters?: IChapter[]
     bookId: number
 }
 

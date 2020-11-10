@@ -5,8 +5,8 @@ import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstra
 
 interface Props {
     imageState: [(string | undefined), React.Dispatch<string | undefined>],
-    annotationState: [(string | undefined), React.Dispatch<string | undefined>],
-    titleState: [(string | undefined), React.Dispatch<string| undefined>],
+    annotationState: [(string), React.Dispatch<string>],
+    titleState: [(string), React.Dispatch<string>],
 }
 
 const BookCard: React.FC<Props> = ({

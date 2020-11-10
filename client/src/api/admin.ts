@@ -13,7 +13,6 @@ import {IUser} from "../../../interfaces";
 
 export const AdminApi = {
     isAdmin: async (): IFetchResponse<any> => await axiosInstance.post(IS_ADMIN_URL),
-
     getUserProfile: async (id: number): IFetchResponse<IProfileResponse> =>
         await axiosInstance.get(GET_PROFILE_URL, {params: {id}}),
     unblockUser: async (id: number): IFetchResponse<IResponse> =>

@@ -18,7 +18,12 @@ const CreateCommentCard: React.FC<Props> = ({bookId}) => {
         setText(e.target.value)
     }
 
-    const create = () => id && dispatch(createComment({text, userId: id, bookId}))
+    const create = () => {
+        if(id) {
+            dispatch(createComment({text, userId: id, bookId}))
+            setText("")
+        }
+    }
 
     const createClickHandler = () => {
         if (id) create()

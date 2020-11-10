@@ -49,7 +49,7 @@ export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserSta
             allowNull: false,
             defaultValue: false
         },
-        img: {
+        image: {
             type: DataTypes.STRING,
             allowNull: true,
         }

@@ -14,21 +14,21 @@ import {
     IChapterAsyncActionById,
     IChaptersAction
 } from "./chapters.interfaces"
-import {IBookChapter} from "../../../../interfaces";
+import {IChapter} from "../../../../interfaces";
 import {Action} from "redux";
 
 
-export const createChapter = (chapter: IBookChapter): IChapterAsyncAction => ({
+export const createChapter = (chapter: IChapter): IChapterAsyncAction => ({
     type: CREATE_CHAPTER,
     chapter: chapter
 })
 
-export const addChapter = (chapter: IBookChapter): IChapterAction => ({
+export const addChapter = (chapter: IChapter): IChapterAction => ({
     type: ADD_CHAPTER,
     chapter: chapter
 })
 
-export const addChapters = (chapters: IBookChapter[]): IChaptersAction => ({
+export const addChapters = (chapters: IChapter[]): IChaptersAction => ({
     type: ADD_CHAPTERS,
     chapters: chapters
 })
@@ -38,12 +38,12 @@ export const getAllChaptersFetch = (bookId: number): IChapterAsyncActionById => 
     id: bookId
 })
 
-export const updateChapterFetch = (chapter: IBookChapter): IChapterAsyncAction => ({
+export const updateChapterFetch = (chapter: IChapter): IChapterAsyncAction => ({
     type: UPDATE_CHAPTER,
     chapter: chapter
 })
 
-export const updateChapter = (chapter: IBookChapter): IChapterAction => ({
+export const updateChapter = (chapter: IChapter): IChapterAction => ({
     type: UPDATE_CHAPTER,
     chapter: chapter
 })

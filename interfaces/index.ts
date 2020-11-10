@@ -1,13 +1,15 @@
 import {IUser,Roles} from "./IUser";
-import {BookGenres,IBook,IBookChapter,IBookTag} from "./IBook";
+import {BookGenres,IBook} from "./IBook";
+import {ITag} from "./ITag"
+import {IChapter} from "./IChapter"
 import {IComment} from "./IComment";
 
 export {
     IUser,
     Roles,
     IBook,
-    IBookChapter,
-    IBookTag,
+    IChapter,
+    ITag,
     BookGenres,
     IComment,
 }

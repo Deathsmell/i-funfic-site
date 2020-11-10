@@ -1,8 +1,8 @@
 import {BuildOptions, Model, Sequelize} from "sequelize"
-import {IBookChapter} from "../interfaces";
+import {IChapter} from "../interfaces";
 
-export interface BookChapterModel extends Model<IBookChapter>, IBookChapter {}
-export class Chapter extends Model<BookChapterModel, IBookChapter> {}
+export interface BookChapterModel extends Model<IChapter>, IChapter {}
+export class Chapter extends Model<BookChapterModel, IChapter> {}
 export type BookChapterStatic = typeof Model & {
     new(values?: object, options?: BuildOptions): BookChapterModel
 }

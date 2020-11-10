@@ -18,8 +18,6 @@ import {BookApi} from "../../api";
 import {addBook, addMyBook, setCommonBooks, setMyBooks} from "./books.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
-import {IChapterActionById} from "../chapters/chapters.interfaces";
-import {deleteChapterByBookId} from "../chapters/chapters.actions";
 import {IBookResponse, IBooksResponse} from "../../../../interfaces/IResponse";
 
 function* allBookWorker() {
@@ -53,12 +51,10 @@ function* authorBookWorker(action: IBookAsyncActionsById) {
     }
 }
 
-function* deleteAuthorBookWorker(action: IBookAsyncActionsByBook) {
+function* deleteAuthorBookWorker(action: IBookAsyncActionsById) {
     try {
-        const book = action.book;
-        if (book && book.id) {
-            yield call(BookApi.deleteById, book.id);
-            yield put<IChapterActionById>(deleteChapterByBookId(book.id))
+        if (action.id) {
+            yield call(BookApi.deleteById, action.id);
         }
     } catch (e) {
         console.error(e)
@@ -77,6 +73,6 @@ export default function* watcher() {
     yield takeEvery<IBookAsyncActions>(GET_ALL_BOOKS, allBookWorker)
     yield takeEvery<IBookAsyncActionsByBook>(CREATE_AUTHOR_BOOK, createBookWorker)
     yield takeEvery<IBookAsyncActionsById>(GET_AUTHOR_BOOKS, authorBookWorker)
-    yield takeEvery<IBookAsyncActionsByBook>(DELETE_AUTHOR_BOOK, deleteAuthorBookWorker)
+    yield takeEvery<IBookAsyncActionsById>(DELETE_AUTHOR_BOOK, deleteAuthorBookWorker)
     yield takeEvery<IBookAsyncActionsByBook>(UPDATE_AUTHOR_BOOK, updateAuthorBookWorker)
 }

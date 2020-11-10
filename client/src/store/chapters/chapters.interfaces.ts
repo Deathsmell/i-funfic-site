@@ -1,4 +1,4 @@
-import {IBookChapter} from "../../../../interfaces";
+import {IChapter} from "../../../../interfaces";
 import {
     ADD_CHAPTER,
     ADD_CHAPTERS,
@@ -10,17 +10,17 @@ import {
 } from "./chapters.constants"
 
 
-export interface IChapterState extends Array<IBookChapter>{}
+export interface IChapterState extends Array<IChapter>{}
 
 
 export interface IChapterAction {
     type: typeof ADD_CHAPTER | typeof UPDATE_CHAPTER,
-    chapter: IBookChapter
+    chapter: IChapter
 }
 
 export interface IChaptersAction {
     type: typeof ADD_CHAPTERS | typeof CLEAR_CHAPTERS,
-    chapters: IBookChapter[]
+    chapters: IChapter[]
 }
 
 export interface IChapterActionById {
@@ -30,7 +30,7 @@ export interface IChapterActionById {
 
 export interface IChapterAsyncAction {
     type: typeof CREATE_CHAPTER | typeof UPDATE_CHAPTER,
-    chapter: IBookChapter
+    chapter: IChapter
 }
 
 export interface IChapterAsyncActionById {

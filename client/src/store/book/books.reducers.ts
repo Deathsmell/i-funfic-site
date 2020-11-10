@@ -6,7 +6,7 @@ import {
     SET_ALL_BOOKS,
     SET_AUTHOR_BOOKS, UPDATE_AUTHOR_BOOK,
 } from "./books.constants";
-import {IBookActions, IBooksActions} from "./book.interfaces"
+import {IBookActions, IBookActionsById, IBooksActions} from "./book.interfaces"
 
 export interface IBooksState {
     books: IBook[],
@@ -20,7 +20,7 @@ const initialState: IBooksState = {
 
 export const bookReducer = (
     state: IBooksState = initialState,
-    action: IBookActions | IBooksActions
+    action: IBookActions | IBooksActions | IBookActionsById
 ): IBooksState => {
     switch (action.type) {
         case SET_ALL_BOOKS:
@@ -53,7 +53,7 @@ export const bookReducer = (
             return {
                 ...state,
                 myBook: state.myBook
-                    .filter(({id}) => id !== action.book.id)
+                    .filter(({id}) => id !== action.id)
 
             }
         case UPDATE_AUTHOR_BOOK:

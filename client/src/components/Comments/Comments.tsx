@@ -29,14 +29,15 @@ const Comments: React.FC<PropsFromRedux & Props> = ({
                 comments.length
                     ? comments.sort(sortByDate).map(({
                                                          text,
-                                                         user: {username, img},
+                                                         user: {username, image},
                                                          updatedAt
                                                      }) => {
                         return (
-                            <Comment username={username}
-                                     image={img}
+                            <Comment key={updatedAt}
+                                     username={username}
+                                     image={image}
                                      text={text}
-                                     updateAt={updatedAt as string}
+                                     updateAt={updatedAt}
                             />
                         )
                     }
