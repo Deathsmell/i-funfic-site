@@ -1,14 +1,14 @@
 import React, {MouseEvent, useEffect} from "react";
-import BookHeaderCard from "../components/BookPage/BookHeaderCard";
-import BookManagerBorder from "../components/BookPage/BookManagerBorder";
+import BookHeaderCard from "../../components/BookPage/BookHeaderCard";
+import BookManagerBorder from "../../components/BookPage/BookManagerBorder";
 import {useDispatch, useSelector} from "react-redux";
-import {selectorBook} from "../store/book/books.selectors";
+import {selectorBook} from "../../store/book/books.selectors";
 import {useParams} from "react-router";
-import {selectorAuthorise} from "../store/credential/credential.selectors";
+import {selectorAuthorise} from "../../store/credential/credential.selectors";
 import {Button, Container} from "react-bootstrap";
 import {goBack} from "connected-react-router";
-import Comments from "../components/Comments/Comments";
-import {getCommentsByBookId} from "../store/comments/comments.actions";
+import Comments from "../../components/Comments/Comments";
+import {getCommentsByBookId} from "../../store/comments/comments.actions";
 
 const BookPage: React.FC = () => {
 

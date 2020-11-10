@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from "react";
 import {Col, ListGroup, Row} from "react-bootstrap";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
-import {selectorChapters} from "../store/chapters/chapters.selectors";
-import {selectorHash} from "../store/router/router.selectors";
+import {selectorChapters} from "../../store/chapters/chapters.selectors";
+import {selectorHash} from "../../store/router/router.selectors";
 
 const ReadChaptersPage: React.FC = () => {
 

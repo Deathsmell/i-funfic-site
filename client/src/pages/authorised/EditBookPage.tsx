@@ -1,11 +1,11 @@
 import React, {MouseEvent, useEffect, useState} from "react";
-import BookCard from "../components/CreateBookPage/BookCard";
-import ListChapters from "../components/CreateBookPage/ListChapters";
+import BookCard from "../../components/CreateBookPage/BookCard";
+import ListChapters from "../../components/CreateBookPage/ListChapters";
 import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {selectorBook} from "../store/book/books.selectors";
-import {selectorChapters} from "../store/chapters/chapters.selectors";
-import {updateBookFetch} from "../store/book/books.actions";
+import {selectorBook} from "../../store/book/books.selectors";
+import {selectorChapters} from "../../store/chapters/chapters.selectors";
+import {updateBookFetch} from "../../store/book/books.actions";
 import {Button, Row} from "react-bootstrap";
 
 const EditBookPage: React.FC = () => {

@@ -1,10 +1,10 @@
 import React, {ChangeEvent, MouseEvent, useState} from "react";
 import {Button, Container, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {updateChapter} from "../store/chapters/chapters.actions";
+import {updateChapter} from "../../store/chapters/chapters.actions";
 import {useParams} from "react-router";
-import ChapterEditor from "../components/ChapterPage/ChapterEditor";
-import {selectorChapter} from "../store/chapters/chapters.selectors";
+import ChapterEditor from "../../components/ChapterPage/ChapterEditor";
+import {selectorChapter} from "../../store/chapters/chapters.selectors";
 
 const EditChapterPage: React.FC = () => {
 

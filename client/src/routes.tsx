@@ -1,17 +1,19 @@
 import React from 'react';
 import {Route, Switch} from 'react-router'
-import MainPage from "./pages/MainPage";
-import BookPage from "./pages/BookPage";
-import AuthPage from "./pages/AuthPage";
-import AdminManagePage from "./pages/AdminManagePage";
-import CreateBookPage from "./pages/CreateBookPage";
-import EditChapterPage from "./pages/EditChapterPage";
-import ReadChaptersPage from "./pages/ReadChaptersPage";
-import EditBookPage from "./pages/EditBookPage";
-import CreateChapterPage from "./pages/CreateChapterPage";
-import UserProfilePage from "./pages/UserProfilePage";
-import SelfProfilePage from "./pages/SelfProfilePage";
-import Comments from "./components/Comments/Comments";
+import MainPage from "./pages/common/MainPage";
+import BookPage from "./pages/common/BookPage";
+import AuthPage from "./pages/common/AuthPage";
+import AdminManagePage from "./pages/admin/AdminManagePage";
+import CreateBookPage from "./pages/authorised/CreateBookPage";
+import EditChapterPage from "./pages/authorised/EditChapterPage";
+import ReadChaptersPage from "./pages/common/ReadChaptersPage";
+import EditBookPage from "./pages/authorised/EditBookPage";
+import CreateChapterPage from "./pages/authorised/CreateChapterPage";
+import UserProfilePage from "./pages/admin/UserProfilePage";
+import SelfProfilePage from "./pages/authorised/SelfProfilePage";
+import {useSelector} from "react-redux";
+import {selectorAuthorise, selectorRoles} from "./store/credential/credential.selectors";
+import {isAdmin} from "./utils/adminUtils";
 
 export const ApplicationMap = {
     MAIN_PAGE: "/",
@@ -41,6 +43,9 @@ export const ApplicationDynamicMap = {
 
 const Routes: React.FC = () => {
 
+
+    const authorise = useSelector(selectorAuthorise);
+    const roles = useSelector(selectorRoles);
     return (
         <Switch>
             <Route path={ApplicationMap.MAIN_PAGE} component={MainPage} exact/>
@@ -48,14 +53,27 @@ const Routes: React.FC = () => {
             <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
             <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
             <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/>
-            <Route path={ApplicationMap.PROFILE_PAGE} component={SelfProfilePage} exact/>
-            <Route path={ApplicationMap.USER_PROFILE_PAGE} component={UserProfilePage}/>
-            <Route path={ApplicationMap.USERS_PAGE} component={AdminManagePage} exact/>
-            <Route path={ApplicationMap.CREATE_BOOK_PAGE} component={CreateBookPage} exact/>
-            <Route path={ApplicationMap.EDIT_BOOK_PAGE} component={EditBookPage} exact/>
-            <Route path={ApplicationMap.CREATE_CHAPTER_PAGE} component={CreateChapterPage} exact/>
-            <Route path={ApplicationMap.EDIT_CHAPTER_PAGE} component={EditChapterPage} exact/>
-            <Route path={"/comment"} component={Comments} exact/>
+            {
+                authorise && (
+                    <>
+                        <Route path={ApplicationMap.PROFILE_PAGE} component={SelfProfilePage} exact/>
+                        <Route path={ApplicationMap.CREATE_BOOK_PAGE} component={CreateBookPage} exact/>
+                        <Route path={ApplicationMap.EDIT_BOOK_PAGE} component={EditBookPage} exact/>
+                        <Route path={ApplicationMap.CREATE_CHAPTER_PAGE} component={CreateChapterPage} exact/>
+                        <Route path={ApplicationMap.EDIT_CHAPTER_PAGE} component={EditChapterPage} exact/>
+                    </>
+                )
+            }
+            {
+                authorise && isAdmin(roles) && (
+                    <>
+                        <Route path={ApplicationMap.USER_PROFILE_PAGE} component={UserProfilePage}/>
+                        <Route path={ApplicationMap.USERS_PAGE} component={AdminManagePage} exact/>
+                    </>
+                )
+            }
+
+
         </Switch>
     )
 }

@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import ProfilePage from "./ProfilePage";
+import ProfilePage from "../ProfilePage";
 import {useParams} from "react-router";
 import {useSelector} from "react-redux";
-import {selectorRoles} from "../store/credential/credential.selectors";
-import {IBook, IUser} from "../../../interfaces";
-import {AdminApi} from "../api";
-import {isAdmin} from "../utils/adminUtils";
+import {selectorRoles} from "../../store/credential/credential.selectors";
+import {IBook} from "../../../../interfaces";
+import {AdminApi} from "../../api";
+import {isAdmin} from "../../utils/adminUtils";
+import {IUserFromDb} from "../../../../interfaces/IUser";
 
 
 const UserProfilePage: React.FC = () => {
@@ -14,7 +15,7 @@ const UserProfilePage: React.FC = () => {
     const roles = useSelector(selectorRoles);
 
     const [books, setBooks] = useState<IBook[]>([]);
-    const [user, setUser] = useState<IUser>()
+    const [user, setUser] = useState<IUserFromDb>()
 
     useEffect(function getUsersProfileIfIAdmin () {
         if (id && isAdmin(roles)) {

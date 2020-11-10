@@ -5,14 +5,15 @@ import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/credential/credential.actions";
 import {push} from "connected-react-router";
 import {ApplicationMap} from "../../routes";
-import {IUser} from "../../../../interfaces";
 import {AdminApi} from "../../api";
 import {selectorRoles, selectorUserId} from "../../store/credential/credential.selectors";
 import {isAdmin} from "../../utils/adminUtils";
+import {IUserFromDb} from "../../../../interfaces/IUser";
+import DropImage from "../DropImage";
 
 
 interface Props {
-    user: IUser
+    user: IUserFromDb
 }
 
 
@@ -20,10 +21,10 @@ const AccountCard: React.FC<Props> = ({
                                           user
                                       }) => {
 
-
     const dispatch = useDispatch();
-    const [blocked, setBlocked] = useState<boolean>();
+    const [blocked, setBlocked] = useState<boolean>(user.blocked);
     const [admin, setAdmin] = useState<boolean>(isAdmin(user.roles));
+    const [image, setImage] = useState<string | undefined>(user.image)
     const roles = useSelector(selectorRoles);
     const userId = useSelector(selectorUserId);
 
@@ -82,14 +83,20 @@ const AccountCard: React.FC<Props> = ({
     const currentUser = user.id === userId;
     return (
         <div>
-            <div className="border border-dark "
-                 style={{width: '15em', height: '15em', backgroundColor: 'grey'}}
-            >
-                <AiOutlineUser size="15em" color="white"/>
-            </div>
+            <DropImage setImage={setImage}
+                       image={image}
+                       maxHeight={"15em"}
+                       maxWidth={"15em"}
+                       component={
+                           <div className="border border-dark"
+                                style={{backgroundColor: 'grey'}}
+                           >
+                               <AiOutlineUser size={"auto"} color="white"/>
+                           </div>
+                       }/>
             <hr/>
-            <h1 className="text-center">Username</h1>
-            <ButtonGroup vertical className="w-100">
+            <h1 className="text-center">{user.username}</h1>
+            <ButtonGroup vertical className="w-100 mb-4">
                 <Button variant="dark"
                         onClick={createBookHandler}
                 >Create new book</Button>

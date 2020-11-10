@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {AxiosError} from "axios"
 import {connect, ConnectedProps, useDispatch} from "react-redux";
-import {RootState} from "../store/reducers";
-import {getBooksByAuthorIdFetch, setMyBooks} from "../store/book/books.actions";
-import ProfilePage from "./ProfilePage";
-import {IUser} from "../../../interfaces";
-import {UserApi} from "../api";
-import {IErrorResponse} from "../../../interfaces/IResponse";
+import {RootState} from "../../store/reducers";
+import {getBooksByAuthorIdFetch, setMyBooks} from "../../store/book/books.actions";
+import ProfilePage from "../ProfilePage";
+import {UserApi} from "../../api";
+import {IErrorResponse} from "../../../../interfaces/IResponse";
+import {IUserFromDb} from "../../../../interfaces/IUser";
 
 const mapProps = ({books: {myBook}, credential}: RootState) => ({myBook, credential})
 const mapDispatch = {getBooksByAuthorId: getBooksByAuthorIdFetch}
@@ -19,7 +19,7 @@ const SelfProfilePage: React.FC<PropsFromRedux> = ({
                                                    }) => {
 
     const dispatch = useDispatch();
-    const [user, setUser] = useState<IUser>();
+    const [user, setUser] = useState<IUserFromDb>();
 
     useEffect(function getCurrentUserInformation() {
         if (!user) {

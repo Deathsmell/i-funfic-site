@@ -1,10 +1,10 @@
 import React, {MouseEvent, useState} from "react";
-import BookCard from "../components/CreateBookPage/BookCard";
+import BookCard from "../../components/CreateBookPage/BookCard";
 import {useDispatch, useSelector} from "react-redux";
-import {selectorUserId, selectorUsername} from "../store/credential/credential.selectors";
-import {createBookFetch} from "../store/book/books.actions";
-import {Button, Row} from "react-bootstrap";
-import {BookGenres, IBook} from "../../../interfaces";
+import {selectorUserId, selectorUsername} from "../../store/credential/credential.selectors";
+import {createBookFetch} from "../../store/book/books.actions";
+import {Button, Container, Row} from "react-bootstrap";
+import {BookGenres, IBook} from "../../../../interfaces";
 
 const CreateBookPage: React.FC = () => {
 
@@ -35,7 +35,7 @@ const CreateBookPage: React.FC = () => {
     }
 
     return (
-        <div>
+        <Container>
             <h1 className={"text-center"}>Create page</h1>
             <BookCard
                 imageState={imageState}
@@ -51,7 +51,7 @@ const CreateBookPage: React.FC = () => {
                     Create
                 </Button>
             </Row>
-        </div>
+        </Container>
     )
 }
 
