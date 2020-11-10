@@ -2,7 +2,7 @@ import React from "react";
 import UsersTable from "../components/UsersManagePage/UsersTable";
 import {Container} from "react-bootstrap";
 
-const UsersManagePage: React.FC = () =>{
+const AdminManagePage: React.FC = () =>{
 
     return (
         <Container>
@@ -11,4 +11,4 @@ const UsersManagePage: React.FC = () =>{
     )
 }
 
-export default UsersManagePage;
+export default AdminManagePage;

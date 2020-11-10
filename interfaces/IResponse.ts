@@ -1,5 +1,6 @@
 import {IUser} from "./IUser";
 import {IBook, IBookChapter} from "./IBook";
+import {IUserComment} from "./IComment";
 
 export interface IResponse {
     message?: string
@@ -33,3 +34,10 @@ export interface IChaptersResponse extends IResponse {
 
 export interface IProfileResponse extends IUserResponse,IBooksResponse {}
 
+export interface IUserCommentResponse extends IResponse{
+    comment: IUserComment
+}
+
+export interface IUserCommentsResponse extends IResponse{
+    comments: IUserComment[]
+}

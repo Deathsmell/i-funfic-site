@@ -6,7 +6,7 @@ import {useSelector} from "react-redux";
 import {selectorChapters} from "../store/chapters/chapters.selectors";
 import {selectorHash} from "../store/router/router.selectors";
 
-const ReadBookPage: React.FC = () => {
+const ReadChaptersPage: React.FC = () => {
 
     const {id} = useParams<{ id: string }>();
     const chapters = useSelector(selectorChapters(Number(id)));
@@ -56,4 +56,4 @@ const ReadBookPage: React.FC = () => {
     )
 }
 
-export default ReadBookPage
+export default ReadChaptersPage

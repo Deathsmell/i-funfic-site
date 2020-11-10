@@ -1,21 +1,27 @@
-import React, {MouseEvent} from "react";
+import React, {MouseEvent, useEffect} from "react";
 import BookHeaderCard from "../components/BookPage/BookHeaderCard";
 import BookManagerBorder from "../components/BookPage/BookManagerBorder";
-import BookCommentList from "../components/BookPage/BookCommentList";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorBook} from "../store/book/books.selectors";
 import {useParams} from "react-router";
 import {selectorAuthorise} from "../store/credential/credential.selectors";
 import {Button, Container} from "react-bootstrap";
 import {goBack} from "connected-react-router";
+import Comments from "../components/Comments/Comments";
+import {getCommentsByBookId} from "../store/comments/comments.actions";
 
 const BookPage: React.FC = () => {
-
 
     const dispatch = useDispatch();
     const {id} = useParams<{ id: string }>();
     const book = useSelector(selectorBook(Number(id)));
     const authorise = useSelector(selectorAuthorise);
+
+    useEffect(function loadComment(){
+        if (authorise) {
+            dispatch(getCommentsByBookId(Number(id)))
+        }
+    },[])
 
     const returnHandler = (e : MouseEvent) => {
         e.preventDefault()
@@ -31,7 +37,7 @@ const BookPage: React.FC = () => {
                 />
                 {
                     authorise
-                        ? <BookCommentList/>
+                        ? <Comments bookId={book.id}/>
                         : (
                             <div>
                                 <h1 className="text-center mt-4" >

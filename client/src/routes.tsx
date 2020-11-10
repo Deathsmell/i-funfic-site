@@ -3,14 +3,15 @@ import {Route, Switch} from 'react-router'
 import MainPage from "./pages/MainPage";
 import BookPage from "./pages/BookPage";
 import AuthPage from "./pages/AuthPage";
-import UsersManagePage from "./pages/UsersManagePage";
+import AdminManagePage from "./pages/AdminManagePage";
 import CreateBookPage from "./pages/CreateBookPage";
 import EditChapterPage from "./pages/EditChapterPage";
-import ReadBookPage from "./pages/ReadBookPage";
+import ReadChaptersPage from "./pages/ReadChaptersPage";
 import EditBookPage from "./pages/EditBookPage";
 import CreateChapterPage from "./pages/CreateChapterPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import SelfProfilePage from "./pages/SelfProfilePage";
+import Comments from "./components/Comments/Comments";
 
 export const ApplicationMap = {
     MAIN_PAGE: "/",
@@ -46,14 +47,15 @@ const Routes: React.FC = () => {
             <Route path={ApplicationMap.LOGIN_PAGE} component={AuthPage}/>
             <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
             <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
-            <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadBookPage} exact/>
+            <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/>
             <Route path={ApplicationMap.PROFILE_PAGE} component={SelfProfilePage} exact/>
             <Route path={ApplicationMap.USER_PROFILE_PAGE} component={UserProfilePage}/>
-            <Route path={ApplicationMap.USERS_PAGE} component={UsersManagePage} exact/>
+            <Route path={ApplicationMap.USERS_PAGE} component={AdminManagePage} exact/>
             <Route path={ApplicationMap.CREATE_BOOK_PAGE} component={CreateBookPage} exact/>
             <Route path={ApplicationMap.EDIT_BOOK_PAGE} component={EditBookPage} exact/>
             <Route path={ApplicationMap.CREATE_CHAPTER_PAGE} component={CreateChapterPage} exact/>
             <Route path={ApplicationMap.EDIT_CHAPTER_PAGE} component={EditChapterPage} exact/>
+            <Route path={"/comment"} component={Comments} exact/>
         </Switch>
     )
 }

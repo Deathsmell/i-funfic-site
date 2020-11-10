@@ -3,12 +3,14 @@ import {CredentialReducer, credentialReducer} from "./credential/credential.redu
 import {bookReducer,BooksReducers} from "./book/books.reducers"
 import {chaptersReducer,ChapterReducer} from "./chapters/chapters.reducers"
 import {RouterReducer, routerReducer} from "./router/history";
+import {CommentsReducer, commentsReducers} from "./comments/comments.reducers";
 
 interface IRootReducer {
     credential: CredentialReducer,
     router: RouterReducer,
     books: BooksReducers,
-    chapters: ChapterReducer
+    chapters: ChapterReducer,
+    comments: CommentsReducer,
 }
 
 const reducers: IRootReducer = {
@@ -16,6 +18,7 @@ const reducers: IRootReducer = {
     router: routerReducer,
     books: bookReducer,
     chapters: chaptersReducer,
+    comments: commentsReducers,
 };
 export const rootReducers = combineReducers(reducers);
 

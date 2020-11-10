@@ -1,4 +1,4 @@
-import axios, {AxiosResponse,AxiosError} from "axios";
+import axios, {AxiosError, AxiosResponse} from "axios";
 import {BASE_URL, MAIN_PAGE_URL} from "@api";
 import {IResponse} from "../../../interfaces/IResponse";
 
@@ -9,15 +9,15 @@ const axiosInstance = axios.create({
     withCredentials: true,
 });
 
-axiosInstance.interceptors.response.use(((v) => {
-    return v
-}),((error:AxiosError<any>) => {
-    const forbidden = error.response?.status === 403;
-    if (forbidden){
-        window.location.href = MAIN_PAGE_URL
-    }
-    return Promise.reject(error)
-}))
-
+axiosInstance.interceptors.response.use(
+    ((response) => response),
+    ((error: AxiosError) => {
+        const forbidden = error.response?.status === 403;
+        if (forbidden) {
+            window.location.href = MAIN_PAGE_URL
+        }
+        return Promise.reject(error)
+    })
+)
 
 export default axiosInstance
