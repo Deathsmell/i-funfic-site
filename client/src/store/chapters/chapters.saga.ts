@@ -1,3 +1,4 @@
+import {AxiosResponse} from "axios"
 import {call, put, takeEvery} from "redux-saga/effects"
 import {CREATE_CHAPTER, DELETE_CHAPTER, GET_ALL_CHAPTER_BY_BOOK_ID, UPDATE_CHAPTER} from "./chapters.constants";
 import {ChapterApi} from "../../api/chapter";
@@ -8,14 +9,16 @@ import {
     IChapterAsyncActionById,
     IChaptersAction
 } from "./chapters.interfaces";
-import {addChapter, addChapters, deleteChapter, updateChapter} from "./chapters.actions";
+import {addChapter, setChapters, deleteChapter, updateChapter} from "./chapters.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap, ApplicationMap} from "../../routes";
+import {IChapterResponse, IChaptersResponse} from "../../../../interfaces/IResponse";
 
 function* getAllWorker(action: IChapterAsyncActionById) {
     try {
-        const {chapters} = yield call(ChapterApi.getAll, action.id);
-        yield put<IChaptersAction>(addChapters(chapters))
+        const {data: {chapters}}: AxiosResponse<IChaptersResponse> = yield call(ChapterApi.getAll, action.id);
+        console.log(chapters,"CHAPTERE")
+        yield put<IChaptersAction>(setChapters(chapters))
     } catch (e) {
         console.error(e)
     }
@@ -23,7 +26,7 @@ function* getAllWorker(action: IChapterAsyncActionById) {
 
 function* addChapterWorker(action: IChapterAsyncAction) {
     try {
-        const {data: {chapter}} = yield call(ChapterApi.createChapter, action.chapter);
+        const {data: {chapter}}:AxiosResponse<IChapterResponse> = yield call(ChapterApi.createChapter, action.chapter);
         console.log(chapter)
         yield put<IChapterAction>(addChapter(chapter))
         yield put(push(ApplicationDynamicMap.bookPage(chapter.bookId)))
@@ -44,7 +47,7 @@ function* deleteChapterWorker(action: IChapterAsyncActionById) {
 
 function* updateChapterWorker(action: IChapterAsyncAction) {
     try {
-        const {chapter} = yield call(ChapterApi.updateChapter,action.chapter);
+        const {data:{chapter}}:AxiosResponse<IChapterResponse> = yield call(ChapterApi.updateChapter,action.chapter);
         yield put(updateChapter(chapter))
         yield put(push(ApplicationDynamicMap.bookPage(chapter.bookId)))
     } catch (e) {

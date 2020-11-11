@@ -1,6 +1,6 @@
 import {
     ADD_CHAPTER,
-    ADD_CHAPTERS,
+    SET_CHAPTERS,
     CLEAR_CHAPTERS,
     CREATE_CHAPTER,
     DELETE_CHAPTER, DELETE_CHAPTER_BY_BOOK_ID,
@@ -28,8 +28,8 @@ export const addChapter = (chapter: IChapter): IChapterAction => ({
     chapter: chapter
 })
 
-export const addChapters = (chapters: IChapter[]): IChaptersAction => ({
-    type: ADD_CHAPTERS,
+export const setChapters = (chapters: IChapter[]): IChaptersAction => ({
+    type: SET_CHAPTERS,
     chapters: chapters
 })
 

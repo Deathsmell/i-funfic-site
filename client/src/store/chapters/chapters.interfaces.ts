@@ -1,7 +1,7 @@
 import {IChapter} from "../../../../interfaces";
 import {
     ADD_CHAPTER,
-    ADD_CHAPTERS,
+    SET_CHAPTERS,
     CLEAR_CHAPTERS,
     CREATE_CHAPTER,
     DELETE_CHAPTER, DELETE_CHAPTER_BY_BOOK_ID,
@@ -19,7 +19,7 @@ export interface IChapterAction {
 }
 
 export interface IChaptersAction {
-    type: typeof ADD_CHAPTERS | typeof CLEAR_CHAPTERS,
+    type: typeof SET_CHAPTERS | typeof CLEAR_CHAPTERS,
     chapters: IChapter[]
 }
 

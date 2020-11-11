@@ -1,10 +1,10 @@
 import {IChapterAction, IChapterActionById, IChaptersAction, IChapterState} from "./chapters.interfaces"
 import {
     ADD_CHAPTER,
-    ADD_CHAPTERS,
     CLEAR_CHAPTERS,
     DELETE_CHAPTER,
     DELETE_CHAPTER_BY_BOOK_ID,
+    SET_CHAPTERS,
     UPDATE_CHAPTER
 } from "./chapters.constants";
 
@@ -17,14 +17,12 @@ export const chaptersReducer = (
     switch (action.type) {
         case ADD_CHAPTER:
             return [
-                ...state.filter(({id}) => action.chapter.id !== id),
+                ...state.filter(({id, bookId}) =>
+                    action.chapter.bookId === bookId && action.chapter.id !== id),
                 action.chapter
             ]
-        case ADD_CHAPTERS:
+        case SET_CHAPTERS:
             return [
-                ...state.filter(({id}) => {
-                   return action.chapters.some((newChapter) => newChapter.id === id)
-                }),
                 ...action.chapters
             ]
         case CLEAR_CHAPTERS:

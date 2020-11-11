@@ -3,6 +3,7 @@ import {IChapter} from "../interfaces";
 import {Chapter} from "../models";
 import {IChapterFromDb} from "../interfaces/IChapter";
 import {IChapterResponse, IChaptersResponse, IErrorResponse, IResponse} from "../interfaces/IResponse";
+import {ParamIdRequest} from "../interfaces/IAxiosRequest";
 
 const ChapterController = {
     createChapter: async (req: Request, res: Response<IChapterResponse | IErrorResponse>) => {
@@ -19,8 +20,8 @@ const ChapterController = {
     },
     getAll: async (req: Request, res: Response<IChaptersResponse | IErrorResponse>) => {
         try {
-            const {id}: { id: number } = req.body;
-            const chapters = await Chapter.findAll({where: {bookId: id}}) as IChapterFromDb[];
+            const {id}: { id: string } = req.query as ParamIdRequest;
+            const chapters = await Chapter.findAll({where: {bookId: Number(id)}}) as IChapterFromDb[];
             res.status(200).json({chapters, message: "Successful get"})
         } catch (e) {
             console.error(e)

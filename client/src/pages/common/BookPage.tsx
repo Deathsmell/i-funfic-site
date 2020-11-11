@@ -9,6 +9,7 @@ import {Button, Container} from "react-bootstrap";
 import {goBack} from "connected-react-router";
 import Comments from "../../components/Comments/Comments";
 import {getCommentsByBookId} from "../../store/comments/comments.actions";
+import {getAllChaptersFetch} from "../../store/chapters/chapters.actions";
 
 const BookPage: React.FC = () => {
 
@@ -17,10 +18,12 @@ const BookPage: React.FC = () => {
     const book = useSelector(selectorBook(Number(id)));
     const authorise = useSelector(selectorAuthorise);
 
-    useEffect(function loadComment(){
+    useEffect(function loadBooksContent(){
+        const bookId = Number(id);
         if (authorise) {
-            dispatch(getCommentsByBookId(Number(id)))
+            dispatch(getCommentsByBookId(bookId))
         }
+        dispatch(getAllChaptersFetch(bookId))
     },[])
 
     const returnHandler = (e : MouseEvent) => {

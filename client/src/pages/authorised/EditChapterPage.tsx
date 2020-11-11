@@ -37,6 +37,7 @@ const EditChapterPage: React.FC = () => {
                 })
             )
         }
+        setTitle("")
     }
 
     const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
