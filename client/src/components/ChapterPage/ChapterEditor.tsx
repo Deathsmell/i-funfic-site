@@ -1,17 +1,16 @@
 import React, {ChangeEvent} from "react";
 import {FormControl, InputGroup} from "react-bootstrap";
+import Editor from "../Editor";
 
 interface Props {
     title: string,
     titleHandler: (e: ChangeEvent<HTMLInputElement>) => void
-    text: string,
-    textHandler: (e: ChangeEvent<HTMLInputElement>) => void,
+    textState: [string, React.Dispatch<React.SetStateAction<string>>],
 }
 
 const ChapterEditor: React.FC<Props> = ({
-                                            text,
+                                            textState,
                                             title,
-                                            textHandler,
                                             titleHandler
                                         }) => {
 
@@ -25,15 +24,7 @@ const ChapterEditor: React.FC<Props> = ({
                              onChange={titleHandler}
                 />
             </InputGroup>
-            <InputGroup>
-                <FormControl as="textarea"
-                             value={text}
-                             aria-label="With textarea"
-                             placeholder={"Chapter text here..."}
-                             style={{minHeight: "60vh", resize: "none"}}
-                             onChange={textHandler}
-                />
-            </InputGroup>
+            <Editor mdTextState={textState}/>
         </>
     )
 }

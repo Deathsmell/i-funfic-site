@@ -8,7 +8,6 @@ import CreateBookPage from "./pages/authorised/CreateBookPage";
 import EditChapterPage from "./pages/authorised/EditChapterPage";
 import ReadChaptersPage from "./pages/common/ReadChaptersPage";
 import EditBookPage from "./pages/authorised/EditBookPage";
-import CreateChapterPage from "./pages/authorised/CreateChapterPage";
 import UserProfilePage from "./pages/admin/UserProfilePage";
 import SelfProfilePage from "./pages/authorised/SelfProfilePage";
 import {useSelector} from "react-redux";
@@ -54,16 +53,20 @@ const Routes: React.FC<Props> = ({}) => {
 
     const authorise = useSelector(selectorAuthorise);
     const roles = useSelector(selectorRoles);
-    const commonPages = <><Route path={ApplicationMap.MAIN_PAGE} component={MainPage} exact/>
-        <Route path={ApplicationMap.LOGIN_PAGE} component={AuthPage}/>
-        <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
-        <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
-        <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/></>;
+    const commonPages = (
+        <>
+            <Route path={ApplicationMap.MAIN_PAGE} component={MainPage} exact/>
+            <Route path={ApplicationMap.LOGIN_PAGE} component={AuthPage}/>
+            <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
+            <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
+            <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/>
+        </>
+    );
     const authorisePages = <>
         <Route path={ApplicationMap.PROFILE_PAGE} component={SelfProfilePage} exact/>
         <Route path={ApplicationMap.CREATE_BOOK_PAGE} component={CreateBookPage} exact/>
         <Route path={ApplicationMap.EDIT_BOOK_PAGE} component={EditBookPage} exact/>
-        <Route path={ApplicationMap.CREATE_CHAPTER_PAGE} component={CreateChapterPage} exact/>
+        <Route path={ApplicationMap.CREATE_CHAPTER_PAGE} component={EditChapterPage} exact/>
         <Route path={ApplicationMap.EDIT_CHAPTER_PAGE} component={EditChapterPage} exact/>
     </>;
     const adminPages = <>

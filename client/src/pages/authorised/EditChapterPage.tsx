@@ -1,33 +1,42 @@
-import React, {ChangeEvent, MouseEvent, useState} from "react";
+import React, {ChangeEvent, MouseEvent, useEffect, useState} from "react";
 import {Button, Container, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {updateChapter} from "../../store/chapters/chapters.actions";
-import {useParams} from "react-router";
+import {createChapter, updateChapter} from "../../store/chapters/chapters.actions";
+import {useLocation, useParams} from "react-router";
 import ChapterEditor from "../../components/ChapterPage/ChapterEditor";
 import {selectorChapter} from "../../store/chapters/chapters.selectors";
 
 const EditChapterPage: React.FC = () => {
 
     const {id} = useParams<{ id: string }>();
+    const location = useLocation();
+
+    const [isCreatePage, setIsCreatePage] = useState<boolean>(location.pathname.includes("create"));
+
     const dispatch = useDispatch();
     const chapter = useSelector(selectorChapter(Number(id)));
-    const [title, setTitle] = useState<string>(chapter!.title);
-    const [text, setText] = useState<string>(chapter!.title);
+    const [title, setTitle] = useState<string>(chapter?.title || "");
+    const textState = useState<string>(chapter?.text || "");
+    const [text] = textState
 
-    const createChapterHandler = (e: MouseEvent) => {
+    useEffect(()=>{
+        setIsCreatePage(location.pathname.includes("create"))
+    },[location.pathname])
+
+    const chapterHandler = (e: MouseEvent) => {
         e.preventDefault()
-        dispatch(updateChapter({
-                title,
-                text,
-                bookId: chapter!.bookId,
-                number: chapter!.number,
-                id: chapter!.id
-            })
-        )
-    }
-
-    const changeTextHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setText(e.target.value)
+        if (isCreatePage){
+            dispatch(createChapter({title, text, bookId: Number(id)}))
+        } else {
+            dispatch(updateChapter({
+                    title,
+                    text,
+                    bookId: chapter!.bookId,
+                    number: chapter!.number,
+                    id: chapter!.id
+                })
+            )
+        }
     }
 
     const changeTitleHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -39,15 +48,14 @@ const EditChapterPage: React.FC = () => {
             <h1 className="text-center">Edit chapter page</h1>
             <ChapterEditor title={title}
                            titleHandler={changeTitleHandler}
-                           text={text}
-                           textHandler={changeTextHandler}
+                           textState={textState}
             />
             <Row className="justify-content-center mt-4">
                 <Button variant="success"
                         size="lg"
-                        onClick={createChapterHandler}
+                        onClick={chapterHandler}
                 >
-                    Add
+                    {isCreatePage? "Create" : "Add"}
                 </Button>
             </Row>
         </Container>

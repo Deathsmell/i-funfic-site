@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectorBook} from "../../store/book/books.selectors";
 import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {updateBookFetch} from "../../store/book/books.actions";
-import {Button, Row} from "react-bootstrap";
+import {Button, Container, Row} from "react-bootstrap";
 
 const EditBookPage: React.FC = () => {
 
@@ -38,7 +38,7 @@ const EditBookPage: React.FC = () => {
 
     if (book) {
         return (
-            <div>
+            <Container>
                 <h1 className={"text-center"}>Edit book page</h1>
                 <BookCard annotationState={annotationState}
                           imageState={imageState}
@@ -56,7 +56,7 @@ const EditBookPage: React.FC = () => {
                 <ListChapters chapters={chapters}
                               bookId={book.id}
                 />
-            </div>
+            </Container>
         )
     } else {
         return (
