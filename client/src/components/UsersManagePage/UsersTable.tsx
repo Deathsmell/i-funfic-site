@@ -11,6 +11,8 @@ const UsersTable: React.FC = () => {
     const dispatch = useDispatch();
     const [users, setUsers] = useState<IUser[]>();
 
+
+
     useEffect(function loadUserList() {
         if (!users) {
             UserApi.getAllUsers().then(({data}) => {
@@ -52,7 +54,7 @@ const UsersTable: React.FC = () => {
                                         email
                                     }) => {
                         return (
-                            <tr>
+                            <tr key={id}>
                                 <td>{id}</td>
                                 <td>{username}</td>
                                 <td>{email}</td>

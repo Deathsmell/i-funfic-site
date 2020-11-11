@@ -4,12 +4,12 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Badge from "react-bootstrap/Badge";
-import {IBook} from "../../../../interfaces";
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
 import {ApplicationDynamicMap} from "../../routes";
+import {IBookFromDb} from "../../../../interfaces/IBook";
 
-const BookListCard: React.FC<IBook> = ({
+const BookListCard: React.FC<IBookFromDb> = ({
                                            id,
                                            rating,
                                            authorId,
@@ -28,7 +28,8 @@ const BookListCard: React.FC<IBook> = ({
 
     const readHandler = (e: MouseEvent) => {
         e.preventDefault()
-        dispatch(push(ApplicationDynamicMap.bookPage(id!)))
+        console.log(id)
+        dispatch(push(ApplicationDynamicMap.bookPage(id)))
     }
 
     return (

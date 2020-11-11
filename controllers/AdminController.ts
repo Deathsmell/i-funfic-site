@@ -58,11 +58,12 @@ const AdminController = {
     setAdminRole: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
         try {
             const {id} = req.body as { id: number };
-            const user = await User.findOne({where: {id}}) as IUser & UserModel;
-            if (!isAdmin(user.roles)) {
-                user.roles ? user.roles.push(Roles.ADMIN) : user.roles = [Roles.ADMIN]
+            const user = await User.findOne({where: {id}}) as IUser & UserModel | null;
+            console.log("SET ADMIN ROLE", user?.username)
+            if (user && user.roles && !isAdmin(user.roles)) {
+                user.roles = [...user.roles,Roles.ADMIN];
                 user.save({fields: ["roles"]})
-            } else if (user.roles) {
+            } else {
                 res.status(400).json({message: "Updating dont needed"})
             }
             res.status(200).json({message: "Successful updated"})

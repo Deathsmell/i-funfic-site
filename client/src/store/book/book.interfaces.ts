@@ -10,18 +10,19 @@ import {
     SET_AUTHOR_BOOKS,
     UPDATE_AUTHOR_BOOK,
 } from "./books.constants";
+import {IBookFromDb} from "../../../../interfaces/IBook";
 
 export interface IBooksActions {
     type: typeof SET_ALL_BOOKS
         | typeof SET_AUTHOR_BOOKS
-    books: IBook[],
+    books: IBookFromDb[],
 }
 
 export interface IBookActions {
     type: typeof ADD_AUTHOR_BOOK
         | typeof ADD_BOOK
         | typeof UPDATE_AUTHOR_BOOK,
-    book: IBook,
+    book: IBookFromDb,
 }
 
 export interface IBookActionsById {

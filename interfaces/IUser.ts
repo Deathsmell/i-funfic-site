@@ -11,7 +11,7 @@ export interface IUser {
 
 export interface IUserFromDb extends Required<Omit<IUser, "image" | "roles">>{
     image?: string
-    roles?: Roles[]
+    roles?: Roles[],
 }
 
 export enum Roles {

@@ -1,5 +1,10 @@
 import axiosInstance, {IFetchResponse} from "./fetch"
-import {CREATE_USER_URL, GET_ALL_USER_URL, GET_CURRENT_USER_PROFILE_URL, UPDATE_CURRENT_USER_INFORMATION} from "@api"
+import {
+    CREATE_USER_URL,
+    GET_ALL_USER_URL,
+    GET_CURRENT_USER_PROFILE_URL,
+    UPDATE_CURRENT_USER_INFORMATION
+} from "@api"
 import {IUser} from "../../../interfaces";
 import {IProfileResponse, IResponse, IUserResponse, IUsersResponse} from "../../../interfaces/IResponse";
 
@@ -14,5 +19,5 @@ export const UserApi = {
         await axiosInstance.get(GET_CURRENT_USER_PROFILE_URL, {params: {id}}),
 
     update: async (user: IUser): IFetchResponse<IResponse> =>
-        await axiosInstance.post(UPDATE_CURRENT_USER_INFORMATION, {id:user.id,user})
+        await axiosInstance.post(UPDATE_CURRENT_USER_INFORMATION, {id:user.id,user}),
 }

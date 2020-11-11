@@ -36,8 +36,8 @@ export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserSta
         },
         roles: {
             type: DataTypes.ARRAY(DataTypes.ENUM(...getEnums(Roles))),
-            allowNull: true,
-            defaultValue: null,
+            allowNull: false,
+            defaultValue: [Roles.USER],
         },
         blocked: {
             type: DataTypes.BOOLEAN,

@@ -33,9 +33,10 @@ function* createBookWorker(action: IBookAsyncActionsByBook) {
     try {
         const {data}: AxiosResponse<IBookResponse>
             = yield call(BookApi.create, action.book) ;
+        console.log("Create",data.message)
         yield put<IBookActions>(addMyBook(data.book))
         yield put<IBookActions>(addBook(data.book))
-        yield put(push(ApplicationDynamicMap.editBookPage(data.book.id!)))
+        yield put(push(ApplicationDynamicMap.editBookPage(data.book.id)))
     } catch (e) {
         console.error(e)
     }

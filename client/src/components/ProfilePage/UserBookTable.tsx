@@ -3,11 +3,12 @@ import {Table} from "react-bootstrap";
 import ManageBookButtons from "./ManageBookButtons";
 import {FaLongArrowAltDown, FaLongArrowAltUp} from "react-icons/fa";
 import {IBook} from "../../../../interfaces";
-import {IFilterBookTableState} from "./UserInfoTabs";
+import {IFilterBookTableState} from "./UserProfileTabs";
+import {IBookFromDb} from "../../../../interfaces/IBook";
 
 
 interface Props {
-    books: IBook[]
+    books: IBookFromDb[]
     filterState: [IFilterBookTableState, React.Dispatch<React.SetStateAction<IFilterBookTableState>>]
 }
 

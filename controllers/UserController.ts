@@ -2,12 +2,26 @@ import {Request, Response} from "express"
 import UserService from "../services/UserService";
 import {IUser} from "../interfaces";
 import {Book, User} from "../models";
-import {IErrorResponse, IProfileResponse, IResponse, IUsersResponse} from "../interfaces/IResponse";
+import {IErrorResponse, IProfileResponse, IResponse, IUserResponse, IUsersResponse} from "../interfaces/IResponse";
 import {IProfile} from "../interfaces/IProfile";
 import {IUserFromDb} from "../interfaces/IUser";
 import {ParamIdRequest} from "../interfaces/IAxiosRequest";
 
 const UserController = {
+    getUser: async (req: Request, res: Response<IUserResponse | IErrorResponse>) => {
+        try {
+            const {id} = req.query as ParamIdRequest;
+            const user = await User.findOne({where:{id: Number(id)}}) as IUserFromDb | null;
+            if (user) {
+                res.status(200).json({user, message: "Success"})
+            } else {
+                res.status(400).json({message: "Some error: user not exist"})
+            }
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({message: "Some error on get all users"})
+        }
+    },
     create: async (req: Request, res: Response<IUsersResponse | IErrorResponse>) => {
         const data = <IUser>req.body;
         console.log(req.body)
@@ -40,6 +54,7 @@ const UserController = {
                     include: Book
                 }) as IProfile | null;
             if (profile) {
+                console.log(profile)
                 const books = profile.books;
                 res.status(200).json({
                     user: {

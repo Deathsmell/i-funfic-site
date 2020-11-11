@@ -16,23 +16,24 @@ import {
     IBookAsyncActionsById,
     IBooksActions
 } from "./book.interfaces"
+import {IBookFromDb} from "../../../../interfaces/IBook";
 
-export const setCommonBooks = (books: IBook[]): IBooksActions => ({
+export const setCommonBooks = (books: IBookFromDb[]): IBooksActions => ({
     type: SET_ALL_BOOKS,
     books: books,
 })
 
-export const setMyBooks = (books: IBook[]): IBooksActions=> ({
+export const setMyBooks = (books: IBookFromDb[]): IBooksActions=> ({
     type: SET_AUTHOR_BOOKS,
     books: books,
 })
 
-export const addBook = (book: IBook): IBookActions => ({
+export const addBook = (book: IBookFromDb): IBookActions => ({
     type: ADD_BOOK,
     book: book
 })
 
-export const addMyBook = (book: IBook): IBookActions => ({
+export const addMyBook = (book: IBookFromDb): IBookActions => ({
     type: ADD_AUTHOR_BOOK,
     book: book
 })
@@ -56,7 +57,7 @@ export const updateBookFetch = (book: IBook): IBookAsyncActionsByBook => ({
     book: book
 })
 
-export const updateBook = (book: IBook) : IBookActions => ({
+export const updateBook = (book: IBookFromDb) : IBookActions => ({
     type: UPDATE_AUTHOR_BOOK,
     book: book
 })

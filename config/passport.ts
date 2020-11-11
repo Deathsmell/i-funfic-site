@@ -3,6 +3,8 @@ import {PassportStatic} from "passport"
 import {User} from "../models";
 import {IUser, Roles} from "../interfaces";
 import {jwtStrategy, login, signUp} from "./passport.strategy";
+import {isAdmin} from "../utils/adminUtils";
+import {IErrorResponse} from "../interfaces/IResponse";
 
 export const configPassport = (passport: PassportStatic) => {
 
@@ -53,14 +55,17 @@ export const ensureAdmin = async (req: Request, res: Response, next: NextFunctio
 
 }
 
-export const ensureCurrentUser = async (req: Request, res: Response, next: NextFunction) => {
+export const ensureCurrentUser = async (req: Request, res: Response<IErrorResponse>, next: NextFunction) => {
     if (req.isAuthenticated()) {
         const user = await req.user as IUser;
         const {id: paramsId} = req.query as { id: string }
         const {id: bodyId} = req.body as { id: number }
         const equalId = user.id === Number(paramsId) || user.id === bodyId;
-        console.log(equalId, user.id, paramsId)
-        equalId ? next() : res.status(403).send()
+        if (equalId) {
+            next()
+        } else {
+            isAdmin(user.roles) ? next() : res.status(403).json({message: "Error action. You haven't do it"})
+        }
     } else {
         res.status(401).json({message: "Please authenticate"})
     }

@@ -108,7 +108,7 @@ const InformationTab: React.FC<Props> = ({user}) => {
                                             )
                                         }
                                         {
-                                            (fildname === "roles")
+                                            (fildname === "roles" && value !== null)
                                             && (
                                                 <div>{Object.values(value).map((val) => {
                                                     return ` ${val} `

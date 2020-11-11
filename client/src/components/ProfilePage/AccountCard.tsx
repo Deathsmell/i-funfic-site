@@ -1,15 +1,16 @@
-import React, {MouseEvent, useEffect, useState} from "react";
+import React, {MouseEvent, useState} from "react";
 import {AiOutlineUser} from "react-icons/ai";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/credential/credential.actions";
 import {push} from "connected-react-router";
-import {ApplicationMap} from "../../routes";
+import {ApplicationDynamicMap, ApplicationMap} from "../../routes";
 import {AdminApi} from "../../api";
 import {selectorRoles, selectorUserId} from "../../store/credential/credential.selectors";
 import {isAdmin} from "../../utils/adminUtils";
 import {IUserFromDb} from "../../../../interfaces/IUser";
 import DropImage from "../DropImage";
+import {useParams} from "react-router";
 
 
 interface Props {
@@ -21,19 +22,13 @@ const AccountCard: React.FC<Props> = ({
                                           user
                                       }) => {
 
+    const {id} = useParams() as { id: string | undefined };
     const dispatch = useDispatch();
     const [blocked, setBlocked] = useState<boolean>(user.blocked);
     const [admin, setAdmin] = useState<boolean>(isAdmin(user.roles));
     const [image, setImage] = useState<string | undefined>(user.image)
     const roles = useSelector(selectorRoles);
     const userId = useSelector(selectorUserId);
-
-    useEffect(() => {
-        if (user && user.blocked) {
-            setBlocked(user.blocked)
-        }
-    })
-
 
     const logoutHandler = (event: MouseEvent) => {
         event.preventDefault()
@@ -42,7 +37,11 @@ const AccountCard: React.FC<Props> = ({
 
     const createBookHandler = (event: MouseEvent) => {
         event.preventDefault()
-        dispatch(push(ApplicationMap.CREATE_BOOK_PAGE))
+        dispatch(push(
+            id
+                ? ApplicationDynamicMap.adminCreatePage(id)
+                : ApplicationMap.CREATE_BOOK_PAGE
+        ))
     }
 
     const blockHandler = (e: MouseEvent) => {

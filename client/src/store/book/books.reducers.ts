@@ -1,16 +1,17 @@
-import {IBook} from "../../../../interfaces";
 import {
     ADD_AUTHOR_BOOK,
     ADD_BOOK,
     DELETE_AUTHOR_BOOK,
     SET_ALL_BOOKS,
-    SET_AUTHOR_BOOKS, UPDATE_AUTHOR_BOOK,
+    SET_AUTHOR_BOOKS,
+    UPDATE_AUTHOR_BOOK,
 } from "./books.constants";
 import {IBookActions, IBookActionsById, IBooksActions} from "./book.interfaces"
+import {IBookFromDb} from "../../../../interfaces/IBook";
 
 export interface IBooksState {
-    books: IBook[],
-    myBook: IBook[]
+    books: IBookFromDb[],
+    myBook: IBookFromDb[]
 }
 
 const initialState: IBooksState = {
@@ -29,11 +30,14 @@ export const bookReducer = (
                 books: action.books
             }
         case SET_AUTHOR_BOOKS:
-            return {
+            const newVar = {
                 ...state,
                 myBook: action.books
-            }
+            };
+            console.log("SET",state,newVar)
+            return newVar
         case ADD_AUTHOR_BOOK:
+            console.log(action.book)
             return {
                 ...state,
                 myBook: [
@@ -65,7 +69,10 @@ export const bookReducer = (
                 ]
             }
         default:
-            return state
+            return {
+                myBook: state.myBook,
+                books: state.books
+            }
     }
 }
 

@@ -36,27 +36,33 @@ const EditBookPage: React.FC = () => {
         setUpdating(true)
     }
 
-    return (
-        <div>
-            <h1 className={"text-center"}>Edit book page</h1>
-            <BookCard annotationState={annotationState}
-                      imageState={imageState}
-                      titleState={titleState}
-            />
-            <Row className="justify-content-center">
-                <Button variant="primary"
-                        size="lg"
-                        className="mt-5"
-                        onClick={updateBookHandler}
-                >
-                    Save updates
-                </Button>
-            </Row>
-            <ListChapters chapters={chapters}
-                          bookId={book!.id!}
-            />
-        </div>
-    )
+    if (book) {
+        return (
+            <div>
+                <h1 className={"text-center"}>Edit book page</h1>
+                <BookCard annotationState={annotationState}
+                          imageState={imageState}
+                          titleState={titleState}
+                />
+                <Row className="justify-content-center">
+                    <Button variant="primary"
+                            size="lg"
+                            className="mt-5"
+                            onClick={updateBookHandler}
+                    >
+                        Save updates
+                    </Button>
+                </Row>
+                <ListChapters chapters={chapters}
+                              bookId={book.id}
+                />
+            </div>
+        )
+    } else {
+        return (
+            <h1>Some error</h1>
+        )
+    }
 }
 
 export default EditBookPage

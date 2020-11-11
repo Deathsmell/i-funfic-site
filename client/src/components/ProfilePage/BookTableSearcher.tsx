@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {Dropdown, DropdownButton, FormControl, InputGroup} from "react-bootstrap";
-import {IFilterBookTableState} from "./UserInfoTabs";
+import {IFilterBookTableState} from "./UserProfileTabs";
 
 
 interface IKeys {

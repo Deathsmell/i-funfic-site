@@ -1,12 +1,12 @@
 import React from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import AccountCard from "../components/ProfilePage/AccountCard";
-import UserInfoTabs from "../components/ProfilePage/UserInfoTabs";
-import {IBook} from "../../../interfaces";
+import UserProfileTabs from "../components/ProfilePage/UserProfileTabs";
 import {IUserFromDb} from "../../../interfaces/IUser";
+import {IBookFromDb} from "../../../interfaces/IBook";
 
 interface Props {
-    myBook: IBook[],
+    myBook: IBookFromDb[],
     user: IUserFromDb
 }
 
@@ -15,6 +15,7 @@ const ProfilePage: React.FC<Props> = ({
                                           user
                                       }) => {
 
+
     return (
         <Container className="mt-4">
             <Row>
@@ -22,7 +23,7 @@ const ProfilePage: React.FC<Props> = ({
                     <AccountCard user={user}/>
                 </Col>
                 <Col xl={9}>
-                    <UserInfoTabs user={user} books={myBook}/>
+                    <UserProfileTabs user={user} books={myBook}/>
                 </Col>
             </Row>
         </Container>
