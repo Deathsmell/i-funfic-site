@@ -1,6 +1,7 @@
 import {applyMiddleware, createStore, Middleware, Store} from "redux"
 import {PersistConfig, persistReducer, persistStore, Transform} from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import hardSet from "redux-persist/lib/stateReconciler/hardSet"
 import createCompressor from 'redux-persist-transform-compress'
 import createSagaMiddleware from "redux-saga"
 import logger from "redux-logger";
@@ -18,7 +19,6 @@ if (!isProduction) {
     middleware = [...middleware,logger]
 }
 
-
 const blacklist: RootStateKeys[] = ["websocket"]
 let transforms: Transform<any, any>[] = []
 if (isProduction) {
@@ -31,7 +31,8 @@ const persistConfig: PersistConfig<RootState> = {
     storage,
     blacklist,
     debug: !isProduction,
-    transforms
+    transforms,
+    stateReconciler: hardSet
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducers)
