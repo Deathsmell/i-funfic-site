@@ -1,53 +1,30 @@
-import React, {MouseEvent} from "react";
+import React from "react";
 import {Button, ButtonGroup, ButtonToolbar, OverlayTrigger, Tooltip} from "react-bootstrap";
-import {MdChromeReaderMode, MdDeleteForever, MdModeEdit} from "react-icons/md";
+import {MdDeleteForever, MdModeEdit} from "react-icons/md";
 import {useDispatch} from "react-redux";
-import {deleteBookFetch} from "../../store/book/books.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
+import {deleteChapterByBookId} from "../../store/chapters/chapters.actions";
 
-interface Prop {
-    id: number
+interface Props {
+    bookId: number
 }
 
-const ManageBookButtons: React.FC<Prop> = ({id}) => {
-
+const ChapterManagerButtons: React.FC<Props> = ({bookId}) => {
 
     const dispatch = useDispatch();
-    const readHandler = (e: MouseEvent) => {
-        e.preventDefault()
-        dispatch(push(ApplicationDynamicMap.readBookPage(id)))
+
+    const editHandler = () => {
+        dispatch(push(ApplicationDynamicMap.editChapterPage(bookId)))
     }
 
-    const editHandler = (e: MouseEvent) => {
-        e.preventDefault()
-        dispatch(push(ApplicationDynamicMap.editBookPage(id)))
-
-    }
-
-    const deleteHandler = (e: MouseEvent) => {
-        e.preventDefault()
-        dispatch(deleteBookFetch(id))
+    const deleteHandler = () => {
+        dispatch(deleteChapterByBookId(bookId))
     }
 
     return (
-        <ButtonToolbar aria-label="Toolbar with button groups">
-            <ButtonGroup className="" aria-label="First group">
-                <OverlayTrigger
-                    placement={"top"}
-                    overlay={
-                        <Tooltip id={`tooltip-read`}
-                        >
-                            Read
-                        </Tooltip>
-                    }
-                >
-                    <Button variant="outline-info"
-                            onClick={readHandler}
-                    >
-                        <MdChromeReaderMode size="25px" color="black"/>
-                    </Button>
-                </OverlayTrigger>
+        <ButtonToolbar className="justify-content-center" aria-label="Toolbar with button groups">
+            <ButtonGroup aria-label="First group">
                 <OverlayTrigger
                     placement={"top"}
                     overlay={
@@ -57,6 +34,7 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
                     }
                 >
                     <Button variant="outline-warning"
+                            size="sm"
                             onClick={editHandler}
                     >
                         <MdModeEdit size="25px" color="black"/>
@@ -72,6 +50,7 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
                     }
                 >
                     <Button variant="outline-danger"
+                            size="sm"
                             onClick={deleteHandler}
                     >
                         <MdDeleteForever size="25px" color="black"/>
@@ -82,4 +61,4 @@ const ManageBookButtons: React.FC<Prop> = ({id}) => {
     )
 }
 
-export default ManageBookButtons;
+export default ChapterManagerButtons

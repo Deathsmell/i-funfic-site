@@ -11,7 +11,7 @@ interface Params {
     bookId: number,
 }
 
-const BookManagerBorder: React.FC<Params> = ({authorId, bookId}) => {
+const BookManagerButtons: React.FC<Params> = ({authorId, bookId}) => {
 
     const dispatch = useDispatch();
     const userId = useSelector(selectorUserId);
@@ -61,4 +61,4 @@ const BookManagerBorder: React.FC<Params> = ({authorId, bookId}) => {
     )
 }
 
-export default BookManagerBorder;
+export default BookManagerButtons;

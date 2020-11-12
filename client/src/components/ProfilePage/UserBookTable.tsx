@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Table} from "react-bootstrap";
-import ManageBookButtons from "./ManageBookButtons";
+import ManageBooksButtons from "./ManageBooksButtons";
 import {FaLongArrowAltDown, FaLongArrowAltUp} from "react-icons/fa";
 import {IBook} from "../../../../interfaces";
 import {IFilterBookTableState} from "./UserProfileTabs";
@@ -161,7 +161,7 @@ const UserBookTable: React.FC<Props> = ({
                                 <td>{title}</td>
                                 <td>{rating}</td>
                                 <td>
-                                    <ManageBookButtons id={id!}/>
+                                    <ManageBooksButtons id={id!}/>
                                 </td>
                             </tr>
                         )

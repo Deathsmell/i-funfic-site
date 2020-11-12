@@ -6,18 +6,26 @@ import {useLocation, useParams} from "react-router";
 import ChapterEditor from "../../components/ChapterPage/ChapterEditor";
 import {selectorChapter} from "../../store/chapters/chapters.selectors";
 
+type ParamsId = { id: string };
+type ParamsBookId = ParamsId;
+type ParamsChapterId = ParamsId;
+
 const EditChapterPage: React.FC = () => {
 
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams<ParamsBookId | ParamsChapterId>();
     const location = useLocation();
 
     const [isCreatePage, setIsCreatePage] = useState<boolean>(location.pathname.includes("create"));
 
     const dispatch = useDispatch();
     const chapter = useSelector(selectorChapter(Number(id)));
-    const [title, setTitle] = useState<string>(chapter?.title || "");
-    const textState = useState<string>(chapter?.text || "");
+    const [title, setTitle] = useState<string>(isCreatePage ? "" : chapter?.title || "");
+    const textState = useState<string>(isCreatePage ? "" : chapter?.text || "");
     const [text] = textState
+
+    useEffect(()=>{
+        console.log(isCreatePage,location.pathname)
+    },[isCreatePage])
 
     useEffect(()=>{
         setIsCreatePage(location.pathname.includes("create"))
@@ -56,7 +64,7 @@ const EditChapterPage: React.FC = () => {
                         size="lg"
                         onClick={chapterHandler}
                 >
-                    {isCreatePage? "Create" : "Add"}
+                    {isCreatePage ? "Create" : "Edit"}
                 </Button>
             </Row>
         </Container>

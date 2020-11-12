@@ -4,6 +4,7 @@ import {IChapter} from "../../../../interfaces";
 import {useDispatch} from "react-redux";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
+import ChapterManagerButtons from "./ChapterManagerButtons";
 
 interface Props {
     chapters?: IChapter[]
@@ -44,13 +45,15 @@ const ListChapters: React.FC<Props> = ({
                 </thead>
                 <tbody>
                 {
-                    chapters && chapters.map(({number, title}) => {
+                    chapters && chapters.map(({number, title,bookId}) => {
                             return (
-                                <tr>
+                                <tr key={number}>
                                     <td>{number}</td>
                                     <td>{title}</td>
                                     <td>1 minute ago</td>
-                                    <td>@action</td>
+                                    <td>
+                                        <ChapterManagerButtons bookId={bookId}/>
+                                    </td>
                                 </tr>
                             )
                         }

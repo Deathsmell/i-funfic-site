@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {convertToRaw, EditorState} from "draft-js";
+import {convertFromRaw, convertToRaw, EditorState} from "draft-js";
 import {Editor as DraftEditor} from 'react-draft-wysiwyg';
-import {draftToMarkdown} from 'markdown-draft-js';
+import {draftToMarkdown, markdownToDraft} from 'markdown-draft-js';
 
 
 interface Props {
@@ -17,11 +17,13 @@ const Editor: React.FC<Props> = ({
                                  }) => {
 
 
-    const [, setMdText] = mdTextState;
+    const [mdText, setMdText] = mdTextState;
 
+    const rawData = markdownToDraft(mdText);
+    const contentState = convertFromRaw(rawData);
 
     const [editorState, setEditorState] = useState(() =>
-        EditorState.createEmpty()
+        mdText.trim().length ? EditorState.createWithContent(contentState) : EditorState.createEmpty()
     );
 
     useEffect(() => {

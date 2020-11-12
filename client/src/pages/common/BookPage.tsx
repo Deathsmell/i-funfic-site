@@ -1,6 +1,6 @@
 import React, {MouseEvent, useEffect} from "react";
 import BookHeaderCard from "../../components/BookPage/BookHeaderCard";
-import BookManagerBorder from "../../components/BookPage/BookManagerBorder";
+import BookManagerButtons from "../../components/BookPage/BookManagerButtons";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorBook} from "../../store/book/books.selectors";
 import {useParams} from "react-router";
@@ -41,8 +41,8 @@ const BookPage: React.FC = () => {
         return (
             <Container>
                 <BookHeaderCard {...book}/>
-                <BookManagerBorder authorId={book.authorId}
-                                   bookId={book.id}
+                <BookManagerButtons authorId={book.authorId}
+                                    bookId={book.id}
                 />
                 {
                     authorise
