@@ -9,6 +9,9 @@ import {dbAuthenticate} from "./models";
 import {configRouter} from "./routes";
 import {configPassport} from "./config/passport";
 import {isProduction, PORT} from "./config/constants";
+import {Server} from "ws"
+import http from "http"
+import {configWebsocket} from "./config/websocket";
 
 declare var console: Console;
 
@@ -42,7 +45,11 @@ configRouter(router);
 configPassport(passport);
 app.use(router);
 
-console.log(process.env.NODE_ENV)
+const server = http.createServer(app)
+const wss = new Server({
+    server,
+});
+configWebsocket(wss);
 
 if (process.env.NODE_ENV === "production") {
     console.log("production")
@@ -51,11 +58,10 @@ if (process.env.NODE_ENV === "production") {
         res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
     }))
 }
-
 (function start() {
     console.log("Starting server...")
     dbAuthenticate(isProduction);
-    app.listen(PORT, () => {
+    server.listen(PORT, () => {
         console.log(`App started on ${PORT} port`)
     })
 })()

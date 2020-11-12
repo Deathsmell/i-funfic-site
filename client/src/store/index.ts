@@ -19,7 +19,7 @@ if (!isProduction) {
 }
 
 
-const blacklist: RootStateKeys[] = []
+const blacklist: RootStateKeys[] = ["websocket"]
 let transforms: Transform<any, any>[] = []
 if (isProduction) {
     const compressor = createCompressor({blacklist});

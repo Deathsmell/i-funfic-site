@@ -1,9 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import BookListCard from "../../components/MainPage/BookListCard";
-import {connect, ConnectedProps} from "react-redux";
+import {connect, ConnectedProps, useDispatch} from "react-redux";
 import {getAllBooksFetch} from "../../store/book/books.actions";
 import {RootState} from "../../store/reducers";
-import {useFetching} from "../../hooks/useFetching";
 import {Container} from "react-bootstrap";
 import {checkAuth} from "../../store/credential/credential.actions";
 import {IBookFromDb} from "../../../../interfaces/IBook";
@@ -18,7 +17,11 @@ const MainPage: React.FC<PropsFromRedux> = ({
                                                 getAllBooks
                                             }) => {
 
-    useFetching(getAllBooks)
+
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getAllBooks())
+    },[])
 
     return (
         <Container>

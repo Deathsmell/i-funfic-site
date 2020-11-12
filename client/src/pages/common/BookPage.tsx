@@ -8,23 +8,29 @@ import {selectorAuthorise} from "../../store/credential/credential.selectors";
 import {Button, Container} from "react-bootstrap";
 import {goBack} from "connected-react-router";
 import Comments from "../../components/Comments/Comments";
-import {getCommentsByBookId} from "../../store/comments/comments.actions";
+import {addComment, getCommentsByBookId} from "../../store/comments/comments.actions";
 import {getAllChaptersFetch} from "../../store/chapters/chapters.actions";
+import {useWS} from "../../hooks/ws.hook";
 
+type BookId = { id: string };
 const BookPage: React.FC = () => {
 
     const dispatch = useDispatch();
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams<BookId>();
     const book = useSelector(selectorBook(Number(id)));
     const authorise = useSelector(selectorAuthorise);
+    const {subscribeOnComment} = useWS();
 
     useEffect(function loadBooksContent(){
         const bookId = Number(id);
         if (authorise) {
             dispatch(getCommentsByBookId(bookId))
+            subscribeOnComment(bookId,(comment) => {
+                if (comment) dispatch(addComment(comment))
+            })
         }
         dispatch(getAllChaptersFetch(bookId))
-    },[])
+    },[authorise])
 
     const returnHandler = (e : MouseEvent) => {
         e.preventDefault()

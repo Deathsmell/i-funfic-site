@@ -5,6 +5,7 @@ import {IErrorResponse, IResponse, IUserCommentResponse, IUserCommentsResponse} 
 import {ICommentFromDb, IUserComment} from "../interfaces/IComment";
 import {BodyIdRequest, ParamIdRequest} from "../interfaces/IAxiosRequest";
 import {IUserFromDb} from "../interfaces/IUser";
+import {commentDistribution} from "../config/websocket";
 
 
 const CommentController = {
@@ -24,6 +25,7 @@ const CommentController = {
                     updatedAt: updatedAt,
                     user: {email: user.email, image: user.image, username: user.username}
                 }
+                commentDistribution(bookId,userComment)
                 res.status(200).json({comment: userComment, message: "Successful create comment"})
             } else {
                 res.status(400).json({message: "Some error when create comment. User not exist"})

@@ -13,6 +13,7 @@
     "dev": "concurrently \"yarn server:dev\" \"yarn client:dev\""
   },
   "dependencies": {
+    "@stomp/stompjs": "^6.0.0",
     "@tsconfig/node12": "^1.0.7",
     "@types/cors": "^2.8.8",
     "bcrypt": "^5.0.0",
@@ -24,6 +25,7 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "express-session": "^1.17.1",
+    "http": "^0.0.1-security",
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "passport-custom": "^1.1.1",
@@ -31,7 +33,9 @@
     "passport-local": "^1.0.0",
     "pg": "^8.4.2",
     "pg-hstore": "^2.3.3",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "websocket": "^1.0.32",
+    "ws": "^7.4.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^3.0.0",
@@ -47,6 +51,8 @@
     "@types/pg": "^7.14.5",
     "@types/sequelize": "^4.28.9",
     "@types/validator": "^13.1.0",
+    "@types/websocket": "^1.0.1",
+    "@types/ws": "^7.4.0",
     "concurrently": "^5.3.0",
     "nodemon": "^2.0.6",
     "ts-node": "^9.0.0",
