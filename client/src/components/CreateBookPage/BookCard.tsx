@@ -1,18 +1,23 @@
 import React, {ChangeEvent} from "react";
 import DropImage from "../DropImage";
 import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
+import InputTagsField, {TagItem} from "./InputTagsField";
 
 
 interface Props {
     imageState: [(string | undefined), React.Dispatch<string | undefined>],
     annotationState: [(string), React.Dispatch<string>],
     titleState: [(string), React.Dispatch<string>],
+    tagsState: [Array<TagItem>, React.Dispatch<React.SetStateAction<Array<TagItem>>>],
+    gainersState: [Array<TagItem>, React.Dispatch<React.SetStateAction<Array<TagItem>>>],
 }
 
 const BookCard: React.FC<Props> = ({
                                        imageState,
                                        titleState,
-                                       annotationState
+                                       annotationState,
+                                       tagsState,
+                                       gainersState,
                                    }) => {
 
 
@@ -54,10 +59,12 @@ const BookCard: React.FC<Props> = ({
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="gainers">Gainers</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl aria-describedby="gainers"
-                                             readOnly
-                                             placeholder={"Dont work..."}
-                                />
+                                <div className={"flex-grow-1"}>
+                                    <InputTagsField itemsState={gainersState}
+                                                    className={"rounded-right"}
+                                                    enforceWhitelist={true}
+                                    />
+                                </div>
                             </InputGroup>
                         </Row>
                         <Row className="">
@@ -65,10 +72,11 @@ const BookCard: React.FC<Props> = ({
                                 <InputGroup.Prepend>
                                     <InputGroup.Text id="tags">Tags</InputGroup.Text>
                                 </InputGroup.Prepend>
-                                <FormControl aria-describedby="tags"
-                                             readOnly
-                                             placeholder={"Dont work..."}
-                                />
+                                <div className={"flex-grow-1"}>
+                                    <InputTagsField itemsState={tagsState}
+                                                    className={"rounded-right"}
+                                    />
+                                </div>
                             </InputGroup>
                         </Row>
                         <Row className="mb-4 pr-3">

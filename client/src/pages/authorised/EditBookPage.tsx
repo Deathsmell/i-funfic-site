@@ -7,6 +7,7 @@ import {selectorBook} from "../../store/book/books.selectors";
 import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {updateBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
+import {TagItem} from "../../components/CreateBookPage/InputTagsField";
 
 const EditBookPage: React.FC = () => {
 
@@ -19,6 +20,8 @@ const EditBookPage: React.FC = () => {
     const imageState = useState<string | undefined>(book?.image);
     const annotationState = useState<string>(book?.annotation || "");
     const titleState = useState<string>(book?.title || "");
+    const tagsState = useState<Array<TagItem>>([]);
+    const gainersState = useState<Array<TagItem>>([]);
 
     const [image] = imageState
     const [annotation] = annotationState
@@ -43,6 +46,8 @@ const EditBookPage: React.FC = () => {
                 <BookCard annotationState={annotationState}
                           imageState={imageState}
                           titleState={titleState}
+                          tagsState={tagsState}
+                          gainersState={gainersState}
                 />
                 <Row className="justify-content-center">
                     <Button variant="primary"

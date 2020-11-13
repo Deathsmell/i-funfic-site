@@ -1,11 +1,12 @@
 import React, {MouseEvent, useState} from "react";
 import {useDispatch} from "react-redux";
 import {createBookFetch} from "../../store/book/books.actions";
-import {Container} from "react-bootstrap";
+import {Button, Container, Row} from "react-bootstrap";
 import {BookGenres, IBook} from "../../../../interfaces";
-import CreateBookDashboard from "../../components/CreateBookPage/CreateBookDashboard";
 import {useParams} from "react-router";
 import {UserApi} from "../../api";
+import BookCard from "../../components/CreateBookPage/BookCard";
+import {TagItem} from "../../components/CreateBookPage/InputTagsField";
 
 const AdminCreateBookPage: React.FC = () => {
 
@@ -14,6 +15,8 @@ const AdminCreateBookPage: React.FC = () => {
     const imageState = useState<string>();
     const annotationState = useState<string>("");
     const titleState = useState<string>("");
+    const tagsState = useState<Array<TagItem>>([]);
+    const gainersState = useState<Array<TagItem>>([]);
 
     const createBookHandler = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -41,11 +44,21 @@ const AdminCreateBookPage: React.FC = () => {
     return (
         <Container>
             <h1 className={"text-center"}>Admin create page</h1>
-            <CreateBookDashboard imageState={imageState}
-                                 annotationState={annotationState}
-                                 titleState={titleState}
-                                 createBookHandler={createBookHandler}
+            <BookCard imageState={imageState}
+                      annotationState={annotationState}
+                      titleState={titleState}
+                      tagsState={tagsState}
+                      gainersState={gainersState}
             />
+            <Row className="justify-content-center mt-5">
+                <Button variant="primary"
+                        size="lg"
+                        className="mb-3"
+                        onClick={createBookHandler}
+                >
+                    Create
+                </Button>
+            </Row>
         </Container>
     )
 }
