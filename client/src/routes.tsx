@@ -60,7 +60,7 @@ const Routes: React.FC<Props> = ({}) => {
             <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
             <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
             <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/>
-            <Route path={"/test"} component={CreateBookPage}/>
+            <Route path={"/test"}/>
         </>
     );
     const authorisePages = <>

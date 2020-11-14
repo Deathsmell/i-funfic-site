@@ -1,58 +1,129 @@
-import React, {useEffect, useState} from "react";
-import {Col, ListGroup, Row} from "react-bootstrap";
+import React, {useEffect, useRef, useState} from "react";
+import {Button, Col, Container, Row} from "react-bootstrap";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import {useParams} from "react-router";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {selectorHash} from "../../store/router/router.selectors";
+import {selectorAuthorise} from "../../store/credential/credential.selectors";
+import {push} from "connected-react-router";
+import LikeBtn from "../../components/LikeBtn";
+import ChaptersList from "../../components/ReedChaptersPage/ChaptersList";
+import Comments from "../../components/Comments/Comments";
+
+const chapterNumber = (hash: string) => Number(hash.replace(/#link/, ""));
 
 const ReadChaptersPage: React.FC = () => {
-
+    const ref = useRef<any>();
+    const dispatch = useDispatch();
     const {id} = useParams<{ id: string }>();
     const chapters = useSelector(selectorChapters(Number(id)));
-    const {height} = useWindowDimensions();
+    const {windowDimensions: {width, height}, breakPoint} = useWindowDimensions();
     const hash = useSelector(selectorHash);
+    const authorise = useSelector(selectorAuthorise);
 
-    const [text, setText] = useState<string>("");
+    const [showLike, setShowLike] = useState(false);
+    const [text, setText] = useState<string>(chapters[0].text || "");
+    const [title, setTitle] = useState<string>(chapters[0].title || "");
+
 
     useEffect(function changeChaptersText() {
-        const chapterNumber = hash.replace(/#link/, "");
-        if (chapterNumber) {
-            const chapterText = chapters.find(({number}) => number === Number(chapterNumber));
-            setText(chapterText ? chapterText.text : "Empty")
+        if (hash) {
+            const chapter = chapters.find(({number}) => number === chapterNumber(hash));
+            setText(chapter ? chapter.text : "Empty")
+            setTitle(chapter ? chapter.title : "Empty")
         }
     }, [hash])
 
+    const prevHandler = () => {
+        window.scrollTo(0, 0)
+        dispatch(push(`#link${chapterNumber(hash) - 1}`))
+    }
+
+    const nextHandler = () => {
+        window.scrollTo(0, 0)
+        dispatch(push(`#link${chapterNumber(hash) + 1}`))
+    }
+
+    useEffect(() => {
+        if (authorise) {
+            const listener = () => {
+                console.log(window.pageYOffset)
+                if (!showLike && !(window.pageYOffset < (ref.current.offsetHeight - (height * 2)))) {
+                    setShowLike(true)
+                } else {
+                    setShowLike(false)
+                }
+            };
+            window.addEventListener("scroll", listener)
+            return () => window.removeEventListener("scroll", listener)
+        }
+    }, [])
 
     return (
-        <Row noGutters>
-            <Col lg={2}>
-                <div className="border-right border-dark sticky-top">
-                    <h3 className="text-center">
-                        <strong>Chapters</strong>
-                    </h3>
-                    <ListGroup defaultActiveKey="#link1"
-                               variant="flush"
-                               className="chapter-list"
-                               style={{minHeight: height - 30, maxHeight: height - 30}}
-                    >
-                        {chapters.sort((a, b) => a.number! - b.number!).map(({number, title}) => (
-                            <ListGroup.Item action
-                                            key={number}
-                                            href={`#link${number}`}
-                            >
-                                {number}. {title}
-                            </ListGroup.Item>))
-                        }
-                    </ListGroup>
-                </div>
-            </Col>
-            <Col lg={8}
-                 className={"ml-5"}
-                 style={{textAlign: "justify"}}>
-                {text}
-            </Col>
-        </Row>
+        <div>
+            {showLike && <LikeBtn bookId={Number(id)} liked={false}/>}
+            {
+                width <= breakPoint.md
+                && (
+                    <Row noGutters>
+                        <Col>
+                            <ChaptersList chapters={chapters} collapsed={true}/>
+                        </Col>
+                    </Row>
+                )
+            }
+            <Row noGutters>
+                {
+                    width > breakPoint.md
+                    &&
+                    <Col xl={2} lg={2} md={2}>
+                        <ChaptersList chapters={chapters}
+                                      height={height}
+                        />
+                    </Col>
+                }
+                <Col/>
+                <Col xl={9} lg={9} md={9} sm={11} xs={11}
+                     className="mt-4 mx-2"
+                     style={{textAlign: "justify",}}
+                     ref={ref}
+                >
+                    <h2 className="text-center">{title}</h2>
+                    {text}
+                </Col>
+                <Col/>
+            </Row>
+            <Row noGutters className="justify-content-between mt-4">
+                <Button className="col-5"
+                        variant="outline-dark"
+                        onClick={prevHandler}
+                        disabled={1 === chapterNumber(hash)}
+                >
+                    {"<<"} Previous
+                </Button>
+                <Button className="col-5"
+                        variant="outline-dark"
+                        onClick={nextHandler}
+                        disabled={chapters.length === chapterNumber(hash)}
+                >
+                    Next {">>"}
+                </Button>
+            </Row>
+            <Container>
+                {
+                    authorise
+                        ? <Comments bookId={Number(id)}/>
+                        : (
+                            <div>
+                                <h1 className="text-center mt-4">
+                                    Read and add comments can only login users
+                                </h1>
+                            </div>
+                        )
+                }
+            </Container>
+        </div>
     )
 }
 
