@@ -1,8 +1,8 @@
 import {UserStatic} from "./User.model";
 import {BookStatic} from "./Book.model";
 import {BookChapterStatic} from "./BookChapter.model";
-import {TagStatic} from "./BookTag.model";
 import {CommentStatic} from "./Comment.model";
+
 declare var console: Console;
 
 const CASCADE = "cascade";
@@ -41,15 +41,6 @@ export const book_chapters_association = (
     })
 }
 
-export const books_tags_association = (
-    Book: BookStatic,
-    Tag: TagStatic,
-): void => {
-    console.log("BOOKS_TAGS")
-    const through_table_name = "books_tags"
-    Book.belongsToMany(Tag, {through: through_table_name})
-    Tag.belongsToMany(Book, {through: through_table_name})
-}
 
 export const book_comments_association = (
     Book: BookStatic,

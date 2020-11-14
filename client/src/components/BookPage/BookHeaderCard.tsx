@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -18,11 +18,11 @@ const BookHeaderCard: React.FC<IBook> = (
         image,
         authorId,
         annotation,
-        genres,
+        gainers,
+        tags
     }
 ) => {
 
-    const [tags] = useState([]);
 
     return (
         <Card className="mt-4">
@@ -55,7 +55,7 @@ const BookHeaderCard: React.FC<IBook> = (
                         </Row>
                         <Row className="m-1">
                             Genres: &nbsp;
-                            {genres && genres.map((genre, index) =>
+                            {gainers && gainers.map((genre, index) =>
                                 <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
                         </Row>
                         <Row className="m-1">

@@ -21,18 +21,20 @@ const AdminCreateBookPage: React.FC = () => {
     const createBookHandler = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         try {
-            const {data:{user}} = await UserApi.getProfile(Number(id));
+            const {data: {user}} = await UserApi.getProfile(Number(id));
             const [annotation] = annotationState;
             const [image] = imageState;
             const [title] = titleState;
-            let genres: BookGenres[] = []
+            const [gainers] = gainersState;
+            const [tags] = tagsState;
             const book: IBook = {
                 authorId: user.id,
                 authorName: user.username,
                 annotation,
                 title,
                 image,
-                genres,
+                gainers: [...gainers.map(({value}) => value as BookGenres)],
+                tags: [...tags.map(({value}) => value)]
             }
             dispatch(createBookFetch(book))
         } catch (e) {

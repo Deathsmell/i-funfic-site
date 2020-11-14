@@ -3,25 +3,36 @@ import {Book} from "../models";
 import {Request, Response} from "express"
 import {IBook} from "../interfaces";
 import {BodyIdRequest, ParamIdRequest} from "../interfaces/IAxiosRequest";
-import {IBookResponse, IBooksResponse, IErrorResponse} from "../interfaces/IResponse";
-import {IBookFromDb} from "../interfaces/IBook";
+import {
+    IBookResponse,
+    IBooksResponse,
+    IErrorResponse
+} from "../interfaces/IResponse";
+import BookService from "../services/BookService";
 
 
 const BookController = {
-    deleteBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
+    createBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
         try {
-            const {id} = req.body as BodyIdRequest;
-            await Book.destroy({where: {id}});
-            res.status(200).send()
+            const reqBook = req.body as IBook;
+            const book = await BookService.create(reqBook);
+            res.status(200).json({book, message: "Success create new book"})
         } catch (e) {
-            res.status(500).send()
-            console.log(e)
+            res.status(500).json({message: e.message})
+        }
+    },
+    getAll: async (req: Request, res: Response<IBooksResponse | IErrorResponse>) => {
+        try {
+            const books = await BookService.getAll();
+            res.status(200).json({books, message: "Success"})
+        } catch (e) {
+            res.status(500).json({message: e.message})
         }
     },
     getById: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
         try {
             const {id} = req.query as ParamIdRequest;
-            const book = await Book.findOne({where: {id}}) as IBookFromDb | null;
+            const book = await BookService.getById(Number(id));
             if (book) {
                 res.status(200).json({book, message: "Success"})
             } else {
@@ -31,42 +42,23 @@ const BookController = {
             res.status(500).json({message: e.message})
         }
     },
-    getAll: async (req: Request, res: Response<IBooksResponse | IErrorResponse>) => {
-        try {
-            const books = await Book.findAll() as IBookFromDb[];
-            res.status(200).json({books, message: "Success"})
-        } catch (e) {
-            res.status(500).json({message: e.message})
-        }
-    },
-
     getByUserId: async (req: Request, res: Response<IBooksResponse | IErrorResponse>) => {
         try {
             const {id} = req.query as ParamIdRequest;
-            const books = await Book.findAll({where: {authorId: id}}) as IBookFromDb[];
+            const books = await BookService.getByUserId(Number(id));
             res.status(200).json({books: books || [], message: "Success"})
-        } catch (e) {
-            res.status(500).json({message: e.message})
-        }
-    },
-
-    createBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
-        console.log("create")
-        try {
-            const reqBook = req.body as IBook;
-            const book = await Book.create(reqBook) as IBookFromDb;
-            res.status(200).json({book, message: "Success create new book"})
         } catch (e) {
             res.status(500).json({message: e.message})
         }
     },
     updateBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
         try {
-            const {authorId, annotation, genres, id, title} = req.body as IBook;
+            const {authorId, annotation, gainers, id, title,tags} = req.body as IBook;
             const [number] = await Book.update({
                 annotation,
                 title,
-                genres
+                gainers,
+                tags
             }, {where: {[Op.and]: [{id}, {authorId}]}});
             if (number === 1) {
                 res.status(200).json({message: "Successful updated"})
@@ -75,6 +67,16 @@ const BookController = {
             }
         } catch (e) {
             res.status(500).json({message: e.message})
+        }
+    },
+    deleteBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
+        try {
+            const {id} = req.body as BodyIdRequest;
+            await Book.destroy({where: {id}});
+            res.status(200).send()
+        } catch (e) {
+            res.status(500).send()
+            console.log(e)
         }
     },
 }

@@ -25,7 +25,6 @@ export interface IBooksResponse extends IResponse {
     books: IBookFromDb[]
 }
 
-
 export interface IChapterResponse extends IResponse {
     chapter: IChapterFromDb
 }

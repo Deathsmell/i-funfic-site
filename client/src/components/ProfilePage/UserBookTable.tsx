@@ -19,9 +19,9 @@ const arrow = {
 type Sorter = ((a: IBook, b: IBook) => number)
 
 const UserBookTable: React.FC<Props> = ({
-                                                             books,
-                                                             filterState
-                                                         }) => {
+                                            books,
+                                            filterState
+                                        }) => {
 
     const [filter] = filterState
 
@@ -42,7 +42,7 @@ const UserBookTable: React.FC<Props> = ({
 
     const [sortedByNumber, setSortedByNumber] = useState<boolean | null>(null);
     const [sortedByName, setSortedByName] = useState<boolean | null>(null);
-    const [sortedByLike, setSortedByLike] = useState<boolean | null>(null);
+    const [sortedByRating, setSortedByRating] = useState<boolean | null>(null);
     const [sorter, setSorter] = useState<Sorter>();
 
     const sortByNumber = (desc: boolean): Sorter => (a: IBook, b: IBook): number => {
@@ -68,7 +68,13 @@ const UserBookTable: React.FC<Props> = ({
         return 0;
     }
 
-    useEffect(function changeSorterWhenRemounted () {
+    const sortByRating = (desk: boolean): Sorter => (a: IBook, b: IBook): number =>
+        a.rating && b.rating
+            ? (a?.rating - b?.rating)
+            : 0
+
+
+    useEffect(function changeSorterWhenRemounted() {
         if (sortedByNumber !== null)
             setSorter(() => sortByNumber(sortedByNumber))
         if (sortedByName !== null)
@@ -134,9 +140,9 @@ const UserBookTable: React.FC<Props> = ({
                 >
                     Likes
                     {
-                        sortedByLike
+                        sortedByRating
                         && (
-                            sortedByLike
+                            sortedByRating
                                 ? <FaLongArrowAltDown {...arrow}/>
                                 : <FaLongArrowAltUp {...arrow}/>
                         )

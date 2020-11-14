@@ -23,15 +23,17 @@ const CreateBookPage: React.FC = () => {
         const [annotation] = annotationState;
         const [image] = imageState;
         const [title] = titleState;
+        const [gainers] = gainersState;
+        const [tags] = tagsState;
         if (authorId && authorName) {
-            let genres: BookGenres[] = []
             const book: IBook = {
                 authorId,
                 annotation,
                 title,
                 image,
                 authorName,
-                genres,
+                gainers: [...gainers.map(({value}) => value as BookGenres)],
+                tags: [...tags.map(({value})=> value)]
             };
             dispatch(createBookFetch(book))
         }

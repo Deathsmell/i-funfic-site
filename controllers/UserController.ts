@@ -87,7 +87,7 @@ const UserController = {
             res.status(500).send()
         }
     },
-    update: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
+    updateUser: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
         try {
             const {id, user: {username, email, image}} = req.body as { id: number, user: IUser };
             const user = await User.findOne({where: {id}}) as IUserFromDb | null;

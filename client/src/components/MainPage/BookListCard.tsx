@@ -1,4 +1,4 @@
-import React, {MouseEvent, useState} from "react";
+import React, {MouseEvent} from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -10,19 +10,19 @@ import {ApplicationDynamicMap} from "../../routes";
 import {IBookFromDb} from "../../../../interfaces/IBook";
 
 const BookListCard: React.FC<IBookFromDb> = ({
-                                           id,
-                                           rating,
-                                           authorId,
-                                           annotation,
-                                           genres,
-                                           title,
-                                           image,
-                                           authorName,
-                                           updatedAt,
-                                           createdAt,
-                                       }) => {
+                                                 id,
+                                                 rating,
+                                                 authorId,
+                                                 annotation,
+                                                 gainers,
+                                                 title,
+                                                 image,
+                                                 authorName,
+                                                 updatedAt,
+                                                 createdAt,
+                                                 tags
+                                             }) => {
 
-    const [tags, setTags] = useState<string[]>([]);
     const lastUpdate = "never"
     const dispatch = useDispatch();
 
@@ -58,7 +58,7 @@ const BookListCard: React.FC<IBookFromDb> = ({
                     <Row className="m-4">
                         <strong>Genres:</strong>
                         &nbsp;
-                        {genres && genres.map((genre, index) =>
+                        {gainers && gainers.map((genre, index) =>
                             <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
                     </Row>
                     <Row className="m-4">

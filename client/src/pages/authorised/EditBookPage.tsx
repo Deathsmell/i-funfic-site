@@ -8,6 +8,7 @@ import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {updateBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
 import {TagItem} from "../../components/CreateBookPage/InputTagsField";
+import {BookGenres} from "../../../../interfaces";
 
 const EditBookPage: React.FC = () => {
 
@@ -16,20 +17,28 @@ const EditBookPage: React.FC = () => {
     const book = useSelector(selectorBook(Number(id)));
     const chapters = useSelector(selectorChapters(Number(id)))
 
+    useEffect(() => {
+        console.log(book)
+    })
+
     const [updating, setUpdating] = useState<boolean>(false);
     const imageState = useState<string | undefined>(book?.image);
     const annotationState = useState<string>(book?.annotation || "");
     const titleState = useState<string>(book?.title || "");
-    const tagsState = useState<Array<TagItem>>([]);
-    const gainersState = useState<Array<TagItem>>([]);
+    const tagsState = useState<Array<TagItem>>(book?.tags.map(tag => ({value: tag})) || []);
+    const gainersState = useState<Array<TagItem>>(book?.gainers.map(tag => ({value: tag})) || []);
 
     const [image] = imageState
     const [annotation] = annotationState
     const [title] = titleState
+    const [gainers] = gainersState
+    const [tags] = tagsState
 
     useEffect(function updateBook() {
         if (updating && book) {
-            dispatch(updateBookFetch({...book, image, annotation, title}))
+            let newTags = tags.map(({value}) => value)
+            let newGainers = gainers.map(({value}) => value as BookGenres)
+            dispatch(updateBookFetch({...book, image, annotation, title, gainers: newGainers,tags: newTags}))
         }
         setUpdating(false)
     }, [updating])

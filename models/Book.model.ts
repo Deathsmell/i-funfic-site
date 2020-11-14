@@ -19,6 +19,11 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        tags: {
+          type: DataTypes.ARRAY(DataTypes.STRING),
+          allowNull: false,
+          defaultValue: []
+        },
         annotation: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -33,9 +38,10 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
             allowNull: true,
             defaultValue: ""
         },
-        genres: {
+        gainers: {
             type: DataTypes.ARRAY(DataTypes.ENUM(BookGenres.FANTASTIC, BookGenres.ACTION)),
-            allowNull: true
+            allowNull: true,
+            defaultValue: []
         },
         image: {
             type: DataTypes.STRING,

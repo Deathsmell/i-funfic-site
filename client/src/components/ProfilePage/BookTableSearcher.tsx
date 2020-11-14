@@ -5,7 +5,7 @@ import {IFilterBookTableState} from "./UserProfileTabs";
 
 interface IKeys {
     title: string,
-    genres: string,
+    gainers: string,
     all: string,
 }
 
@@ -13,7 +13,7 @@ export type FilterKeys = keyof IKeys
 
 const KEYS: IKeys = {
     title: "Book name",
-    genres: "Genres",
+    gainers: "Gainers",
     all: "All"
 }
 
@@ -51,9 +51,9 @@ const BookTableSearcher: React.FC<Props> = ({filterState}) => {
                                onSelect={changeFilterHandler}
                 >{KEYS.title}</Dropdown.Item>
                 <Dropdown.Item href="#"
-                               eventKey={KEYS.genres}
+                               eventKey={KEYS.gainers}
                                onSelect={changeFilterHandler}
-                >{KEYS.genres}</Dropdown.Item>
+                >{KEYS.gainers}</Dropdown.Item>
                 <Dropdown.Divider/>
                 <Dropdown.Item href="#"
                                eventKey={KEYS.all}
