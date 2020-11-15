@@ -6,7 +6,7 @@ export interface ICredentialState {
     authorised: boolean,
     token?: string,
     roles?: Roles[],
-    img?: string,
+    image?: string,
     id?: number,
     username?: string
 }

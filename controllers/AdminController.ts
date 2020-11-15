@@ -35,7 +35,6 @@ const AdminController = {
             const {id} = req.query as ParamIdRequest;
             const {
                 books,
-                password,
                 image,
                 username,
                 email,
@@ -46,7 +45,7 @@ const AdminController = {
             } = await User.findOne({where: {id: Number(id)}, include: Book}) as IUserFromDb as IProfile;
             res.status(200).json({
                 books: books,
-                user: {id: userID, blocked, confirm, roles, email, username, image, password},
+                user: {id: userID, blocked, confirm, roles, email, username, image, password: ""},
                 message: "Success get profile"
             })
         } catch (e) {

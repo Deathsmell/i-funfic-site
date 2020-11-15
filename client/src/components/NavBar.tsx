@@ -8,13 +8,16 @@ import {ICredentialState} from "../store/credential/credential.interfaces";
 import {push} from "connected-react-router";
 import {Roles} from "../../../interfaces";
 import {ApplicationMap} from "../routes";
+import {FaSearch} from "react-icons/fa"
+import useWindowDimensions from "../hooks/useWindowDimensions";
 
 
 const NavBar: React.FC = () => {
 
-    const {authorised, roles} = useSelector<RootState, ICredentialState>(({credential}) => credential);
+    const {authorised, roles,image} = useSelector<RootState, ICredentialState>(({credential}) => credential);
     const dispatch = useDispatch();
-    let src = 'https://avatars.mds.yandex.net/get-pdb/1976636/ac1ce1a1-c9a4-4355-9a49-73627c1b9aab/s1200';
+    const {windowDimensions: {width}, breakPoint} = useWindowDimensions();
+
 
     const pushHandler = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
@@ -47,28 +50,38 @@ const NavBar: React.FC = () => {
                     <Nav.Link href={ApplicationMap.MAIN_PAGE}
                               onClick={pushHandler}
                     >Main</Nav.Link>
-                    {authorised
-                    && <Nav.Link href={ApplicationMap.PROFILE_PAGE}
-                                 onClick={pushHandler}
-                    >Profile</Nav.Link>
+                    {
+                        authorised && width > breakPoint.sm
+                        && <Nav.Link href={ApplicationMap.PROFILE_PAGE}
+                                     onClick={pushHandler}
+                        >Profile</Nav.Link>
                     }
-                    {authorised && roles?.some(isAdmin)
-                    && <Nav.Link href={ApplicationMap.USERS_PAGE}
-                                 onClick={pushHandler}
-                    >Users</Nav.Link>
+                    {
+                        authorised && roles?.some(isAdmin)
+                        && <Nav.Link href={ApplicationMap.USERS_PAGE}
+                                     onClick={pushHandler}
+                        >Users</Nav.Link>
                     }
                 </Nav>
-                <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-                    <Button variant="outline-info">Search</Button>
-                </Form>
+                {
+                    width > breakPoint.md
+                        ? (
+                            <Form inline>
+                                <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
+                                <Button variant="outline-info">Search</Button>
+                            </Form>
+                        )
+                        : (
+                            <FaSearch style={{cursor: "pointer"}}/>
+                        )
+                }
                 {authorised
                     ? (
                         <Image className="ml-4"
                                roundedCircle height="45px"
                                width="45px"
                                style={{cursor: 'pointer', objectFit: 'cover'}}
-                               src={src}
+                               src={image}
                                onClick={profileHandler}
                         />
                     )

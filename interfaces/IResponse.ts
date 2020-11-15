@@ -42,3 +42,7 @@ export interface IUserCommentResponse extends IResponse{
 export interface IUserCommentsResponse extends IResponse{
     comments: IUserComment[]
 }
+
+export interface ILikeResponse extends IResponse {
+    liked: boolean
+}

@@ -68,6 +68,7 @@ export const login = new LocalStrategy(
             blocked: user.blocked,
             confirm: user.confirm,
             roles: user.roles,
+            image: user.image,
             password: ""
         }
         return done(null, userData, {message: 'Logged in Successfully'});

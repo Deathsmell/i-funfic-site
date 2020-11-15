@@ -5,50 +5,74 @@ import {useParams} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {selectorHash} from "../../store/router/router.selectors";
-import {selectorAuthorise} from "../../store/credential/credential.selectors";
+import {selectorAuthorise, selectorUserId} from "../../store/credential/credential.selectors";
 import {push} from "connected-react-router";
 import LikeBtn from "../../components/LikeBtn";
 import ChaptersList from "../../components/ReedChaptersPage/ChaptersList";
 import Comments from "../../components/Comments/Comments";
+import {LikeApi} from "../../api/like";
 
-const chapterNumber = (hash: string) => Number(hash.replace(/#link/, ""));
+const whatChapterNumber = (hash: string) => Number(hash.replace(/#link/, ""));
+
+type BookIdParam = { id: string };
 
 const ReadChaptersPage: React.FC = () => {
     const ref = useRef<any>();
     const dispatch = useDispatch();
-    const {id} = useParams<{ id: string }>();
+    const {id} = useParams<BookIdParam>();
     const chapters = useSelector(selectorChapters(Number(id)));
     const {windowDimensions: {width, height}, breakPoint} = useWindowDimensions();
     const hash = useSelector(selectorHash);
     const authorise = useSelector(selectorAuthorise);
+    const userId = useSelector(selectorUserId);
+    const chapterNum = whatChapterNumber(hash);
 
     const [showLike, setShowLike] = useState(false);
     const [text, setText] = useState<string>(chapters[0].text || "");
     const [title, setTitle] = useState<string>(chapters[0].title || "");
+    const likedState = useState<boolean>(false);
+    const [liked, setLiked] = likedState;
 
+    const chapter = chapters.find(({number}) => number === chapterNum);
+
+    useEffect(()=>{
+        if (!hash || hash.trim() === "") {
+            dispatch(push("#link1"))
+        }
+    },[hash])
 
     useEffect(function changeChaptersText() {
         if (hash) {
-            const chapter = chapters.find(({number}) => number === chapterNumber(hash));
             setText(chapter ? chapter.text : "Empty")
-            setTitle(chapter ? chapter.title : "Empty")
+            setTitle(chapter ? chapter.title : "")
         }
     }, [hash])
 
     const prevHandler = () => {
         window.scrollTo(0, 0)
-        dispatch(push(`#link${chapterNumber(hash) - 1}`))
+        dispatch(push(`#link${chapterNum - 1}`))
     }
 
     const nextHandler = () => {
         window.scrollTo(0, 0)
-        dispatch(push(`#link${chapterNumber(hash) + 1}`))
+        dispatch(push(`#link${chapterNum + 1}`))
     }
+
+    useEffect(() => {
+        if (authorise && userId && chapter) {
+            LikeApi.iLikedIt(userId, chapter.id)
+                .then(res => {
+                    const like = res.data.liked;
+                    setLiked(like)
+                }).catch(error => {
+                console.error(error)
+            })
+        }
+    }, [hash])
 
     useEffect(() => {
         if (authorise) {
             const listener = () => {
-                console.log(window.pageYOffset)
                 if (!showLike && !(window.pageYOffset < (ref.current.offsetHeight - (height * 2)))) {
                     setShowLike(true)
                 } else {
@@ -58,11 +82,11 @@ const ReadChaptersPage: React.FC = () => {
             window.addEventListener("scroll", listener)
             return () => window.removeEventListener("scroll", listener)
         }
-    }, [])
+    }, [authorise])
 
     return (
         <div>
-            {showLike && <LikeBtn bookId={Number(id)} liked={false}/>}
+            {showLike && chapter &&  <LikeBtn chapterId={chapter.id} likedState={likedState}/>}
             {
                 width <= breakPoint.md
                 && (
@@ -98,14 +122,14 @@ const ReadChaptersPage: React.FC = () => {
                 <Button className="col-5"
                         variant="outline-dark"
                         onClick={prevHandler}
-                        disabled={1 === chapterNumber(hash)}
+                        disabled={1 === chapterNum}
                 >
                     {"<<"} Previous
                 </Button>
                 <Button className="col-5"
                         variant="outline-dark"
                         onClick={nextHandler}
-                        disabled={chapters.length === chapterNumber(hash)}
+                        disabled={chapters.length === chapterNum}
                 >
                     Next {">>"}
                 </Button>

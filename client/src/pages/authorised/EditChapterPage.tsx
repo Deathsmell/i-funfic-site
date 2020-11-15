@@ -23,25 +23,27 @@ const EditChapterPage: React.FC = () => {
     const textState = useState<string>(isCreatePage ? "" : chapter?.text || "");
     const [text] = textState
 
-    useEffect(()=>{
-        console.log(isCreatePage,location.pathname)
-    },[isCreatePage])
+    useEffect(() => {
+        console.log(isCreatePage, location.pathname)
+    }, [isCreatePage])
 
-    useEffect(()=>{
+    useEffect(() => {
         setIsCreatePage(location.pathname.includes("create"))
-    },[location.pathname])
+    }, [location.pathname])
 
     const chapterHandler = (e: MouseEvent) => {
         e.preventDefault()
-        if (isCreatePage){
+        if (isCreatePage) {
             dispatch(createChapter({title, text, bookId: Number(id)}))
-        } else {
+        } else if (chapter) {
             dispatch(updateChapter({
                     title,
                     text,
-                    bookId: chapter!.bookId,
-                    number: chapter!.number,
-                    id: chapter!.id
+                    bookId: chapter.bookId,
+                    number: chapter.number,
+                    id: chapter.id,
+                    createdAt: chapter.createdAt,
+                    updatedAt: chapter.updatedAt
                 })
             )
         }

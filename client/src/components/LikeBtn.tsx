@@ -1,32 +1,45 @@
-import React, {useState} from "react";
+import React from "react";
 import {Row} from "react-bootstrap";
 import {FcLike, FcLikePlaceholder} from "react-icons/fc"
+import {LikeApi} from "../api/like";
+import {useSelector} from "react-redux";
+import {selectorUserId} from "../store/credential/credential.selectors";
 
 interface Props {
-    bookId: number
-    liked: boolean
+    chapterId: number
+    likedState: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+
 }
 
 const defaultClassName = "border rounded-circle border-danger"
 const defaultSize = "10vh"
 
 const LikeBtn: React.FC<Props> = ({
-                                      bookId,
-                                      liked,
+                                      chapterId,
+                                      likedState,
                                   }) => {
 
-    const [like, setLike] = useState(liked);
+    const [like, setLike] = likedState;
+    const userId = useSelector(selectorUserId);
 
     const likedHandler = (e: React.MouseEvent) => {
         e.preventDefault();
-        setLike(!like)
-        if (like) {
-            console.log("Fetch dislike")
-        } else {
-            console.log("Fetch like")
+        if (userId) {
+            if (like) {
+                LikeApi.dislike(userId, chapterId)
+                    .then(res => {
+                        if (res.status === 200) setLike(false)
+                    })
+                    .catch(console.error)
+            } else {
+                LikeApi.like(userId, chapterId)
+                    .then(res => {
+                        if (res.status === 200) setLike(true)
+                    })
+                    .catch(console.error)
+            }
         }
     }
-
 
 
     return (

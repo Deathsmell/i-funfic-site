@@ -1,14 +1,14 @@
 import {BuildOptions, Model, Sequelize} from "sequelize"
 import {IChapter} from "../interfaces";
 
-export interface BookChapterModel extends Model<IChapter>, IChapter {}
-export class Chapter extends Model<BookChapterModel, IChapter> {}
-export type BookChapterStatic = typeof Model & {
-    new(values?: object, options?: BuildOptions): BookChapterModel
+export interface ChapterModel extends Model<IChapter>, IChapter {}
+export class Chapter extends Model<ChapterModel, IChapter> {}
+export type ChapterStatic = typeof Model & {
+    new(values?: object, options?: BuildOptions): ChapterModel
 }
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
-export const ChapterFactory = (sequelize: Sequelize, dataTypes: DataTypes): BookChapterStatic => {
+export const ChapterFactory = (sequelize: Sequelize, dataTypes: DataTypes): ChapterStatic => {
     return sequelize.define("chapter", {
         id: {
             type: dataTypes.INTEGER,

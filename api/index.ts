@@ -4,6 +4,7 @@ export * from "./cloudinary"
 export * from "./user"
 export * from "./chapter"
 export * from "./admin"
+export * from "./like"
 export * from "./comment"
 
 export const BASE_URL = "http://localhost:5000"

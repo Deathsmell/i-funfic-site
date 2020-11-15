@@ -30,12 +30,10 @@ export const bookReducer = (
                 books: action.books
             }
         case SET_AUTHOR_BOOKS:
-            const newVar = {
+            return {
                 ...state,
                 myBook: action.books
-            };
-            console.log("SET",state,newVar)
-            return newVar
+            }
         case ADD_AUTHOR_BOOK:
             console.log(action.book)
             return {

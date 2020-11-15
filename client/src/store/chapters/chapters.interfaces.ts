@@ -1,4 +1,4 @@
-import {IChapter} from "../../../../interfaces";
+import {IChapter, IChapterFromDb} from "../../../../interfaces/IChapter";
 import {
     ADD_CHAPTER,
     SET_CHAPTERS,
@@ -10,17 +10,17 @@ import {
 } from "./chapters.constants"
 
 
-export interface IChapterState extends Array<IChapter>{}
+export interface IChapterState extends Array<IChapterFromDb>{}
 
 
 export interface IChapterAction {
     type: typeof ADD_CHAPTER | typeof UPDATE_CHAPTER,
-    chapter: IChapter
+    chapter: IChapterFromDb
 }
 
 export interface IChaptersAction {
     type: typeof SET_CHAPTERS | typeof CLEAR_CHAPTERS,
-    chapters: IChapter[]
+    chapters: IChapterFromDb[]
 }
 
 export interface IChapterActionById {

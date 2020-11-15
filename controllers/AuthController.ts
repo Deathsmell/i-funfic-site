@@ -24,8 +24,8 @@ const AuthController = {
                             token: token,
                             authorised: true,
                             roles: user.roles,
-                            id: user.id!,
-                            img: user.image,
+                            id: user.id,
+                            image: user.image,
                             username: user.username
                         })
                     }
