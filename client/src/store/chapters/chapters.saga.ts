@@ -17,7 +17,6 @@ import {IChapterResponse, IChaptersResponse} from "../../../../interfaces/IRespo
 function* getAllWorker(action: IChapterAsyncActionById) {
     try {
         const {data: {chapters}}: AxiosResponse<IChaptersResponse> = yield call(ChapterApi.getAll, action.id);
-        console.log(chapters,"CHAPTERE")
         yield put<IChaptersAction>(setChapters(chapters))
     } catch (e) {
         console.error(e)
@@ -27,7 +26,6 @@ function* getAllWorker(action: IChapterAsyncActionById) {
 function* addChapterWorker(action: IChapterAsyncAction) {
     try {
         const {data: {chapter}}:AxiosResponse<IChapterResponse> = yield call(ChapterApi.createChapter, action.chapter);
-        console.log(chapter)
         yield put<IChapterAction>(addChapter(chapter))
         yield put(push(ApplicationDynamicMap.bookPage(chapter.bookId)))
     } catch (e) {

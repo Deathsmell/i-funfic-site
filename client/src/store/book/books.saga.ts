@@ -20,6 +20,7 @@ import {addBook, addMyBook, setCommonBooks, setMyBooks} from "./books.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
 import {IBookResponse, IBooksResponse} from "../../../../interfaces/IResponse";
+import {IBookFromDb} from "../../../../interfaces/IBook";
 
 function* allBookWorker(action: IBookAsyncActions) {
     try {
@@ -40,8 +41,8 @@ function* allBookWorker(action: IBookAsyncActions) {
 function* createBookWorker(action: IBookAsyncActionsByBook) {
     try {
         const {data}: AxiosResponse<IBookResponse>
-            = yield call(BookApi.create, action.book) ;
-        console.log("Create",data.message)
+            = yield call(BookApi.create, action.book);
+        console.log("Create", data.message)
         yield put<IBookActions>(addMyBook(data.book))
         yield put<IBookActions>(addBook(data.book))
         yield put(push(ApplicationDynamicMap.editBookPage(data.book.id)))
@@ -72,13 +73,18 @@ function* deleteAuthorBookWorker(action: IBookAsyncActionsById) {
 
 function* updateAuthorBookWorker(action: IBookAsyncActionsByBook) {
     try {
-        yield call(BookApi.update, action.book);
+        const {status} = yield call(BookApi.update, action.book);
+        console.log(status)
+        if (status === 200) {
+            yield put(addMyBook(action.book as IBookFromDb))
+            yield put(addBook(action.book as IBookFromDb))
+        }
     } catch (e) {
         console.error(e)
     }
 }
 
-function* allBookByRatingWorker(action : IBookAsyncActions) {
+function* allBookByRatingWorker(action: IBookAsyncActions) {
     let books = []
     if (action.tags) {
         const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAllOrderRatingByTags, action.tags);

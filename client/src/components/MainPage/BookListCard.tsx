@@ -21,12 +21,10 @@ const BookListCard: React.FC<IBookFromDb> = ({
                                                  tags
                                              }) => {
 
-    const lastUpdate = "never"
     const dispatch = useDispatch();
 
     const readHandler = (e: MouseEvent) => {
         e.preventDefault()
-        console.log(id)
         dispatch(push(ApplicationDynamicMap.bookPage(id)))
     }
 
@@ -79,7 +77,7 @@ const BookListCard: React.FC<IBookFromDb> = ({
                 <Card.Footer className="text-muted">
                     <Row className="text-left justify-content-end">
                         <Col className="align-self-center">
-                            {lastUpdate}
+                            {updatedAt}
                         </Col>
                         <Button variant="primary"
                                 onClick={readHandler}

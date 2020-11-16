@@ -16,9 +16,11 @@ const RatingService = {
         }) as IBookFromDb & BookModel & { ratings?: { dataValues: { ratingCount: string | number } }[] } | null;
         let newRating = rating
         if (book && book.ratings && book.ratings.length) {
+            console.log(book.ratings[0].dataValues.ratingCount)
+            console.log(book.ratings[0].dataValues)
             const count = Number(book.ratings[0].dataValues.ratingCount) || 0;
-            const number = book.rating * count;
-            newRating = (number + rating) / count + 1;
+            const number = Math.round(book.rating * count);
+            newRating = Math.round((number + rating) / (count + 1));
         }
         if (book) {
             await Rating.create({userId, bookId, rating})

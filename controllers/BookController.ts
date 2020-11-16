@@ -9,6 +9,7 @@ import {
     IErrorResponse, ITagsResponse
 } from "../interfaces/IResponse";
 import BookService from "../services/BookService";
+import {IBookFromDb} from "../interfaces/IBook";
 
 
 const BookController = {
@@ -89,6 +90,7 @@ const BookController = {
             const books = await BookService.getByUserId(Number(id));
             res.status(200).json({books: books || [], message: "Success"})
         } catch (e) {
+            console.error(e)
             res.status(500).json({message: e.message})
         }
     },
@@ -100,13 +102,14 @@ const BookController = {
                 title,
                 gainers,
                 tags
-            }, {where: {[Op.and]: [{id}, {authorId}]}});
+            }, {where: {[Op.and]: [{id}, {authorId}]}}) as [number: number, books: IBookFromDb[]];
             if (number === 1) {
                 res.status(200).json({message: "Successful updated"})
             } else {
                 res.status(400).json({message: `Updated ${number} books.`})
             }
         } catch (e) {
+            console.error(e)
             res.status(500).json({message: e.message})
         }
     },
@@ -116,8 +119,8 @@ const BookController = {
             await Book.destroy({where: {id}});
             res.status(200).send()
         } catch (e) {
+            console.error(e)
             res.status(500).send()
-            console.log(e)
         }
     },
 }
