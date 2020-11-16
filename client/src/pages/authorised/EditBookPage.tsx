@@ -7,8 +7,7 @@ import {selectorBook} from "../../store/book/books.selectors";
 import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {updateBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
-import {TagItem} from "../../components/CreateBookPage/InputTagsField";
-import {BookGenres} from "../../../../interfaces";
+import {BookGenres, ITagItem} from "../../../../interfaces";
 
 const EditBookPage: React.FC = () => {
 
@@ -21,8 +20,8 @@ const EditBookPage: React.FC = () => {
     const imageState = useState<string | undefined>(book?.image);
     const annotationState = useState<string>(book?.annotation || "");
     const titleState = useState<string>(book?.title || "");
-    const tagsState = useState<Array<TagItem>>(book?.tags.map(tag => ({value: tag})) || []);
-    const gainersState = useState<Array<TagItem>>(book?.gainers.map(tag => ({value: tag})) || []);
+    const tagsState = useState<Array<ITagItem>>(book?.tags.map(tag => ({value: tag})) || []);
+    const gainersState = useState<Array<ITagItem>>(book?.gainers.map(tag => ({value: tag})) || []);
 
     const [image] = imageState
     const [annotation] = annotationState

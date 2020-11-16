@@ -51,3 +51,8 @@ export interface ILikeResponse extends IResponse {
 export interface ITagsResponse extends IResponse {
     tags: ITagItem[]
 }
+
+export interface IRatingResponse extends IResponse {
+    set: boolean,
+    rating: number
+}

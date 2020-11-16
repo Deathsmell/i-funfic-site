@@ -6,7 +6,7 @@ import {BookGenres, IBook} from "../../../../interfaces";
 import {useParams} from "react-router";
 import {UserApi} from "../../api";
 import BookCard from "../../components/CreateBookPage/BookCard";
-import {TagItem} from "../../components/CreateBookPage/InputTagsField";
+import {ITagItem} from "../../../../interfaces";
 
 const AdminCreateBookPage: React.FC = () => {
 
@@ -15,8 +15,8 @@ const AdminCreateBookPage: React.FC = () => {
     const imageState = useState<string>();
     const annotationState = useState<string>("");
     const titleState = useState<string>("");
-    const tagsState = useState<Array<TagItem>>([]);
-    const gainersState = useState<Array<TagItem>>([]);
+    const tagsState = useState<Array<ITagItem>>([]);
+    const gainersState = useState<Array<ITagItem>>([]);
 
     const createBookHandler = async (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()

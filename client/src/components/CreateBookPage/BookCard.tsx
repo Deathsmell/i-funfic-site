@@ -1,15 +1,16 @@
 import React, {ChangeEvent} from "react";
 import DropImage from "../DropImage";
 import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
-import InputTagsField, {TagItem} from "./InputTagsField";
+import InputTagsField from "./InputTagsField";
+import {ITagItem} from "../../../../interfaces";
 
 
 interface Props {
     imageState: [(string | undefined), React.Dispatch<string | undefined>],
     annotationState: [(string), React.Dispatch<string>],
     titleState: [(string), React.Dispatch<string>],
-    tagsState: [Array<TagItem>, React.Dispatch<React.SetStateAction<Array<TagItem>>>],
-    gainersState: [Array<TagItem>, React.Dispatch<React.SetStateAction<Array<TagItem>>>],
+    tagsState: [Array<ITagItem>, React.Dispatch<React.SetStateAction<Array<ITagItem>>>],
+    gainersState: [Array<ITagItem>, React.Dispatch<React.SetStateAction<Array<ITagItem>>>],
 }
 
 const BookCard: React.FC<Props> = ({

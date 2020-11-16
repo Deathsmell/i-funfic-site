@@ -1,9 +1,7 @@
 import React, {MouseEvent} from "react";
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Badge from "react-bootstrap/Badge";
+import {Badge, Button, Card, Col, Row} from "react-bootstrap";
+import Rating from "react-rating";
+import {RiEyeCloseLine,RiEyeLine} from "react-icons/ri"
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
 import {ApplicationDynamicMap} from "../../routes";
@@ -51,7 +49,12 @@ const BookListCard: React.FC<IBookFromDb> = ({
                                 Autor: {authorName}
                             </Col>
                             <Col className="text-right">
-                                Reiting: {rating}
+                                Reiting:
+                                <Rating initialRating={rating ? rating : 0}
+                                        emptySymbol={<RiEyeCloseLine size="1em"/>}
+                                        fullSymbol={<RiEyeLine size="1em"/>}
+                                        readonly
+                                />
                             </Col>
                         </Row>
                     </Card.Title>

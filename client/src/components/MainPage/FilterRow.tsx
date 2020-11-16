@@ -40,13 +40,13 @@ const FilterRow: React.FC<Props> = ({
         }
     }, [])
 
-    const changeSortHandler = (eventKey: any, event: Object) => {
+    const changeSortHandler = (eventKey: any) => {
         setChangeSort(Number(eventKey))
     }
 
     return (
         <div className={className}>
-            <Row className="justify-content-center">
+            <Row noGutters className="justify-content-center">
                 <InputGroup>
                     <InputGroup.Prepend>
                         <DropdownButton as={ButtonGroup}
@@ -73,7 +73,7 @@ const FilterRow: React.FC<Props> = ({
                     </div>
                     <InputGroup.Append>
                         <Button variant="outline-secondary"
-                                onClick={e => {
+                                onClick={() => {
                                     setOpen(!open)
                                 }}
                         >Cloud tags</Button>

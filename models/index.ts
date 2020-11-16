@@ -1,8 +1,8 @@
 import {
     book_chapters_association,
-    book_comments_association, chapter_likes_association,
+    book_comments_association, book_ratings_association, chapter_likes_association,
     user_books_association,
-    user_comments_association, user_likes_association
+    user_comments_association, user_likes_association, user_ratings_association
 } from "./associations";
 import sequelize from "./database";
 import {DataTypes} from "sequelize"
@@ -13,12 +13,14 @@ import {CommentFactory, CommentStatic} from "./Comment.model";
 import {Roles} from "../interfaces";
 import bcrypt from "bcrypt"
 import {LikeFactory, LikeStatic} from "./Like.model";
+import {RatingFactory, RatingStatic} from "./Rating.model";
 
 const Book: BookStatic = BookFactory(sequelize, DataTypes);
 const User: UserStatic = UserFactory(sequelize, DataTypes);
 const Chapter: ChapterStatic = ChapterFactory(sequelize, DataTypes);
 const Comment: CommentStatic = CommentFactory(sequelize, DataTypes);
 const Like: LikeStatic = LikeFactory(sequelize,DataTypes);
+const Rating: RatingStatic = RatingFactory(sequelize,DataTypes);
 
 user_books_association(User, Book);
 book_chapters_association(Book, Chapter);
@@ -26,6 +28,8 @@ book_comments_association(Book, Comment);
 user_comments_association(User, Comment);
 user_likes_association(User,Like)
 chapter_likes_association(Chapter,Like);
+book_ratings_association(Book,Rating);
+user_ratings_association(User,Rating);
 
 function dbAuthenticate(mode: boolean) {
     sequelize.authenticate().then(async () => {
@@ -59,5 +63,6 @@ export {
     Comment,
     Book,
     Like,
+    Rating,
     dbAuthenticate
 }

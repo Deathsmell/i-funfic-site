@@ -3,8 +3,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId, selectorUsername} from "../../store/credential/credential.selectors";
 import {createBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
-import {BookGenres, IBook} from "../../../../interfaces";
-import {TagItem} from "../../components/CreateBookPage/InputTagsField";
+import {BookGenres, IBook, ITagItem} from "../../../../interfaces";
 import BookCard from "../../components/CreateBookPage/BookCard";
 
 const CreateBookPage: React.FC = () => {
@@ -15,8 +14,8 @@ const CreateBookPage: React.FC = () => {
     const titleState = useState<string>("");
     const authorId = useSelector(selectorUserId);
     const authorName = useSelector(selectorUsername);
-    const tagsState = useState<Array<TagItem>>([]);
-    const gainersState = useState<Array<TagItem>>([]);
+    const tagsState = useState<Array<ITagItem>>([]);
+    const gainersState = useState<Array<ITagItem>>([]);
 
     const createBookHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()

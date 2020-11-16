@@ -1,4 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
+import ReactMarkdown from 'react-markdown'
 import {Button, Col, Container, Row} from "react-bootstrap";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import {useParams} from "react-router";
@@ -114,7 +115,7 @@ const ReadChaptersPage: React.FC = () => {
                      ref={ref}
                 >
                     <h2 className="text-center">{title}</h2>
-                    {text}
+                    <ReactMarkdown>{text}</ReactMarkdown>
                 </Col>
                 <Col/>
             </Row>

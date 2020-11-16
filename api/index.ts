@@ -7,6 +7,7 @@ export * from "./admin"
 export * from "./like"
 export * from "./comment"
 export * from "./tags"
+export * from "./rating"
 
 export const BASE_URL = "http://localhost:5000"
 export const MAIN_PAGE_URL = "/"

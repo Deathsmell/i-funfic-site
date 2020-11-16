@@ -3,7 +3,7 @@ import {BookStatic} from "./Book.model";
 import {ChapterStatic} from "./Chapter.model";
 import {CommentStatic} from "./Comment.model";
 import {LikeStatic} from "./Like.model";
-
+import {RatingStatic} from "./Rating.model";
 
 const CASCADE = "cascade";
 
@@ -97,5 +97,35 @@ export const user_likes_association = (
     })
     Like.belongsTo(User, {
         foreignKey: user_likes_fk,
+    })
+}
+
+export const book_ratings_association = (
+    Book: BookStatic,
+    Rating: RatingStatic
+): void => {
+    const book_ratings_fk = "bookId"
+    Book.hasMany(Rating, {
+        foreignKey: book_ratings_fk,
+        onDelete: CASCADE,
+        onUpdate: CASCADE
+    })
+    Rating.belongsTo(Book, {
+        foreignKey: book_ratings_fk
+    })
+}
+
+export const user_ratings_association = (
+    User: UserStatic,
+    Rating: RatingStatic
+): void => {
+    const user_ratings_fk = "userId"
+    User.hasMany(Rating, {
+        foreignKey: user_ratings_fk,
+        onDelete: CASCADE,
+        onUpdate: CASCADE
+    })
+    Rating.belongsTo(User, {
+        foreignKey: user_ratings_fk,
     })
 }

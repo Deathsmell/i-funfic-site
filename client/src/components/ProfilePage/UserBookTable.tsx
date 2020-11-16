@@ -138,7 +138,7 @@ const UserBookTable: React.FC<Props> = ({
                 <th scope="col"
                     className="col-1"
                 >
-                    Likes
+                    Rating
                     {
                         sortedByRating
                         && (

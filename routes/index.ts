@@ -7,6 +7,7 @@ import {chapterRouter} from "./chapter";
 import {adminRouter} from "./admin";
 import {commentRouter} from "./comment"
 import {likeRouter} from "./like";
+import {ratingRouter} from "./rating";
 
 export const configRouter = (router: Router): void => {
     authRouter(router)
@@ -17,4 +18,5 @@ export const configRouter = (router: Router): void => {
     adminRouter(router)
     commentRouter(router)
     likeRouter(router)
+    ratingRouter(router)
 }

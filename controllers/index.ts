@@ -5,6 +5,7 @@ import CloudinaryController from "./CloudinaryConrollers";
 import AdminController from "./AdminController";
 import CommentController from "./CommentController";
 import LikeController from "./LikeController";
+import RatingsController from "./RatingsController";
 
 export {
     UserController,
@@ -14,4 +15,5 @@ export {
     AdminController,
     CommentController,
     LikeController,
+    RatingsController,
 }

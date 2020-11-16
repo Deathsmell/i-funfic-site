@@ -1,13 +1,18 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import Badge from "react-bootstrap/Badge";
 import Image from "react-bootstrap/Image";
-import {IBook} from "../../../../interfaces";
+import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri";
+import Rating from "react-rating";
+import {useSelector} from "react-redux";
+import {selectorAuthorise, selectorUserId} from "../../store/credential/credential.selectors";
+import {IBookFromDb} from "../../../../interfaces/IBook";
+import {RatingApi} from "../../api/rating";
 
-const BookHeaderCard: React.FC<IBook> = (
+const BookHeaderCard: React.FC<IBookFromDb> = (
     {
         id,
         title,
@@ -23,6 +28,30 @@ const BookHeaderCard: React.FC<IBook> = (
     }
 ) => {
 
+
+    const authorise = useSelector(selectorAuthorise);
+    const userId = useSelector(selectorUserId)
+    const [iSetRating, setISetRating] = useState<boolean>(false);
+
+    useEffect(() => {
+        if (authorise && userId) {
+            RatingApi.iSetRating(userId, id)
+                .then(res => {
+                    setISetRating(res.data.set)
+                })
+                .catch(console.error)
+        }
+    }, [])
+
+    const ratingHandler = (rating: number) => {
+        if (userId && authorise && !iSetRating) {
+            RatingApi.setRating(userId,id,rating)
+                .then(res => {
+                    console.log(res);
+                })
+                .catch(console.error)
+        }
+    }
 
     return (
         <Card className="mt-4">
@@ -43,7 +72,12 @@ const BookHeaderCard: React.FC<IBook> = (
                             <Col className="text-right">
                                 <h1>
                                     <strong>
-                                        Rating: {rating}
+                                        <Rating initialRating={rating ? rating : 0}
+                                                emptySymbol={<RiEyeCloseLine size="1em"/>}
+                                                fullSymbol={<RiEyeLine size="1em"/>}
+                                                readonly={!authorise && !iSetRating}
+                                                onClick={ratingHandler}
+                                        />
                                     </strong>
                                 </h1>
                             </Col>
