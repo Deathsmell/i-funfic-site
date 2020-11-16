@@ -12,7 +12,6 @@ import {IVerifiedCallback} from "./interfaces";
 
 export const signUp = new CustomStrategy(
     async (req: Request, done: IVerifiedCallback) => {
-        console.log("SIGN UP STRATEGY")
         const {password, email, username} = <IRegistrationData>req.body;
         const bcryptPassword = await bcrypt.hash(password, 12);
         const userFromDb = await User.findOne({
@@ -41,7 +40,6 @@ export const login = new LocalStrategy(
         passwordField: 'password'
     },
     async (username, password, done) => {
-        console.log("LOGIN STATEGY")
         const user = await User.findOne({
             where: {
                 [Op.or]: [
@@ -53,6 +51,16 @@ export const login = new LocalStrategy(
         if (!user) {
             console.error('User not found')
             return done(null, false, {message: 'User not found'});
+        }
+
+        if (!user.confirm){
+            console.error("User not confirm email")
+            return done(null, false, {message: "User not confirm email"})
+        }
+
+        if (user.blocked) {
+            console.error("User blocked")
+            return done(null, false, {message: "User blocked"})
         }
 
         const validate = await bcrypt.compare(password, user.password)
@@ -71,7 +79,7 @@ export const login = new LocalStrategy(
             image: user.image,
             password: ""
         }
-        return done(null, userData, {message: 'Logged in Successfully'});
+        return done(null, userData, { message: 'Logged in Successfully' });
     }
 )
 

@@ -5,6 +5,7 @@ import {IUser, Roles} from "../interfaces";
 import {jwtStrategy, login, signUp} from "./passport.strategy";
 import {isAdmin} from "../utils/adminUtils";
 import {IErrorResponse} from "../interfaces/IResponse";
+import {IUserFromDb} from "../interfaces/IUser";
 
 export const configPassport = (passport: PassportStatic) => {
 
@@ -21,10 +22,17 @@ export const configPassport = (passport: PassportStatic) => {
         }
     })
 
-    passport.deserializeUser(function (id: number, done) {
+    passport.deserializeUser(async (
+        id: number,
+        done: (
+            err?: any,
+            user?: IUserFromDb | boolean,
+            info?: { message: string }
+        ) => void) => {
         try {
-            const userFromDB = User.findOne({where: {id}});
-            done(null, userFromDB)
+            const userFromDB = await User.findOne({where: {id}}) as IUserFromDb | null;
+            if (userFromDB) done(null, userFromDB)
+            else done(null,false)
         } catch (e) {
             done(e)
         }

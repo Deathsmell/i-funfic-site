@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
@@ -11,6 +11,7 @@ import {useSelector} from "react-redux";
 import {selectorAuthorise, selectorUserId} from "../../store/credential/credential.selectors";
 import {IBookFromDb} from "../../../../interfaces/IBook";
 import {RatingApi} from "../../api/rating";
+import Holder from "holderjs";
 
 const BookHeaderCard: React.FC<IBookFromDb> = (
     {
@@ -53,11 +54,21 @@ const BookHeaderCard: React.FC<IBookFromDb> = (
         }
     }
 
+    const ref = useRef() as any;
+
+    useEffect(() => {
+        if (!image) Holder.run(ref.target)
+    })
+
     return (
         <Card className="mt-4">
             <Row style={{height: '100%'}}>
                 <Col lg={3} className="m-2">
-                    <Image src={image} rounded className="fic-card-img"/>
+                    <Image src={image || `holder.js/${300}x${250}?text=No image`}
+                           rounded
+                           className="fic-card-img"
+                           ref={ref}
+                    />
                 </Col>
                 <Col className="">
                     <Container className="mt-3">

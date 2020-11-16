@@ -12,7 +12,7 @@ const UserService = {
             }
             const newUser = await User.create(user);
             return {message: "Success create new user", user: newUser}
-    }
+    },
 }
 
 export default UserService
