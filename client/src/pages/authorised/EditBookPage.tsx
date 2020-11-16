@@ -17,10 +17,6 @@ const EditBookPage: React.FC = () => {
     const book = useSelector(selectorBook(Number(id)));
     const chapters = useSelector(selectorChapters(Number(id)))
 
-    useEffect(() => {
-        console.log(book)
-    })
-
     const [updating, setUpdating] = useState<boolean>(false);
     const imageState = useState<string | undefined>(book?.image);
     const annotationState = useState<string>(book?.annotation || "");

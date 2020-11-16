@@ -8,6 +8,8 @@ import {CHECK_AUTH, LOGIN, LOGOUT, REGISTRATION} from "./credential.costants";
 import {IBookAsyncActionsById} from "../book/book.interfaces";
 import {getBooksByAuthorIdFetch} from "../book/books.actions";
 import {selectorAuthorise} from "./credential.selectors";
+import {clearChapters} from "../chapters/chapters.actions";
+import {Action} from "redux";
 
 
 function* loginWorker(action: ILoginAction) {
@@ -16,6 +18,7 @@ function* loginWorker(action: ILoginAction) {
         console.log("LOGIN")
         localStorage.setItem("token", data.token)
         yield put<ICredentialAction>(authorise(data))
+        yield put<Action>(clearChapters())
         yield put<IBookAsyncActionsById>(getBooksByAuthorIdFetch(data.id))
         yield put(push("/"))
     } catch (e) {

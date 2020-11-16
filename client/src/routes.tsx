@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import {selectorAuthorise, selectorRoles} from "./store/credential/credential.selectors";
 import {isAdmin} from "./utils/adminUtils";
 import AdminCreateBookPage from "./pages/admin/AdminCreateBookPage";
+import TestPage from "./pages/TestPage";
 
 export const ApplicationMap = {
     MAIN_PAGE: "/",
@@ -60,7 +61,7 @@ const Routes: React.FC<Props> = ({}) => {
             <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
             <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
             <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/>
-            <Route path={"/test"}/>
+            <Route path={"/test"} component={TestPage}/>
         </>
     );
     const authorisePages = <>

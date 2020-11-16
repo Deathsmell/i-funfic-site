@@ -4,7 +4,7 @@ import {
     ADD_BOOK,
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
-    GET_ALL_BOOKS,
+    GET_ALL_BOOKS, GET_ALL_BOOKS_BY_RATING,
     GET_AUTHOR_BOOKS,
     SET_ALL_BOOKS,
     SET_AUTHOR_BOOKS, UPDATE_AUTHOR_BOOK,
@@ -38,8 +38,14 @@ export const addMyBook = (book: IBookFromDb): IBookActions => ({
     book: book
 })
 
-export const getAllBooksFetch = (): IBookAsyncActions => ({
+export const getAllBooksByUpdating = (tags?: string[]): IBookAsyncActions => ({
     type: GET_ALL_BOOKS,
+    tags: tags
+})
+
+export const getAllBooksByRatingFetch = (tags?: string[]): IBookAsyncActions => ({
+    type: GET_ALL_BOOKS_BY_RATING,
+    tags: tags
 })
 
 export const getBooksByAuthorIdFetch = (id: number): IBookAsyncActionsById => ({

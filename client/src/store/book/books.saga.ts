@@ -3,6 +3,7 @@ import {
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
     GET_ALL_BOOKS,
+    GET_ALL_BOOKS_BY_RATING,
     GET_AUTHOR_BOOKS,
     UPDATE_AUTHOR_BOOK,
 } from "./books.constants"
@@ -13,17 +14,24 @@ import {
     IBookAsyncActionsById,
     IBooksActions
 } from "./book.interfaces"
-import {call, put, takeEvery} from "redux-saga/effects"
+import {call, put, takeLeading} from "redux-saga/effects"
 import {BookApi} from "../../api";
 import {addBook, addMyBook, setCommonBooks, setMyBooks} from "./books.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
 import {IBookResponse, IBooksResponse} from "../../../../interfaces/IResponse";
 
-function* allBookWorker() {
+function* allBookWorker(action: IBookAsyncActions) {
     try {
-        const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAll);
-        yield put<IBooksActions>(setCommonBooks(data.books))
+        let books = []
+        if (action.tags) {
+            const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAllByTags, action.tags);
+            books = data.books
+        } else {
+            const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAll);
+            books = data.books
+        }
+        yield put<IBooksActions>(setCommonBooks(books))
     } catch (e) {
         console.error(e)
     }
@@ -70,10 +78,24 @@ function* updateAuthorBookWorker(action: IBookAsyncActionsByBook) {
     }
 }
 
+function* allBookByRatingWorker(action : IBookAsyncActions) {
+    let books = []
+    if (action.tags) {
+        const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAllOrderRatingByTags, action.tags);
+        books = data.books
+    } else {
+        const {data}: AxiosResponse<IBooksResponse> = yield call(BookApi.getAllOrderRating);
+        books = data.books
+    }
+    yield put<IBooksActions>(setCommonBooks(books))
+
+}
+
 export default function* watcher() {
-    yield takeEvery<IBookAsyncActions>(GET_ALL_BOOKS, allBookWorker)
-    yield takeEvery<IBookAsyncActionsByBook>(CREATE_AUTHOR_BOOK, createBookWorker)
-    yield takeEvery<IBookAsyncActionsById>(GET_AUTHOR_BOOKS, authorBookWorker)
-    yield takeEvery<IBookAsyncActionsById>(DELETE_AUTHOR_BOOK, deleteAuthorBookWorker)
-    yield takeEvery<IBookAsyncActionsByBook>(UPDATE_AUTHOR_BOOK, updateAuthorBookWorker)
+    yield takeLeading<IBookAsyncActions>(GET_ALL_BOOKS, allBookWorker)
+    yield takeLeading<IBookAsyncActions>(GET_ALL_BOOKS_BY_RATING, allBookByRatingWorker)
+    yield takeLeading<IBookAsyncActionsByBook>(CREATE_AUTHOR_BOOK, createBookWorker)
+    yield takeLeading<IBookAsyncActionsById>(GET_AUTHOR_BOOKS, authorBookWorker)
+    yield takeLeading<IBookAsyncActionsById>(DELETE_AUTHOR_BOOK, deleteAuthorBookWorker)
+    yield takeLeading<IBookAsyncActionsByBook>(UPDATE_AUTHOR_BOOK, updateAuthorBookWorker)
 }

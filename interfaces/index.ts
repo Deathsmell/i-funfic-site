@@ -3,6 +3,7 @@ import {BookGenres,IBook} from "./IBook";
 import {IChapter} from "./IChapter"
 import {IComment} from "./IComment";
 import {ISubscribeBookMessage} from "./IWSMessage";
+import {ITagItem} from "./ITagsItem";
 
 export {
     IUser,
@@ -11,5 +12,6 @@ export {
     IChapter,
     BookGenres,
     IComment,
-    ISubscribeBookMessage
+    ISubscribeBookMessage,
+    ITagItem
 }

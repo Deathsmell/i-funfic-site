@@ -2,6 +2,7 @@ import {IUserFromDb} from "./IUser";
 import {IBookFromDb} from "./IBook";
 import {IUserComment} from "./IComment";
 import {IChapterFromDb} from "./IChapter";
+import {ITagItem} from "./ITagsItem";
 
 export interface IResponse {
     message?: string
@@ -45,4 +46,8 @@ export interface IUserCommentsResponse extends IResponse{
 
 export interface ILikeResponse extends IResponse {
     liked: boolean
+}
+
+export interface ITagsResponse extends IResponse {
+    tags: ITagItem[]
 }

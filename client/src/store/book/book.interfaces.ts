@@ -4,7 +4,7 @@ import {
     ADD_BOOK,
     CREATE_AUTHOR_BOOK,
     DELETE_AUTHOR_BOOK,
-    GET_ALL_BOOKS,
+    GET_ALL_BOOKS, GET_ALL_BOOKS_BY_RATING,
     GET_AUTHOR_BOOKS,
     SET_ALL_BOOKS,
     SET_AUTHOR_BOOKS,
@@ -31,7 +31,8 @@ export interface IBookActionsById {
 }
 
 export interface IBookAsyncActions {
-    type: typeof GET_ALL_BOOKS
+    type: typeof GET_ALL_BOOKS | typeof GET_ALL_BOOKS_BY_RATING
+    tags?: string[]
 }
 
 export interface IBookAsyncActionsByBook {

@@ -1,5 +1,5 @@
 import {AxiosResponse} from "axios"
-import {call, put, takeEvery} from "redux-saga/effects"
+import {call, put, takeLeading} from "redux-saga/effects"
 import {CREATE_CHAPTER, DELETE_CHAPTER, GET_ALL_CHAPTER_BY_BOOK_ID, UPDATE_CHAPTER} from "./chapters.constants";
 import {ChapterApi} from "../../api/chapter";
 import {
@@ -9,7 +9,7 @@ import {
     IChapterAsyncActionById,
     IChaptersAction
 } from "./chapters.interfaces";
-import {addChapter, setChapters, deleteChapter, updateChapter} from "./chapters.actions";
+import {addChapter, deleteChapter, setChapters, updateChapter} from "./chapters.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap, ApplicationMap} from "../../routes";
 import {IChapterResponse, IChaptersResponse} from "../../../../interfaces/IResponse";
@@ -56,8 +56,8 @@ function* updateChapterWorker(action: IChapterAsyncAction) {
 }
 
 export default function* watcher() {
-    yield takeEvery<IChapterAsyncActionById>(GET_ALL_CHAPTER_BY_BOOK_ID, getAllWorker)
-    yield takeEvery<IChapterAsyncActionById>(DELETE_CHAPTER, deleteChapterWorker)
-    yield takeEvery<IChapterAsyncAction>(UPDATE_CHAPTER, updateChapterWorker)
-    yield takeEvery<IChapterAsyncAction>(CREATE_CHAPTER, addChapterWorker)
+    yield takeLeading<IChapterAsyncActionById>(GET_ALL_CHAPTER_BY_BOOK_ID, getAllWorker)
+    yield takeLeading<IChapterAsyncActionById>(DELETE_CHAPTER, deleteChapterWorker)
+    yield takeLeading<IChapterAsyncAction>(UPDATE_CHAPTER, updateChapterWorker)
+    yield takeLeading<IChapterAsyncAction>(CREATE_CHAPTER, addChapterWorker)
 }
