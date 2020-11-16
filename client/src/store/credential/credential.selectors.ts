@@ -27,3 +27,8 @@ export const selectorRoles = createSelector(
     selectCredential,
     credential => credential.roles
 )
+
+export const selectorImage = createSelector(
+    selectCredential,
+    credential => credential.image
+)

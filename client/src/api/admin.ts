@@ -5,7 +5,7 @@ import {
     IS_ADMIN_URL,
     REMOVE_ADMIN_ROLE_URL,
     SET_ADMIN_ROLE_URL,
-    UNBLOCK_USER_URL,
+    UNBLOCK_USER_URL, UPDATE_USER_IMAGE,
     UPDATE_USER_PROFILE
 } from "@api"
 import {IProfileResponse, IResponse} from "../../../interfaces/IResponse";
@@ -25,4 +25,6 @@ export const AdminApi = {
         await axiosInstance.post(REMOVE_ADMIN_ROLE_URL, {id}),
     updateUserProfile: async (user: IUser): IFetchResponse<IResponse> =>
         await axiosInstance.post(UPDATE_USER_PROFILE, {id: user.id, user}),
+    updateUserImage: async (id: number | string, image: string): IFetchResponse<IResponse> =>
+        await axiosInstance.post(UPDATE_USER_IMAGE, {id, image}),
 }

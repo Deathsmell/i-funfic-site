@@ -5,7 +5,7 @@ import {
     IS_ADMIN_URL,
     REMOVE_ADMIN_ROLE_URL,
     SET_ADMIN_ROLE_URL,
-    UNBLOCK_USER_URL, UPDATE_USER_PROFILE
+    UNBLOCK_USER_URL, UPDATE_USER_IMAGE, UPDATE_USER_PROFILE
 } from '../api'
 import {AdminController} from "../controllers";
 import {ensureAdmin} from "../config/passport";
@@ -17,5 +17,6 @@ export const adminRouter = (router: IRouter): void => {
     router.post(SET_ADMIN_ROLE_URL, ensureAdmin, AdminController.setAdminRole)
     router.post(REMOVE_ADMIN_ROLE_URL, ensureAdmin, AdminController.removeAdminRole)
     router.post(UPDATE_USER_PROFILE,ensureAdmin,AdminController.updateUserProfile)
+    router.post(UPDATE_USER_IMAGE,ensureAdmin,AdminController.updateUserImage)
     router.get(GET_PROFILE_URL, ensureAdmin, AdminController.getUserProfile)
 }

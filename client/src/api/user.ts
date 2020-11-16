@@ -2,7 +2,7 @@ import axiosInstance, {IFetchResponse} from "./fetch"
 import {
     CREATE_USER_URL,
     GET_ALL_USER_URL,
-    GET_CURRENT_USER_PROFILE_URL,
+    GET_CURRENT_USER_PROFILE_URL, UPDATE_CURRENT_USER_IMAGE,
     UPDATE_CURRENT_USER_INFORMATION
 } from "@api"
 import {IUser} from "../../../interfaces";
@@ -20,4 +20,6 @@ export const UserApi = {
 
     update: async (user: IUser): IFetchResponse<IResponse> =>
         await axiosInstance.post(UPDATE_CURRENT_USER_INFORMATION, {id:user.id,user}),
+    updateImage: async (id: number | string, image: string): IFetchResponse<IResponse> =>
+        await axiosInstance.post(UPDATE_CURRENT_USER_IMAGE, {id,image}),
 }

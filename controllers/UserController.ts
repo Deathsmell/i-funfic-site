@@ -11,7 +11,7 @@ const UserController = {
     getUser: async (req: Request, res: Response<IUserResponse | IErrorResponse>) => {
         try {
             const {id} = req.query as ParamIdRequest;
-            const user = await User.findOne({where:{id: Number(id)}}) as IUserFromDb | null;
+            const user = await User.findOne({where: {id: Number(id)}}) as IUserFromDb | null;
             if (user) {
                 res.status(200).json({user, message: "Success"})
             } else {
@@ -96,6 +96,16 @@ const UserController = {
             } else {
                 res.status(401).json({message: "Some error then update user information"})
             }
+            res.status(200).json({message: "Successful update"})
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({message: "Some error then update user information"})
+        }
+    },
+    updateImage: async (req: Request, res: Response<IResponse | IErrorResponse>) => {
+        try {
+            const {id, image} = req.body as { id: number, image: string };
+            await User.update({image}, {where: {id}})
             res.status(200).json({message: "Successful update"})
         } catch (e) {
             console.error(e)

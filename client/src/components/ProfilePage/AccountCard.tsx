@@ -1,12 +1,12 @@
-import React, {MouseEvent, useState} from "react";
+import React, {MouseEvent, useEffect, useState} from "react";
 import {AiOutlineUser} from "react-icons/ai";
 import {Button, ButtonGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {logout} from "../../store/credential/credential.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap, ApplicationMap} from "../../routes";
-import {AdminApi} from "../../api";
-import {selectorRoles, selectorUserId} from "../../store/credential/credential.selectors";
+import {AdminApi, UserApi} from "../../api";
+import {selectorImage, selectorRoles, selectorUserId} from "../../store/credential/credential.selectors";
 import {isAdmin} from "../../utils/adminUtils";
 import {IUserFromDb} from "../../../../interfaces/IUser";
 import DropImage from "../DropImage";
@@ -29,6 +29,20 @@ const AccountCard: React.FC<Props> = ({
     const [image, setImage] = useState<string | undefined>(user.image)
     const roles = useSelector(selectorRoles);
     const userId = useSelector(selectorUserId);
+    const img = useSelector(selectorImage);
+
+
+    useEffect(() => {
+        if (image !== img) {
+            if (image) {
+                if (id && isAdmin(roles)) {
+                    AdminApi.updateUserImage(id, image)
+                } else if (userId) {
+                    UserApi.updateImage(userId,image)
+                }
+            }
+        }
+    },[image])
 
     const logoutHandler = (event: MouseEvent) => {
         event.preventDefault()
