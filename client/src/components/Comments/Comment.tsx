@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import {Container} from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
@@ -41,7 +42,7 @@ const Comment: React.FC<Props> = ({
                     </Col>
                 </Row>
             </Card.Body>
-            <Card.Footer className="text-muted text-center">{updateAt}</Card.Footer>
+            <Card.Footer className="text-muted text-center">{moment(updateAt).fromNow()}</Card.Footer>
         </Card>
     )
 }

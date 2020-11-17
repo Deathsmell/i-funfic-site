@@ -96,12 +96,13 @@ const BookController = {
     },
     updateBook: async (req: Request, res: Response<IBookResponse | IErrorResponse>) => {
         try {
-            const {authorId, annotation, gainers, id, title,tags} = req.body as IBook;
+            const {authorId, annotation, gainers, id, title,tags,image} = req.body as IBook;
             const [number] = await Book.update({
                 annotation,
                 title,
                 gainers,
-                tags
+                tags,
+                image
             }, {where: {[Op.and]: [{id}, {authorId}]}}) as [number: number, books: IBookFromDb[]];
             if (number === 1) {
                 res.status(200).json({message: "Successful updated"})

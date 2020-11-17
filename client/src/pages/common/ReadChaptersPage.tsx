@@ -27,10 +27,11 @@ const ReadChaptersPage: React.FC = () => {
     const authorise = useSelector(selectorAuthorise);
     const userId = useSelector(selectorUserId);
     const chapterNum = whatChapterNumber(hash);
-
     const [showLike, setShowLike] = useState(false);
-    const [text, setText] = useState<string>(chapters[0].text || "");
-    const [title, setTitle] = useState<string>(chapters[0].title || "");
+    const firstChapterTitle = () => chapters && chapters.length ? chapters[0].title : "";
+    const firstChapterText = () => chapters && chapters.length ? chapters[0].text : "";
+    const [title, setTitle] = useState<string>(firstChapterTitle);
+    const [text, setText] = useState<string>(firstChapterText());
     const likedState = useState<boolean>(false);
     const [liked, setLiked] = likedState;
 
@@ -85,71 +86,77 @@ const ReadChaptersPage: React.FC = () => {
         }
     }, [authorise])
 
-    return (
-        <div>
-            {showLike && chapter &&  <LikeBtn chapterId={chapter.id} likedState={likedState}/>}
-            {
-                width <= breakPoint.md
-                && (
-                    <Row noGutters>
-                        <Col>
-                            <ChaptersList chapters={chapters} collapsed={true}/>
+    if (chapters && chapters.length){
+        return (
+            <div>
+                {showLike && chapter &&  <LikeBtn chapterId={chapter.id} likedState={likedState}/>}
+                {
+                    width <= breakPoint.md
+                    && (
+                        <Row noGutters>
+                            <Col>
+                                <ChaptersList chapters={chapters} collapsed={true}/>
+                            </Col>
+                        </Row>
+                    )
+                }
+                <Row noGutters>
+                    {
+                        width > breakPoint.md
+                        &&
+                        <Col xl={2} lg={2} md={2}>
+                            <ChaptersList chapters={chapters}
+                                          height={height}
+                            />
                         </Col>
-                    </Row>
-                )
-            }
-            <Row noGutters>
-                {
-                    width > breakPoint.md
-                    &&
-                    <Col xl={2} lg={2} md={2}>
-                        <ChaptersList chapters={chapters}
-                                      height={height}
-                        />
+                    }
+                    <Col/>
+                    <Col xl={9} lg={9} md={9} sm={11} xs={11}
+                         className="mt-4 mx-2"
+                         style={{textAlign: "justify",}}
+                         ref={ref}
+                    >
+                        <h2 className="text-center">{title}</h2>
+                        <ReactMarkdown>{text}</ReactMarkdown>
                     </Col>
-                }
-                <Col/>
-                <Col xl={9} lg={9} md={9} sm={11} xs={11}
-                     className="mt-4 mx-2"
-                     style={{textAlign: "justify",}}
-                     ref={ref}
-                >
-                    <h2 className="text-center">{title}</h2>
-                    <ReactMarkdown>{text}</ReactMarkdown>
-                </Col>
-                <Col/>
-            </Row>
-            <Row noGutters className="justify-content-between mt-4">
-                <Button className="col-5"
-                        variant="outline-dark"
-                        onClick={prevHandler}
-                        disabled={1 === chapterNum}
-                >
-                    {"<<"} Previous
-                </Button>
-                <Button className="col-5"
-                        variant="outline-dark"
-                        onClick={nextHandler}
-                        disabled={chapters.length === chapterNum}
-                >
-                    Next {">>"}
-                </Button>
-            </Row>
-            <Container>
-                {
-                    authorise
-                        ? <Comments bookId={Number(id)}/>
-                        : (
-                            <div>
-                                <h1 className="text-center mt-4">
-                                    Read and add comments can only login users
-                                </h1>
-                            </div>
-                        )
-                }
-            </Container>
-        </div>
-    )
+                    <Col/>
+                </Row>
+                <Row noGutters className="justify-content-between mt-4">
+                    <Button className="col-5"
+                            variant="outline-dark"
+                            onClick={prevHandler}
+                            disabled={1 === chapterNum}
+                    >
+                        {"<<"} Previous
+                    </Button>
+                    <Button className="col-5"
+                            variant="outline-dark"
+                            onClick={nextHandler}
+                            disabled={chapters.length === chapterNum}
+                    >
+                        Next {">>"}
+                    </Button>
+                </Row>
+                <Container>
+                    {
+                        authorise
+                            ? <Comments bookId={Number(id)}/>
+                            : (
+                                <div>
+                                    <h1 className="text-center mt-4">
+                                        Read and add comments can only login users
+                                    </h1>
+                                </div>
+                            )
+                    }
+                </Container>
+            </div>
+        )
+    } else {
+        return (
+            <h1 className="text-center">Empty book</h1>
+        )
+    }
 }
 
 export default ReadChaptersPage

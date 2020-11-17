@@ -1,4 +1,5 @@
 import React, {MouseEvent} from "react";
+import moment from "moment"
 import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 import Rating from "react-rating";
 import {RiEyeCloseLine,RiEyeLine} from "react-icons/ri"
@@ -77,7 +78,7 @@ const BookListCard: React.FC<IBookFromDb> = ({
                 <Card.Footer className="text-muted">
                     <Row className="text-left justify-content-end">
                         <Col className="align-self-center">
-                            {updatedAt}
+                            {moment(updatedAt).fromNow()}
                         </Col>
                         <Button variant="primary"
                                 onClick={readHandler}

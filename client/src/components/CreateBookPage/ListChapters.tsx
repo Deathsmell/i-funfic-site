@@ -1,4 +1,5 @@
 import React, {MouseEvent} from "react";
+import moment from "moment";
 import {Container, Table} from "react-bootstrap";
 import {IChapter} from "../../../../interfaces";
 import {useDispatch} from "react-redux";
@@ -45,12 +46,12 @@ const ListChapters: React.FC<Props> = ({
                 </thead>
                 <tbody>
                 {
-                    chapters && chapters.map(({number, title,bookId}) => {
+                    chapters && chapters.map(({number, title,bookId,updatedAt}) => {
                             return (
                                 <tr key={number}>
                                     <td>{number}</td>
                                     <td>{title}</td>
-                                    <td>1 minute ago</td>
+                                    <td>{moment(updatedAt).fromNow()}</td>
                                     <td>
                                         <ChapterManagerButtons bookId={bookId}/>
                                     </td>
