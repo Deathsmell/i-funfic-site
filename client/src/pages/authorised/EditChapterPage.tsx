@@ -5,6 +5,7 @@ import {createChapter, updateChapter} from "../../store/chapters/chapters.action
 import {useLocation, useParams} from "react-router";
 import ChapterEditor from "../../components/ChapterPage/ChapterEditor";
 import {selectorChapter} from "../../store/chapters/chapters.selectors";
+import {FormattedMessage} from "react-intl";
 
 type ParamsId = { id: string };
 type ParamsBookId = ParamsId;
@@ -56,7 +57,12 @@ const EditChapterPage: React.FC = () => {
 
     return (
         <Container>
-            <h1 className="text-center">Edit chapter page</h1>
+            <h1 className="text-center">
+                <FormattedMessage id="editchapterpage.header"
+                                  defaultMessage="Edit chapter page"
+                                  description="Edit chapter page header"
+                />
+            </h1>
             <ChapterEditor title={title}
                            titleHandler={changeTitleHandler}
                            textState={textState}
@@ -66,7 +72,21 @@ const EditChapterPage: React.FC = () => {
                         size="lg"
                         onClick={chapterHandler}
                 >
-                    {isCreatePage ? "Create" : "Edit"}
+                    {
+                        isCreatePage
+                            ? (
+                                <FormattedMessage id="editchapterpage.create"
+                                                  defaultMessage="Create chapter"
+                                                  description="Create chapter button"
+                                />
+                            )
+                            : (
+                                <FormattedMessage id="editchapterpage.edit"
+                                                  defaultMessage="Edit chapter"
+                                                  description="Edit chapter button"
+                                />
+                            )
+                    }
                 </Button>
             </Row>
         </Container>

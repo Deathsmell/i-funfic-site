@@ -8,6 +8,7 @@ import {IBookFromDb} from "../../../../interfaces/IBook";
 import FilterRow from "../../components/MainPage/FilterRow";
 import {IBookAsyncActions} from "../../store/book/book.interfaces";
 import {ITagItem} from "../../../../interfaces";
+import {FormattedMessage} from "react-intl";
 
 const mapState = ({books}: RootState): { books: IBookFromDb[] } => ({books: books.books})
 const mapDispatch = {getBooksByUpdating: getAllBooksByUpdating, getBooksByRating: getAllBooksByRatingFetch}
@@ -22,17 +23,27 @@ const MainPage: React.FC<PropsFromRedux> = ({
 
     const initialState = [
         {
-            key: "By updated",
+            element: (
+                <FormattedMessage id="filterrow.button.by.updated"
+                                  defaultMessage="By update"
+                                  description="By update sort button"
+                />
+            ),
             action: getBooksByUpdating
         },
         {
-            key: "By rating",
+            element: (
+                <FormattedMessage id="filterrow.button.by.rating"
+                                  defaultMessage="By rating"
+                                  description="By rating sort button"
+                />
+            ),
             action: getBooksByRating
         }
     ];
 
     const dispatch = useDispatch();
-    const sortingState = useState<Array<{ key: string, action: (tags?: string[]) => IBookAsyncActions }>>(initialState);
+    const sortingState = useState<Array<{ element: JSX.Element, action: (tags?: string[]) => IBookAsyncActions }>>(initialState);
     const changeSortState = useState<number>(0);
     const tagsState = useState<Array<ITagItem>>([]);
     const [tags] = tagsState;

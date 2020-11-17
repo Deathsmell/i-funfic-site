@@ -6,6 +6,7 @@ import {useDispatch} from "react-redux";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
 import ChapterManagerButtons from "./ChapterManagerButtons";
+import {FormattedMessage} from "react-intl";
 
 interface Props {
     chapters?: IChapter[]
@@ -34,14 +35,39 @@ const ListChapters: React.FC<Props> = ({
                 <thead>
                 <tr className="text-center">
                     <th colSpan={4}>
-                        <h3>Chapters table</h3>
+                        <h3>
+                            <FormattedMessage id="listchapter.table.header"
+                                              defaultMessage="Chapters table"
+                                              description="List chapter table header"
+                            />
+                        </h3>
                     </th>
                 </tr>
                 <tr>
-                    <th className={"col-1"}>#</th>
-                    <th className={"col-6"}>Chapter name</th>
-                    <th>Last update</th>
-                    <th>Actions</th>
+                    <th className={"col-1"}>
+                        <FormattedMessage id="listchapter.table.header.number"
+                                          defaultMessage="№"
+                                          description="List chapter table cell number"
+                        />
+                    </th>
+                    <th className={"col-6"}>
+                        <FormattedMessage id="listchapter.table.header.name"
+                                          defaultMessage="Chapter name"
+                                          description="List chapter table cell name"
+                        />
+                    </th>
+                    <th>
+                        <FormattedMessage id="listchapter.table.header.update"
+                                          defaultMessage="Last update"
+                                          description="List chapter table cell update"
+                        />
+                    </th>
+                    <th>
+                        <FormattedMessage id="listchapter.table.header.action"
+                                          defaultMessage="Action"
+                                          description="List chapter table cell action"
+                        />
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -64,7 +90,11 @@ const ListChapters: React.FC<Props> = ({
                     <td colSpan={4}
                         className={"text-center"}
                         onClick={createChapterHandler}
-                    >Add new chapter
+                    >
+                        <FormattedMessage id="listchapter.table.row.add"
+                                          defaultMessage="Add new chapter"
+                                          description="List chapter table add chapter row"
+                        />
                     </td>
                 </tr>
                 </tbody>

@@ -6,14 +6,16 @@ import {persistor, store} from "./store";
 import App from './App';
 import "holderjs"
 import './index.scss'
+import "moment/locale/ru"
+
 
 const app = (
     <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <div>
-                <App/>
-            </div>
-        </PersistGate>
+            <PersistGate loading={null} persistor={persistor}>
+                <div>
+                    <App/>
+                </div>
+            </PersistGate>
     </Provider>
 )
 

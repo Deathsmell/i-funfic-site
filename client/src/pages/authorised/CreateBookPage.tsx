@@ -5,6 +5,7 @@ import {createBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
 import {BookGenres, IBook, ITagItem} from "../../../../interfaces";
 import BookCard from "../../components/CreateBookPage/BookCard";
+import {FormattedMessage} from "react-intl";
 
 const CreateBookPage: React.FC = () => {
 
@@ -40,7 +41,12 @@ const CreateBookPage: React.FC = () => {
 
     return (
         <Container>
-            <h1 className={"text-center"}>Create page</h1>
+            <h1 className={"text-center"}>
+                <FormattedMessage id="createbookpage.header"
+                                  defaultMessage="Create book page"
+                                  description="Create book page header"
+                />
+            </h1>
             <BookCard imageState={imageState}
                       annotationState={annotationState}
                       titleState={titleState}
@@ -53,7 +59,10 @@ const CreateBookPage: React.FC = () => {
                         className="mb-3"
                         onClick={createBookHandler}
                 >
-                    Create
+                    <FormattedMessage id="createbookpage.button"
+                                      defaultMessage="Create book"
+                                      description="Create book button"
+                    />
                 </Button>
             </Row>
         </Container>

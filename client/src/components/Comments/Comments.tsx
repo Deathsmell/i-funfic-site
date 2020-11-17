@@ -4,6 +4,7 @@ import CreateCommentCard from "./CreateCommentCard";
 import {connect, ConnectedProps} from "react-redux";
 import {RootState} from "../../store/reducers";
 import {IUserComment} from "../../../../interfaces/IComment";
+import {FormattedMessage} from "react-intl";
 
 interface Props {
     bookId: number
@@ -42,7 +43,12 @@ const Comments: React.FC<PropsFromRedux & Props> = ({
                         )
                     }
                     )
-                    : <h1 className="text-center">No comments</h1>
+                    : <h1 className="text-center">
+                        <FormattedMessage id="comments.empty"
+                                          defaultMessage="No comments"
+                                          description="Empty comments message"
+                        />
+                    </h1>
             }
         </>
     )

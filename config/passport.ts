@@ -17,8 +17,6 @@ export const configPassport = (passport: PassportStatic) => {
         if (typeof user === "object") {
             user.password = ""
             done(null, user.id)
-        } else {
-            console.log(user)
         }
     })
 

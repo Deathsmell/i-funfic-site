@@ -4,6 +4,7 @@ import {Container, Row} from "react-bootstrap";
 import LoginForm from "../../components/AuthPage/LoginForm";
 import RegisterForm from "../../components/AuthPage/RegisterForm";
 import SocialNetGroupIcons from "../../components/AuthPage/SocialNetGroupIcons";
+import {FormattedMessage} from "react-intl";
 
 const AuthPage: React.FC = () => {
 
@@ -26,7 +27,19 @@ const AuthPage: React.FC = () => {
                 <Container>
                     <h1 className="text-center mt-4">
                         {
-                            isLoginPage ? 'Sign in' : 'Sign up'
+                            isLoginPage
+                                ? (
+                                    <FormattedMessage id="authpage.login"
+                                                      defaultMessage="Log in"
+                                                      description="Log in liable"
+                                    />
+                                )
+                                : (
+                                    <FormattedMessage id="authpage.signup"
+                                                      defaultMessage="Sign up"
+                                                      description="Sign up liable"
+                                    />
+                                )
                         }
                     </h1>
                     {

@@ -3,6 +3,7 @@ import {connect, ConnectedProps, useDispatch} from "react-redux";
 import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from 'react-router-bootstrap'
 import {login} from "../../store/credential/credential.actions"
+import {FormattedMessage} from "react-intl";
 
 
 const mapState = null
@@ -15,10 +16,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 const LoginForm: React.FC<PropsFromRedux> = ({login}) => {
 
     const dispatch = useDispatch();
-    const [username,setUsername] = useState<string>("");
-    const [password,setPassword] = useState<string>("")
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("")
 
-    const usernameHandler = (e:ChangeEvent<HTMLInputElement>) => {
+    const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
     }
 
@@ -37,7 +38,12 @@ const LoginForm: React.FC<PropsFromRedux> = ({login}) => {
     return (
         <Form>
             <Form.Group controlId="formBasicUsername">
-                <Form.Label>Username or Email</Form.Label>
+                <Form.Label>
+                    <FormattedMessage id="authpage.login.fields.username"
+                                      defaultMessage="Username or Email"
+                                      description="Username or email field"
+                    />
+                </Form.Label>
                 <Form.Control type="text"
                               name="username"
                               placeholder="Username"
@@ -45,11 +51,19 @@ const LoginForm: React.FC<PropsFromRedux> = ({login}) => {
                               onChange={usernameHandler}
                 />
                 <Form.Text className="text-muted">
-                    You can enter username or email address
+                    <FormattedMessage id="authpage.login.fields.username.muted"
+                                      defaultMessage="You can enter username or email address"
+                                      description="Username field bottom muted text"
+                    />
                 </Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>
+                    <FormattedMessage id="authpage.login.fields.password"
+                                      defaultMessage="Password"
+                                      description="Password field"
+                    />
+                </Form.Label>
                 <Form.Control type="password"
                               name="password"
                               placeholder="Password"
@@ -63,15 +77,37 @@ const LoginForm: React.FC<PropsFromRedux> = ({login}) => {
                         type="submit"
                         onClick={loginHandler}
                 >
-                    Sign in
+                    <FormattedMessage id="authpage.login.button"
+                                      defaultMessage="Log in"
+                                      description="Log in button"
+                    />
                 </Button>
             </Row>
             <hr/>
-            <LinkContainer to={"/register"}>
-                <div className="text-center">
-                    You <strong>have</strong> account on owr site? <a href="/">Register</a>
-                </div>
-            </LinkContainer>
+            <div className="text-center">
+                <FormattedMessage id="authpage.login.link.message"
+                                  defaultMessage={"You {strong} account on owr site? {link}"}
+                                  description="Registration link"
+                                  values={{
+                                      strong: (
+                                          <strong>
+                                              <FormattedMessage id={"authpage.login.link.strong"}
+                                                                defaultMessage="have"
+                                              />
+                                          </strong>
+                                      ),
+                                      link: (
+                                          <LinkContainer to={"/register"}>
+                                              <a href={"/"}>
+                                                  <FormattedMessage id={"authpage.login.link.link"}
+                                                                    defaultMessage="Register"
+                                                  />
+                                              </a>
+                                          </LinkContainer>
+                                      )
+                                  }}
+                />
+            </div>
         </Form>
     )
 }

@@ -12,6 +12,7 @@ import {selectorAuthorise, selectorUserId} from "../../store/credential/credenti
 import {IBookFromDb} from "../../../../interfaces/IBook";
 import {RatingApi} from "../../api/rating";
 import Holder from "holderjs";
+import {FormattedMessage} from "react-intl";
 
 const BookHeaderCard: React.FC<IBookFromDb> = (
     {
@@ -46,7 +47,7 @@ const BookHeaderCard: React.FC<IBookFromDb> = (
 
     const ratingHandler = (rating: number) => {
         if (userId && authorise && !iSetRating) {
-            RatingApi.setRating(userId,id,rating)
+            RatingApi.setRating(userId, id, rating)
                 .then(res => {
                     console.log(res);
                 })
@@ -95,21 +96,41 @@ const BookHeaderCard: React.FC<IBookFromDb> = (
                         </Row>
                         <Row className="m-1">
                             <h4>
-                                Author: {authorName}
+                                <FormattedMessage id="book.header.card.author"
+                                                  defaultMessage="Author"
+                                                  description="Author name field"
+                                />: &nbsp;{authorName}
                             </h4>
                         </Row>
                         <Row className="m-1">
-                            Genres: &nbsp;
-                            {gainers && gainers.map((genre, index) =>
-                                <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
+                            <FormattedMessage id="book.header.card.genres"
+                                              defaultMessage="Genres"
+                                              description="Genres field"
+                            />: &nbsp;
+                            {
+                                gainers
+                                && gainers.map((genre, index) =>
+                                    <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)
+                            }
                         </Row>
                         <Row className="m-1">
-                            Tags:&nbsp;
-                            {tags && tags.map((tag, index) =>
-                                <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)}
+                            <FormattedMessage id="book.header.card.tags"
+                                              defaultMessage="Tags"
+                                              description="Tags field"
+                            />: &nbsp;
+                            {
+                                tags
+                                && tags.map((tag, index) =>
+                                    <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)
+                            }
                         </Row>
                         <Row className="m-1">
-                            <h5>Annotation:</h5>
+                            <h5>
+                                <FormattedMessage id="book.header.card.annotation"
+                                                  defaultMessage="Annotation"
+                                                  description="Annotation field"
+                                />: &nbsp;
+                            </h5>
                             {annotation}
                         </Row>
                     </Container>

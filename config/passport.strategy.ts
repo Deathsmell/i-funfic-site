@@ -90,7 +90,6 @@ export const jwtStrategy = new JwtStrategy(
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken()
     },
     async (jwt_payload, done) => {
-        console.log("JWT STRATEGY")
         try {
             const user = await User.findOne({where: {id: jwt_payload.id}});
             if (user) {

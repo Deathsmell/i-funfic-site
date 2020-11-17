@@ -8,6 +8,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {connecting} from "./store/websocket/websocket.actions";
 import {selectorAuthorise} from "./store/credential/credential.selectors";
 import {selectorWebsocket} from "./store/websocket/websocket.selector";
+import {IntlProvider} from "react-intl";
+import {locales} from "./store/locale/locale.interfaces";
+import {selectorLocale} from "./store/locale/locale.selector";
 
 const App: React.FC = () => {
 
@@ -15,20 +18,23 @@ const App: React.FC = () => {
     const dispatch = useDispatch();
     const authorise = useSelector(selectorAuthorise);
     const ws = useSelector(selectorWebsocket)
+    const locale = useSelector(selectorLocale);
 
     useEffect(() => {
         dispatch(checkAuth())
-        if (authorise && !ws){
+        if (authorise && !ws) {
             dispatch(connecting())
         }
-    },[authorise, ws])
+    }, [authorise, ws])
 
     return (
         <>
+            <IntlProvider locale={locale} defaultLocale={"en"} messages={locales[locale]}>
                 <ConnectedRouter history={history}>
                     <NavBar/>
                     <Routes/>
                 </ConnectedRouter>
+            </IntlProvider>
         </>
     );
 }

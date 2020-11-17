@@ -1,10 +1,11 @@
 import {combineReducers} from "redux";
 import {CredentialReducer, credentialReducer} from "./credential/credential.reducers";
-import {bookReducer,BooksReducers} from "./book/books.reducers"
-import {chaptersReducer,ChapterReducer} from "./chapters/chapters.reducers"
+import {bookReducer, BooksReducers} from "./book/books.reducers"
+import {ChapterReducer, chaptersReducer} from "./chapters/chapters.reducers"
 import {RouterReducer, routerReducer} from "./router/history";
 import {CommentsReducer, commentsReducers} from "./comments/comments.reducers";
-import {WebsocketReducer,websocketReducer} from "./websocket/websocket.reducer"
+import {WebsocketReducer, websocketReducer} from "./websocket/websocket.reducer"
+import {LocaleReducer, localeReducer} from "./locale/locale.reducer"
 
 interface IRootReducer {
     credential: CredentialReducer,
@@ -13,6 +14,7 @@ interface IRootReducer {
     chapters: ChapterReducer,
     comments: CommentsReducer,
     websocket: WebsocketReducer,
+    locale: LocaleReducer
 }
 
 const reducers: IRootReducer = {
@@ -22,6 +24,7 @@ const reducers: IRootReducer = {
     chapters: chaptersReducer,
     comments: commentsReducers,
     websocket: websocketReducer,
+    locale: localeReducer,
 };
 export const rootReducers = combineReducers(reducers);
 

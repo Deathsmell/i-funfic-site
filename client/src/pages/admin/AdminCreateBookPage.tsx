@@ -7,6 +7,7 @@ import {useParams} from "react-router";
 import {UserApi} from "../../api";
 import BookCard from "../../components/CreateBookPage/BookCard";
 import {ITagItem} from "../../../../interfaces";
+import {FormattedMessage} from "react-intl";
 
 const AdminCreateBookPage: React.FC = () => {
 
@@ -58,7 +59,10 @@ const AdminCreateBookPage: React.FC = () => {
                         className="mb-3"
                         onClick={createBookHandler}
                 >
-                    Create
+                    <FormattedMessage id="createbookpage.button"
+                                      defaultMessage="Create book"
+                                      description="Create book button"
+                    />
                 </Button>
             </Row>
         </Container>

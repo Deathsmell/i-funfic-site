@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {Collapse, ListGroup} from "react-bootstrap";
 import {IChapter} from "../../../../interfaces";
+import {FormattedMessage} from "react-intl";
 
 interface Props {
     collapsed?: boolean
@@ -23,7 +24,12 @@ const ChaptersList: React.FC<Props> = ({
     return (
         <div className="border-right border-bottom border-dark sticky-top">
             <h3 className="text-center" onClick={collapsedHandler}>
-                <strong>Chapters</strong>
+                <strong>
+                    <FormattedMessage id="readchapterpage.chapterlist.header"
+                                      defaultMessage="Chapter"
+                                      description="Header"
+                    />
+                </strong>
             </h3>
             <Collapse in={show}>
                 <ListGroup defaultActiveKey="#link1"

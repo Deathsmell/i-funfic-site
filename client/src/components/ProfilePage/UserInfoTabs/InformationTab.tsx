@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import {selectorRoles} from "../../../store/credential/credential.selectors";
 import {isAdmin} from "../../../utils/adminUtils";
 import {AdminApi, UserApi} from "../../../api";
+import {FormattedMessage} from "react-intl";
 
 interface Props {
     user: IUser
@@ -61,7 +62,12 @@ const InformationTab: React.FC<Props> = ({user}) => {
 
     return (
         <div className="ml-3">
-            <h1>Information</h1>
+            <h1>
+                <FormattedMessage id="account.tabs.information.header"
+                                  defaultMessage="Information"
+                                  description="Header information tab"
+                />
+            </h1>
             <Form>
                 {
                     userField && Object.entries(userField)
@@ -124,7 +130,10 @@ const InformationTab: React.FC<Props> = ({user}) => {
                     editing && (
                         <Row className="justify-content-center">
                             <Button onClick={submitHandler}>
-                                Save change
+                                <FormattedMessage id="account.tabs.information.button.save"
+                                                  defaultMessage="Save changes"
+                                                  description="Save changes button"
+                                />
                             </Button>
                         </Row>
                     )

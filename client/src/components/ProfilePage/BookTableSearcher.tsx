@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import {Dropdown, DropdownButton, FormControl, InputGroup} from "react-bootstrap";
 import {IFilterBookTableState} from "./UserProfileTabs";
+import {FormattedMessage} from "react-intl";
 
 
 interface IKeys {
@@ -49,16 +50,31 @@ const BookTableSearcher: React.FC<Props> = ({filterState}) => {
                 <Dropdown.Item eventKey={KEYS.title}
                                href="#"
                                onSelect={changeFilterHandler}
-                >{KEYS.title}</Dropdown.Item>
+                >
+                    <FormattedMessage id="account.tabs.books.table.searcher.title"
+                                      defaultMessage="Book name"
+                                      description="Book name button"
+                    />
+                </Dropdown.Item>
                 <Dropdown.Item href="#"
                                eventKey={KEYS.gainers}
                                onSelect={changeFilterHandler}
-                >{KEYS.gainers}</Dropdown.Item>
+                >
+                    <FormattedMessage id="account.tabs.books.table.searcher.gainers"
+                                      defaultMessage="Gainers"
+                                      description="Book name button"
+                    />
+                </Dropdown.Item>
                 <Dropdown.Divider/>
                 <Dropdown.Item href="#"
                                eventKey={KEYS.all}
                                onSelect={changeFilterHandler}
-                >All</Dropdown.Item>
+                >
+                    <FormattedMessage id="account.tabs.books.table.searcher.all"
+                                      defaultMessage="All"
+                                      description="All button"
+                    />
+                </Dropdown.Item>
             </DropdownButton>
             <FormControl aria-describedby="profile-book-filter"
                          value={filter.string}

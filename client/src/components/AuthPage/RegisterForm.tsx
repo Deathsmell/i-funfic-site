@@ -3,6 +3,7 @@ import {connect, ConnectedProps, useDispatch} from "react-redux";
 import {registration} from "../../store/credential/credential.actions"
 import {Button, Form, Row} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
+import {FormattedMessage} from "react-intl";
 
 const mapState = null
 const mapDispatch = {registration}
@@ -13,11 +14,11 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 const RegisterForm: React.FC<PropsFromRedux> = ({registration}) => {
 
     const dispatch = useDispatch();
-    const [username,setUsername] = useState<string>("");
-    const [password,setPassword] = useState<string>("")
+    const [username, setUsername] = useState<string>("");
+    const [password, setPassword] = useState<string>("")
     const [email, setEmail] = useState<string>("");
 
-    const usernameHandler = (e:ChangeEvent<HTMLInputElement>) => {
+    const usernameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setUsername(e.target.value)
     }
 
@@ -41,7 +42,12 @@ const RegisterForm: React.FC<PropsFromRedux> = ({registration}) => {
     return (
         <Form>
             <Form.Group controlId="formBasicUsername">
-                <Form.Label>Username</Form.Label>
+                <Form.Label>
+                    <FormattedMessage id="authpage.register.fields.username"
+                                      defaultMessage="Username"
+                                      description="Username field"
+                    />
+                </Form.Label>
                 <Form.Control type="username"
                               name="username"
                               value={username}
@@ -49,11 +55,19 @@ const RegisterForm: React.FC<PropsFromRedux> = ({registration}) => {
                               onChange={usernameHandler}
                 />
                 <Form.Text className="text-muted">
-                    Enter you username
+                    <FormattedMessage id="authpage.register.fields.username.muted"
+                                      defaultMessage="Enter you username"
+                                      description="Username bottom muted text"
+                    />
                 </Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
+                <Form.Label>
+                    <FormattedMessage id="authpage.register.fields.email"
+                                      defaultMessage="Email address"
+                                      description="Email address field"
+                    />
+                </Form.Label>
                 <Form.Control type="email"
                               name="email"
                               value={email}
@@ -61,11 +75,19 @@ const RegisterForm: React.FC<PropsFromRedux> = ({registration}) => {
                               onChange={emailHandler}
                 />
                 <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
+                    <FormattedMessage id="authpage.register.fields.email.muted"
+                                      defaultMessage="We'll never share your email with anyone else"
+                                      description="Email bottom muted text"
+                    />
                 </Form.Text>
             </Form.Group>
             <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label>
+                    <FormattedMessage id="authpage.register.fields.password"
+                                      defaultMessage="Password"
+                                      description="Password field"
+                    />
+                </Form.Label>
                 <Form.Control type="password"
                               name="password"
                               value={password}
@@ -79,15 +101,37 @@ const RegisterForm: React.FC<PropsFromRedux> = ({registration}) => {
                         type="submit"
                         onClick={registrationHandler}
                 >
-                    Sign up
+                    <FormattedMessage id="authpage.register.button"
+                                      defaultMessage="Sign up"
+                                      description="Sign up button"
+                    />
                 </Button>
             </Row>
             <hr/>
-            <LinkContainer to={"/login"}>
-                <div className="text-center">
-                    You <strong>haven't</strong> account on owr site? <a href="/">Log in</a>
-                </div>
-            </LinkContainer>
+            <div className="text-center">
+                <FormattedMessage id="authpage.register.link.message"
+                                  defaultMessage={"You {strong} account on owr site? {link}"}
+                                  description="Log in link"
+                                  values={{
+                                      strong: (
+                                          <strong>
+                                              <FormattedMessage id={"authpage.register.link.strong"}
+                                                                defaultMessage="haven't"
+                                              />
+                                          </strong>
+                                      ),
+                                      link: (
+                                          <LinkContainer to={"/login"}>
+                                              <a href={"/"}>
+                                                  <FormattedMessage id={"authpage.register.link.link"}
+                                                                    defaultMessage="Log in"
+                                                  />
+                                              </a>
+                                          </LinkContainer>
+                                      )
+                                  }}
+                />
+            </div>
         </Form>
     )
 }

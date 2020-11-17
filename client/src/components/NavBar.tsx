@@ -1,20 +1,28 @@
 import React, {MouseEvent} from "react";
+import {FormattedMessage} from "react-intl";
 import {Button, Form, FormControl, Image, Nav, Navbar} from "react-bootstrap";
 import mordorLogo from '../mordor_logo.png'
 import {LinkContainer} from 'react-router-bootstrap'
 import {RootState} from "../store/reducers";
-import {useDispatch, useSelector} from "react-redux";
+import {connect, ConnectedProps, useDispatch, useSelector} from "react-redux";
 import {ICredentialState} from "../store/credential/credential.interfaces";
 import {push} from "connected-react-router";
 import {Roles} from "../../../interfaces";
 import {ApplicationMap} from "../routes";
 import {FaSearch} from "react-icons/fa"
 import useWindowDimensions from "../hooks/useWindowDimensions";
+import {ILocaleState} from "../store/locale/locale.interfaces";
+import {setEnLocale, setRuLocale} from "../store/locale/locale.actions";
+
+const mapState = ({locale}: RootState): { locale: ILocaleState } => ({locale})
+const mapDispatch = {setEn: setEnLocale, setRu: setRuLocale}
+const connector = connect(mapState, mapDispatch);
+type PropsFromRedux = ConnectedProps<typeof connector>
 
 
-const NavBar: React.FC = () => {
+const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
 
-    const {authorised, roles,image} = useSelector<RootState, ICredentialState>(({credential}) => credential);
+    const {authorised, roles, image} = useSelector<RootState, ICredentialState>(({credential}) => credential);
     const dispatch = useDispatch();
     const {windowDimensions: {width}, breakPoint} = useWindowDimensions();
 
@@ -32,6 +40,15 @@ const NavBar: React.FC = () => {
         dispatch(push("/profile"))
     }
 
+    const changeLocaleHandler = (e: MouseEvent) => {
+        e.preventDefault()
+        if (locale === "en") {
+            dispatch(setRu())
+        } else {
+            dispatch(setEn())
+        }
+    }
+
     const isAdmin = (role: Roles) => role.toUpperCase() === "ADMIN";
     return (
         <>
@@ -44,40 +61,67 @@ const NavBar: React.FC = () => {
                         className=""
                         alt="React Bootstrap logo"
                     />&nbsp;
-                    Mordor
+                    <FormattedMessage id="navbar.brand"
+                                      defaultMessage="Mordor"
+                                      description="Site name"
+                    />
                 </Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href={ApplicationMap.MAIN_PAGE}
                               onClick={pushHandler}
-                    >Main</Nav.Link>
+                    >
+                        <FormattedMessage id="navbar.links.main"
+                                          defaultMessage="Main"
+                                          description="Main page link"
+                        />
+                    </Nav.Link>
                     {
                         authorised && width > breakPoint.sm
                         && <Nav.Link href={ApplicationMap.PROFILE_PAGE}
                                      onClick={pushHandler}
-                        >Profile</Nav.Link>
+                        >
+                            <FormattedMessage id="navbar.links.profile"
+                                              defaultMessage="Profile"
+                                              description="Profile page link"
+                            />
+                        </Nav.Link>
                     }
                     {
                         authorised && roles?.some(isAdmin)
                         && <Nav.Link href={ApplicationMap.USERS_PAGE}
                                      onClick={pushHandler}
-                        >Users</Nav.Link>
+                        >
+                            <FormattedMessage id="navbar.links.users"
+                                              defaultMessage="Profile"
+                                              description="Users page link"
+                            />
+                        </Nav.Link>
                     }
                 </Nav>
                 {
                     width > breakPoint.md
                         ? (
-                            <Form inline>
-                                <FormControl type="text" placeholder="Search" className="mr-sm-2"/>
-                                <Button variant="outline-info">Search</Button>
+                            <Form inline className="mr-4">
+                                <FormControl type="text" placeholder="Search" className="mr-2"/>
+                                <Button variant="outline-info">
+                                    <FormattedMessage id="navbar.links.search"
+                                                      defaultMessage="Search"
+                                                      description="Search field"
+                                    />
+                                </Button>
                             </Form>
                         )
                         : (
-                            <FaSearch style={{cursor: "pointer"}}/>
+                            <FaSearch className="mr-2" style={{cursor: "pointer"}}/>
                         )
                 }
+                <span className="text-white"
+                      style={{cursor:"pointer",textDecoration:"underline"}}
+                      onClick={changeLocaleHandler}
+                >{locale.toUpperCase()}</span>
                 {authorised
                     ? (
-                        <Image className="ml-4"
+                        <Image className="ml-2"
                                roundedCircle height="45px"
                                width="45px"
                                style={{cursor: 'pointer', objectFit: 'cover'}}
@@ -88,9 +132,12 @@ const NavBar: React.FC = () => {
                     : (
                         <LinkContainer to={"/login"}>
                             <Button variant={"info"}
-                                    className="ml-4"
+                                    className="ml-2"
                             >
-                                Sign in
+                                <FormattedMessage id="navbar.links.login"
+                                                  defaultMessage="Log in"
+                                                  description="Login button"
+                                />
                             </Button>
                         </LinkContainer>
                     )
@@ -100,4 +147,4 @@ const NavBar: React.FC = () => {
     )
 }
 
-export default NavBar
+export default connector(NavBar)

@@ -11,6 +11,7 @@ import {isAdmin} from "../../utils/adminUtils";
 import {IUserFromDb} from "../../../../interfaces/IUser";
 import DropImage from "../DropImage";
 import {useParams} from "react-router";
+import {FormattedMessage} from "react-intl";
 
 
 interface Props {
@@ -38,11 +39,11 @@ const AccountCard: React.FC<Props> = ({
                 if (id && isAdmin(roles)) {
                     AdminApi.updateUserImage(id, image)
                 } else if (userId) {
-                    UserApi.updateImage(userId,image)
+                    UserApi.updateImage(userId, image)
                 }
             }
         }
-    },[image])
+    }, [image])
 
     const logoutHandler = (event: MouseEvent) => {
         event.preventDefault()
@@ -111,15 +112,52 @@ const AccountCard: React.FC<Props> = ({
             <ButtonGroup vertical className="w-100 mb-4">
                 <Button variant="dark"
                         onClick={createBookHandler}
-                >Create new book</Button>
+                >
+                    <FormattedMessage id="account.card.buttons.createbook"
+                                      defaultMessage="Delete"
+                                      description="Delete button"
+                    />
+                </Button>
                 {isAdmin(roles) && user && (
                     <>
                         <Button variant="warning"
                                 onClick={blockHandler}
-                        >{blocked ? "unblock" : "block"}</Button>
+                        >
+                            {
+                                blocked
+                                    ? (
+                                        <FormattedMessage id="account.card.buttons.unblock"
+                                                          defaultMessage="Unblock"
+                                                          description="Unblock button"
+                                        />
+                                    )
+                                    : (
+                                        <FormattedMessage id="account.card.buttons.block"
+                                                          defaultMessage="Block"
+                                                          description="Block button"
+                                        />
+                                    )
+                            }
+                        </Button>
                         <Button variant="warning"
                                 onClick={adminHandler}
-                        >{admin ? "Remove admin" : "Give admin"}</Button>
+                        >
+                            {
+                                admin
+                                    ? (
+                                        <FormattedMessage id="account.card.buttons.admin.remove"
+                                                          defaultMessage="Remove admin role"
+                                                          description="Remove role button"
+                                        />
+                                    )
+                                    : (
+                                        <FormattedMessage id="account.card.buttons.admin.set"
+                                                          defaultMessage="Set admin role"
+                                                          description="Set role button"
+                                        />
+                                    )
+                            }
+                        </Button>
                     </>
                 )
                 }
@@ -127,7 +165,12 @@ const AccountCard: React.FC<Props> = ({
                     currentUser && (
                         <Button variant="danger"
                                 onClick={logoutHandler}
-                        >Log out</Button>
+                        >
+                            <FormattedMessage id="account.card.buttons.logout"
+                                              defaultMessage="Log out"
+                                              description="Log out button"
+                            />
+                        </Button>
                     )
                 }
             </ButtonGroup>

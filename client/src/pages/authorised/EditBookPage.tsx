@@ -8,6 +8,7 @@ import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {updateBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
 import {BookGenres, ITagItem} from "../../../../interfaces";
+import {FormattedMessage} from "react-intl";
 
 const EditBookPage: React.FC = () => {
 
@@ -46,7 +47,12 @@ const EditBookPage: React.FC = () => {
     if (book) {
         return (
             <Container>
-                <h1 className={"text-center"}>Edit book page</h1>
+                <h1 className={"text-center"}>
+                    <FormattedMessage id="editbookpage.header"
+                                      defaultMessage="Edit book page"
+                                      description="Edit book page header"
+                    />
+                </h1>
                 <BookCard annotationState={annotationState}
                           imageState={imageState}
                           titleState={titleState}
@@ -59,7 +65,10 @@ const EditBookPage: React.FC = () => {
                             className="mt-5"
                             onClick={updateBookHandler}
                     >
-                        Save updates
+                        <FormattedMessage id="editbookpage.button"
+                                          defaultMessage="Save update"
+                                          description="Edit book page button"
+                        />
                     </Button>
                 </Row>
                 <ListChapters chapters={chapters}
@@ -69,7 +78,12 @@ const EditBookPage: React.FC = () => {
         )
     } else {
         return (
-            <h1>Some error</h1>
+            <h1 className="text-center">
+                <FormattedMessage id="editbookpage.error"
+                                  defaultMessage="Some error"
+                                  description="Error load page message"
+                />
+            </h1>
         )
     }
 }

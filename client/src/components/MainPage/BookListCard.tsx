@@ -2,11 +2,12 @@ import React, {MouseEvent} from "react";
 import moment from "moment"
 import {Badge, Button, Card, Col, Row} from "react-bootstrap";
 import Rating from "react-rating";
-import {RiEyeCloseLine,RiEyeLine} from "react-icons/ri"
+import {RiEyeCloseLine, RiEyeLine} from "react-icons/ri"
 import {push} from "connected-react-router";
 import {useDispatch} from "react-redux";
 import {ApplicationDynamicMap} from "../../routes";
 import {IBookFromDb} from "../../../../interfaces/IBook";
+import {FormattedMessage} from "react-intl";
 
 const BookListCard: React.FC<IBookFromDb> = ({
                                                  id,
@@ -45,10 +46,18 @@ const BookListCard: React.FC<IBookFromDb> = ({
                     <Card.Title>
                         <Row className="text-left">
                             <Col className="justify-content-start">
-                                Autor: {authorName}
+                                <FormattedMessage id="booklistcard.body.title.author"
+                                                  defaultMessage="Author"
+                                                  description="Author field name"
+                                />
+                                :{authorName}
                             </Col>
                             <Col className="text-right">
-                                Reiting:
+                                <FormattedMessage id="booklistcard.body.title.rating"
+                                                  defaultMessage="Rating"
+                                                  description="Rating field name"
+                                />
+                                :
                                 <Rating initialRating={rating ? rating : 0}
                                         emptySymbol={<RiEyeCloseLine size="1em"/>}
                                         fullSymbol={<RiEyeLine size="1em"/>}
@@ -58,19 +67,37 @@ const BookListCard: React.FC<IBookFromDb> = ({
                         </Row>
                     </Card.Title>
                     <Row className="m-4">
-                        <strong>Genres:</strong>
+                        <strong>
+                            <FormattedMessage id="booklistcard.body.title.genres"
+                                              defaultMessage="Genres"
+                                              description="Genres field name"
+                            />
+                            :
+                        </strong>
                         &nbsp;
                         {gainers && gainers.map((genre, index) =>
                             <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
                     </Row>
                     <Row className="m-4">
-                        <strong>Tags:</strong>
+                        <strong>
+                            <FormattedMessage id="booklistcard.body.title.tags"
+                                              defaultMessage="Tags"
+                                              description="Tags field name"
+                            />
+                            :
+                        </strong>
                         &nbsp;
                         {tags && tags.map((tag, index) =>
                             <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)}
                     </Row>
                     <Row className="m-4">
-                        <strong>Annotation:</strong>
+                        <strong>
+                            <FormattedMessage id="booklistcard.body.title.annotation"
+                                              defaultMessage="Annotation"
+                                              description="Annotation field name"
+                            />
+                            :
+                        </strong>
                         &nbsp;
                         {annotation}
                     </Row>
@@ -82,7 +109,12 @@ const BookListCard: React.FC<IBookFromDb> = ({
                         </Col>
                         <Button variant="primary"
                                 onClick={readHandler}
-                        >Read more</Button>
+                        >
+                            <FormattedMessage id="booklistcard.footer.button.read"
+                                              defaultMessage="Read more"
+                                              description="Read button name"
+                            />
+                        </Button>
                     </Row>
                 </Card.Footer>
             </Card>

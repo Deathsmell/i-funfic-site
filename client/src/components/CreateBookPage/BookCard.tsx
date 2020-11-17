@@ -3,6 +3,7 @@ import DropImage from "../DropImage";
 import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstrap";
 import InputTagsField from "./InputTagsField";
 import {ITagItem} from "../../../../interfaces";
+import {FormattedMessage} from "react-intl";
 
 
 interface Props {
@@ -47,7 +48,12 @@ const BookCard: React.FC<Props> = ({
                         <Row className="justify-content-between">
                             <InputGroup className="mb-3 pr-3">
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text id="book-name">Book name</InputGroup.Text>
+                                    <InputGroup.Text id="book-name">
+                                        <FormattedMessage id="bookcard.fields.name"
+                                                          defaultMessage="Book name"
+                                                          description="Book name field"
+                                        />
+                                    </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <FormControl aria-describedby="book-name"
                                              value={title}
@@ -58,7 +64,12 @@ const BookCard: React.FC<Props> = ({
                         <Row className="">
                             <InputGroup className="mb-3 pr-3">
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text id="gainers">Gainers</InputGroup.Text>
+                                    <InputGroup.Text id="gainers">
+                                        <FormattedMessage id="bookcard.fields.gainers"
+                                                          defaultMessage="Gainers"
+                                                          description="Gainers field"
+                                        />
+                                    </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <div className={"flex-grow-1"}>
                                     <InputTagsField itemsState={gainersState}
@@ -71,7 +82,12 @@ const BookCard: React.FC<Props> = ({
                         <Row className="">
                             <InputGroup className="mb-3 pr-3">
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text id="tags">Tags</InputGroup.Text>
+                                    <InputGroup.Text id="tags">
+                                        <FormattedMessage id="bookcard.fields.tags"
+                                                          defaultMessage="Tags"
+                                                          description="Tags field"
+                                        />
+                                    </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <div className={"flex-grow-1"}>
                                     <InputTagsField itemsState={tagsState}
@@ -83,7 +99,12 @@ const BookCard: React.FC<Props> = ({
                         <Row className="mb-4 pr-3">
                             <InputGroup>
                                 <InputGroup.Prepend>
-                                    <InputGroup.Text>Annotation</InputGroup.Text>
+                                    <InputGroup.Text>
+                                        <FormattedMessage id="bookcard.fields.annotation"
+                                                          defaultMessage="Annotation"
+                                                          description="Annotation field"
+                                        />
+                                    </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <FormControl as="textarea"
                                              value={annotation}

@@ -5,13 +5,14 @@ import InputTagsField from "../CreateBookPage/InputTagsField";
 import {IBookAsyncActions} from "../../store/book/book.interfaces";
 import {ITagItem} from "../../../../interfaces";
 import {TagsApi} from "../../api/tags";
+import {FormattedMessage} from "react-intl";
 
 
 interface Props {
     className?: string
     sortingState: [
-        Array<{ key: string, action: () => IBookAsyncActions }>,
-        Dispatch<SetStateAction<Array<{ key: string, action: () => IBookAsyncActions }>>>
+        Array<{ element: JSX.Element, action: () => IBookAsyncActions }>,
+        Dispatch<SetStateAction<Array<{ element: JSX.Element, action: () => IBookAsyncActions }>>>
     ]
     changeSortState: [number, React.Dispatch<React.SetStateAction<number>>]
     tagsState: [Array<ITagItem>, Dispatch<SetStateAction<Array<ITagItem>>>]
@@ -34,7 +35,7 @@ const FilterRow: React.FC<Props> = ({
     useEffect(() => {
         if (!whitelist.length) {
             TagsApi.getTags()
-                .then(({data:{tags}}) => {
+                .then(({data: {tags}}) => {
                     setWhitelist(tags)
                 })
         }
@@ -50,16 +51,16 @@ const FilterRow: React.FC<Props> = ({
                 <InputGroup>
                     <InputGroup.Prepend>
                         <DropdownButton as={ButtonGroup}
-                                        title={sorting[changeSort].key}
+                                        title={sorting[changeSort].element}
                                         className="rounded-0"
                         >
                             {
-                                sorting && sorting.map(({key}, index) => {
+                                sorting && sorting.map(({element}, index) => {
                                     return (
-                                        <Dropdown.Item key={key}
+                                        <Dropdown.Item key={index}
                                                        eventKey={index.toString()}
                                                        onSelect={changeSortHandler}
-                                        >{key}</Dropdown.Item>
+                                        >{element}</Dropdown.Item>
                                     )
                                 })
                             }
@@ -76,7 +77,12 @@ const FilterRow: React.FC<Props> = ({
                                 onClick={() => {
                                     setOpen(!open)
                                 }}
-                        >Cloud tags</Button>
+                        >
+                            <FormattedMessage id="filterrow.button.cloudtags"
+                                              defaultMessage="Cloud tags"
+                                              description="Cloud tags button"
+                            />
+                        </Button>
                     </InputGroup.Append>
                 </InputGroup>
             </Row>
@@ -97,7 +103,12 @@ const FilterRow: React.FC<Props> = ({
                                 />
                             )
                             : (
-                                <h1 className="text-center">Empty cloud</h1>
+                                <h1 className="text-center">
+                                    <FormattedMessage id="filterrow.tags.empty"
+                                                      defaultMessage="Empty cloud"
+                                                      description="Empty cloud"
+                                    />
+                                </h1>
                             )
                     }
                 </Collapse>

@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
 import {deleteChapterByBookId} from "../../store/chapters/chapters.actions";
+import {FormattedMessage} from "react-intl";
 
 interface Props {
     bookId: number
@@ -29,7 +30,10 @@ const ChapterManagerButtons: React.FC<Props> = ({bookId}) => {
                     placement={"top"}
                     overlay={
                         <Tooltip id={`tooltip-edit`}>
-                            Edit
+                            <FormattedMessage id="manage.buttons.edit"
+                                              defaultMessage="Edit"
+                                              description="Edit tooltip"
+                            />
                         </Tooltip>
                     }
                 >
@@ -45,7 +49,10 @@ const ChapterManagerButtons: React.FC<Props> = ({bookId}) => {
                     overlay={
                         <Tooltip id={`tooltip-delete`}
                         >
-                            Delete
+                            <FormattedMessage id="manage.buttons.delete"
+                                              defaultMessage="Delete"
+                                              description="Delete tooltip"
+                            />
                         </Tooltip>
                     }
                 >

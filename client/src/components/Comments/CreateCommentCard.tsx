@@ -3,6 +3,7 @@ import {Button, Col, FormControl, InputGroup, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId} from "../../store/credential/credential.selectors";
 import {createComment} from "../../store/comments/comments.actions";
+import {FormattedMessage} from "react-intl";
 
 interface Props {
     bookId: number
@@ -52,7 +53,12 @@ const CreateCommentCard: React.FC<Props> = ({bookId}) => {
                     <InputGroup.Append>
                         <Button variant="outline-secondary"
                                 onClick={createClickHandler}
-                        >Button</Button>
+                        >
+                            <FormattedMessage id="comments.card.buttons"
+                                              defaultMessage="Submit"
+                                              description="Submit comment button"
+                            />
+                        </Button>
                     </InputGroup.Append>
                 </InputGroup>
             </Col>

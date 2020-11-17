@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId} from "../../store/credential/credential.selectors";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
+import {FormattedMessage} from "react-intl";
 
 interface Params {
     authorId: number,
@@ -41,19 +42,39 @@ const BookManagerButtons: React.FC<Params> = ({authorId, bookId}) => {
         <Row className="manager-border justify-content-center mt-4">
             <Button variant="success"
                     onClick={reedHandler}
-            >Read</Button>
+            >
+                <FormattedMessage id="book.manager.buttons.read"
+                                  defaultMessage="Read"
+                                  description="Read button"
+                />
+            </Button>
             {
                 authorId === userId && (
                     <>
                         <Button variant="warning"
                                 onClick={editHandler}
-                        >Edit</Button>
+                        >
+                            <FormattedMessage id="book.manager.buttons.edit"
+                                              defaultMessage="Edit"
+                                              description="Edit button"
+                            />
+                        </Button>
                         <Button variant="danger"
                                 onClick={deleteHandler}
-                        >Delete</Button>
+                        >
+                            <FormattedMessage id="book.manager.buttons.delete"
+                                              defaultMessage="Delete"
+                                              description="Delete button"
+                            />
+                        </Button>
                         <Button variant="primary"
                                 onClick={addHandler}
-                        >Add</Button>
+                        >
+                            <FormattedMessage id="book.manager.buttons.add"
+                                              defaultMessage="Add+"
+                                              description="Add button"
+                            />
+                        </Button>
                     </>
                 )
             }

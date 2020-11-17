@@ -5,6 +5,7 @@ import {FaLongArrowAltDown, FaLongArrowAltUp} from "react-icons/fa";
 import {IBook} from "../../../../interfaces";
 import {IFilterBookTableState} from "./UserProfileTabs";
 import {IBookFromDb} from "../../../../interfaces/IBook";
+import {FormattedMessage} from "react-intl";
 
 
 interface Props {
@@ -111,7 +112,10 @@ const UserBookTable: React.FC<Props> = ({
                     className="col-1 text-center"
                     onClick={sortedByNumberHandler}
                 >
-                    #
+                    <FormattedMessage id="account.tabs.books.table.id"
+                                      defaultMessage="#"
+                                      description="Book id cell"
+                    />
                     {
                         sortedByNumber !== null
                         && (
@@ -125,7 +129,10 @@ const UserBookTable: React.FC<Props> = ({
                     className="text-center"
                     onClick={sortedByNameHandler}
                 >
-                    Book name
+                    <FormattedMessage id="account.tabs.books.table.name"
+                                      defaultMessage="Book name"
+                                      description="Book name cell"
+                    />
                     {
                         sortedByName !== null
                         && (
@@ -138,7 +145,10 @@ const UserBookTable: React.FC<Props> = ({
                 <th scope="col"
                     className="col-1"
                 >
-                    Rating
+                    <FormattedMessage id="account.tabs.books.table.rating"
+                                      defaultMessage="Rating"
+                                      description="Rating cell"
+                    />
                     {
                         sortedByRating
                         && (
@@ -151,7 +161,10 @@ const UserBookTable: React.FC<Props> = ({
                 <th scope="col"
                     className="col-2 text-center"
                 >
-                    Manage
+                    <FormattedMessage id="account.tabs.books.table.actions"
+                                      defaultMessage="Actions"
+                                      description="Actions cell"
+                    />
                 </th>
             </tr>
             </thead>
@@ -165,7 +178,7 @@ const UserBookTable: React.FC<Props> = ({
                             >
                                 <td>{id}</td>
                                 <td>{title}</td>
-                                <td>{rating}</td>
+                                <td>{rating ? rating : 0}</td>
                                 <td>
                                     <ManageBooksButtons id={id!}/>
                                 </td>
@@ -174,7 +187,12 @@ const UserBookTable: React.FC<Props> = ({
                     )
                     : (
                         <tr className="book-table-row">
-                            <td colSpan={4}>Not find books</td>
+                            <td colSpan={4}>
+                                <FormattedMessage id="account.tabs.books.table.empty"
+                                                  defaultMessage="Not found books"
+                                                  description="Not found books row"
+                                />
+                            </td>
                         </tr>
                     )
             }

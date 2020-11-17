@@ -5,6 +5,7 @@ import {useDispatch} from "react-redux";
 import {deleteBookFetch} from "../../store/book/books.actions";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
+import {FormattedMessage} from "react-intl";
 
 interface Prop {
     id: number
@@ -38,7 +39,10 @@ const ManageBooksButtons: React.FC<Prop> = ({id}) => {
                     overlay={
                         <Tooltip id={`tooltip-read`}
                         >
-                            Read
+                            <FormattedMessage id="account.tabs.books.table.manage.buttons.read"
+                                              defaultMessage="Read"
+                                              description="Read tooltip"
+                            />
                         </Tooltip>
                     }
                 >
@@ -52,7 +56,10 @@ const ManageBooksButtons: React.FC<Prop> = ({id}) => {
                     placement={"top"}
                     overlay={
                         <Tooltip id={`tooltip-edit`}>
-                            Edit
+                            <FormattedMessage id="account.tabs.books.table.manage.buttons.edit"
+                                              defaultMessage="Edit"
+                                              description="Edit tooltip"
+                            />
                         </Tooltip>
                     }
                 >
@@ -67,7 +74,10 @@ const ManageBooksButtons: React.FC<Prop> = ({id}) => {
                     overlay={
                         <Tooltip id={`tooltip-delete`}
                         >
-                            Delete
+                            <FormattedMessage id="account.tabs.books.table.manage.buttons.delete"
+                                              defaultMessage="Delete"
+                                              description="Delete tooltip"
+                            />
                         </Tooltip>
                     }
                 >

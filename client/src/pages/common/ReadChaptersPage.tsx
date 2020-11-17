@@ -12,6 +12,7 @@ import LikeBtn from "../../components/LikeBtn";
 import ChaptersList from "../../components/ReedChaptersPage/ChaptersList";
 import Comments from "../../components/Comments/Comments";
 import {LikeApi} from "../../api/like";
+import {FormattedMessage} from "react-intl";
 
 const whatChapterNumber = (hash: string) => Number(hash.replace(/#link/, ""));
 
@@ -37,11 +38,11 @@ const ReadChaptersPage: React.FC = () => {
 
     const chapter = chapters.find(({number}) => number === chapterNum);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (!hash || hash.trim() === "") {
             dispatch(push("#link1"))
         }
-    },[hash])
+    }, [hash])
 
     useEffect(function changeChaptersText() {
         if (hash) {
@@ -86,10 +87,10 @@ const ReadChaptersPage: React.FC = () => {
         }
     }, [authorise])
 
-    if (chapters && chapters.length){
+    if (chapters && chapters.length) {
         return (
             <div>
-                {showLike && chapter &&  <LikeBtn chapterId={chapter.id} likedState={likedState}/>}
+                {showLike && chapter && <LikeBtn chapterId={chapter.id} likedState={likedState}/>}
                 {
                     width <= breakPoint.md
                     && (
@@ -144,7 +145,10 @@ const ReadChaptersPage: React.FC = () => {
                             : (
                                 <div>
                                     <h1 className="text-center mt-4">
-                                        Read and add comments can only login users
+                                        <FormattedMessage id="readchapterpage.comments.unauthorized"
+                                                          defaultMessage="Read and add comments can only login users"
+                                                          description="No comment alert"
+                                        />
                                     </h1>
                                 </div>
                             )
@@ -154,7 +158,12 @@ const ReadChaptersPage: React.FC = () => {
         )
     } else {
         return (
-            <h1 className="text-center">Empty book</h1>
+            <h1 className="text-center">
+                <FormattedMessage id="readchapterpage.chapterlist.empty"
+                                  defaultMessage="Empty book"
+                                  description="Book empty message"
+                />
+            </h1>
         )
     }
 }
