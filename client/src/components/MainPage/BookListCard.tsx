@@ -8,6 +8,7 @@ import {useDispatch} from "react-redux";
 import {ApplicationDynamicMap} from "../../routes";
 import {IBookFromDb} from "../../../../interfaces/IBook";
 import {FormattedMessage} from "react-intl";
+import GenreBadge from "../GenreBadge";
 
 const BookListCard: React.FC<IBookFromDb> = ({
                                                  id,
@@ -75,13 +76,16 @@ const BookListCard: React.FC<IBookFromDb> = ({
                             :
                         </strong>
                         &nbsp;
-                        {gainers && gainers.map((genre, index) =>
-                            <Badge key={index} className="mx-1" variant="secondary">
-                                <FormattedMessage id={`common.genre.${genre}`}
-                                                  defaultMessage={genre[0].toUpperCase() + genre.slice(1)}
-                                                  description="Genres badge content"
-                                />
-                            </Badge>)}
+                        {
+                            gainers
+                            && gainers.map((genre, index) => {
+                                    return (
+                                        <GenreBadge key={index}
+                                                    genre={genre}/>
+                                    )
+                                }
+                            )
+                        }
                     </Row>
                     <Row className="m-4">
                         <strong>
@@ -89,11 +93,14 @@ const BookListCard: React.FC<IBookFromDb> = ({
                                               defaultMessage="Tags"
                                               description="Tags field name"
                             />
-                            :
+                            : &nbsp;
                         </strong>
-                        &nbsp;
-                        {tags && tags.map((tag, index) =>
-                            <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)}
+                        {
+                            tags
+                            && tags.map((tag, index) =>
+                                <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>
+                            )
+                        }
                     </Row>
                     <Row className="m-4">
                         <strong>

@@ -13,6 +13,7 @@ import ChaptersList from "../../components/ReedChaptersPage/ChaptersList";
 import Comments from "../../components/Comments/Comments";
 import {LikeApi} from "../../api/like";
 import {FormattedMessage} from "react-intl";
+import {ApplicationDynamicMap} from "../../routes";
 
 const whatChapterNumber = (hash: string) => Number(hash.replace(/#link/, ""));
 
@@ -59,6 +60,10 @@ const ReadChaptersPage: React.FC = () => {
     const nextHandler = () => {
         window.scrollTo(0, 0)
         dispatch(push(`#link${chapterNum + 1}`))
+    }
+
+    const returnHandler = () => {
+        dispatch(push(ApplicationDynamicMap.bookPage(id)))
     }
 
     useEffect(() => {
@@ -123,19 +128,36 @@ const ReadChaptersPage: React.FC = () => {
                     <Col/>
                 </Row>
                 <Row noGutters className="justify-content-between mt-4">
-                    <Button className="col-5"
+                    <Button className="col-3"
                             variant="outline-dark"
                             onClick={prevHandler}
                             disabled={1 === chapterNum}
                     >
-                        {"<<"} Previous
+                        {"<<"}
+                        <FormattedMessage id="readchapterpage.buttons.previous"
+                                          defaultMessage="Previous"
+                                          description="Previous chapter button"
+                        />
                     </Button>
-                    <Button className="col-5"
+                    <Button className="col-3"
+                            variant="outline-dark"
+                            onClick={returnHandler}
+                    >
+                        <FormattedMessage id="readchapterpage.buttons.return"
+                                          defaultMessage="Return on book page"
+                                          description="Return on book page button"
+                        />
+                    </Button>
+                    <Button className="col-3"
                             variant="outline-dark"
                             onClick={nextHandler}
                             disabled={chapters.length === chapterNum}
                     >
-                        Next {">>"}
+                        <FormattedMessage id="readchapterpage.buttons.next"
+                                          defaultMessage="Next"
+                                          description="Next chapter button"
+                        />
+                        {">>"}
                     </Button>
                 </Row>
                 <Container>

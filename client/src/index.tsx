@@ -5,8 +5,8 @@ import {Provider} from "react-redux";
 import {persistor, store} from "./store";
 import App from './App';
 import "holderjs"
-import './index.scss'
 import "moment/locale/ru"
+import './index.scss'
 
 
 const app = (

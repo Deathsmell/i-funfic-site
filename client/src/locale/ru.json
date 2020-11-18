@@ -46,6 +46,9 @@
   "readchapterpage.chapterlist.header": "Глава",
   "readchapterpage.chapterlist.empty": "Пустая книга",
   "readchapterpage.comments.unauthorized":"Читать и добавлять коментарии могут только зарегестрировые пользователи",
+  "readchapterpage.buttons.previous": "Предыдущая глава",
+  "readchapterpage.buttons.return": "Вернутся к книге",
+  "readchapterpage.buttons.next": "Следующая глава",
 
   "account.card.buttons.createbook": "Создать новую книгу",
   "account.card.buttons.block": "Заблокировать",

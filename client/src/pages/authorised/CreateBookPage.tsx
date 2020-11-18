@@ -1,4 +1,4 @@
-import React, {MouseEvent, useEffect, useState} from "react";
+import React, {MouseEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId, selectorUsername} from "../../store/credential/credential.selectors";
 import {createBookFetch} from "../../store/book/books.actions";
@@ -18,9 +18,7 @@ const CreateBookPage: React.FC = () => {
     const tagsState = useState<Array<ITagItem>>([]);
     const gainersState = useState<Array<ITagItem>>([]);
 
-    useEffect(()=>{
-        console.log(gainersState[0])
-    },[gainersState[0]])
+    const isEmpty = (str?: string) => str && str.trim() === ""
 
     const createBookHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -29,8 +27,7 @@ const CreateBookPage: React.FC = () => {
         const [title] = titleState;
         const [gainers] = gainersState;
         const [tags] = tagsState;
-        console.log(gainers,[...gainers.map(({value}) => value)])
-        if (authorId && authorName) {
+        if (authorId && authorName && !isEmpty(title) && !isEmpty(annotation)) {
             const book: IBook = {
                 authorId,
                 annotation,
