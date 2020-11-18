@@ -5,26 +5,21 @@
   "navbar.links.users": "Users",
   "navbar.links.search": "Search",
   "navbar.links.login": "Log in",
-
   "booklistcard.body.title.author": "Author",
   "booklistcard.body.title.rating": "Rating",
   "booklistcard.body.title.genres": "Genres",
   "booklistcard.body.title.tags": "Tags",
   "booklistcard.body.title.annotation": "Annotation",
   "booklistcard.footer.button.read": "Read more",
-
   "filterrow.button.cloudtags": "Cloud tags",
   "filterrow.button.by.updated": "By update",
   "filterrow.button.by.rating": "By rating",
   "filterrow.tags.empty": "Empty cloud",
-
-  "bookpage.error":"Some error!",
-  "bookpage.error.button":"Return on previous page",
-  "bookpage.comments.unauthorized":"Read and add comments can only login users",
-
+  "bookpage.error": "Some error!",
+  "bookpage.error.button": "Return on previous page",
+  "bookpage.comments.unauthorized": "Read and add comments can only login users",
   "authpage.login": "Log in",
   "authpage.signup": "Sign up",
-
   "authpage.login.fields.username": "Username or Email",
   "authpage.login.fields.username.muted": "You can enter username or email address",
   "authpage.login.fields.password": "Password",
@@ -32,7 +27,6 @@
   "authpage.login.link.message": "You {strong} account on owr site? {link}",
   "authpage.login.link.strong": "have",
   "authpage.login.link.link": "Register",
-
   "authpage.register.fields.username": "Username",
   "authpage.register.fields.username.muted": "Enter you username",
   "authpage.register.fields.email": "Email address",
@@ -42,11 +36,9 @@
   "authpage.register.link.message": "You {strong} account on owr site? {link}",
   "authpage.register.link.strong": "haven't",
   "authpage.register.link.link": "Log in",
-
   "readchapterpage.chapterlist.header": "Chapter",
   "readchapterpage.chapterlist.empty": "Empty book",
-  "readchapterpage.comments.unauthorized":"Read and add comments can only login users",
-
+  "readchapterpage.comments.unauthorized": "Read and add comments can only login users",
   "account.card.buttons.createbook": "Create new book",
   "account.card.buttons.block": "Block",
   "account.card.buttons.unblock": "Unblock",
@@ -68,24 +60,19 @@
   "account.tabs.books.table.manage.buttons.read": "Read",
   "account.tabs.books.table.manage.buttons.edit": "Edit",
   "account.tabs.books.table.manage.buttons.delete": "Delete",
-
   "createbookpage.button": "Create book",
   "createbookpage.header": "Create book page",
   "editbookpage.header": "Edit book page",
   "editbookpage.button": "Save update",
   "editbookpage.error": "Error",
-
   "bookcard.fields.name": "Book name",
   "bookcard.fields.gainers": "Gainers",
   "bookcard.fields.tags": "Tags",
   "bookcard.fields.annotation": "Annotation",
-
   "editchapterpage.header": "Edit chapter page",
   "editchapterpage.create": "Create chapter",
   "editchapterpage.edit": "Edit chapter",
-
   "loading": "Loading...",
-
   "usertable.block": "blocked",
   "usertable.unblock": "unblocked",
   "usertable.link": "@profile",
@@ -96,20 +83,16 @@
   "usertable.header.confirm": "Confirm",
   "usertable.header.status": "Staus",
   "usertable.header.profile": "Profile",
-
   "manage.buttons.edit": "Edit",
   "manage.buttons.delete": "Delete",
-
   "listchapter.table.header": "Chapters table",
   "listchapter.table.header.number": "№",
   "listchapter.table.header.name": "Chapter name",
   "listchapter.table.header.update": "Last update",
   "listchapter.table.header.action": "Action",
   "listchapter.table.row.add": "Add new chapter",
-
   "comments.empty": "No comments",
   "comments.card.buttons": "Submit",
-
   "book.header.card.author": "Author",
   "book.header.card.genres": "Genres",
   "book.header.card.tags": "Tags",
@@ -117,5 +100,34 @@
   "book.manager.buttons.read": "Read",
   "book.manager.buttons.edit": "Edit",
   "book.manager.buttons.delete": "Delete",
-  "book.manager.buttons.add": "Add+"
+  "book.manager.buttons.add": "Add+",
+  "common.genre.action": "Action",
+  "common.genre.hurt": "Hurt",
+  "common.genre.comfort": "Comfort",
+  "common.genre.pov": "Pov",
+  "common.genre.pwp": "Pwp",
+  "common.genre.songfic": "Songfic",
+  "common.genre.angst": "Angst",
+  "common.genre.dystopia": "Dystopia",
+  "common.genre.darkfic": "Darkfic",
+  "common.genre.detective": "Detective",
+  "common.genre.drama": "Drama",
+  "common.genre.friendship": "Friendship",
+  "common.genre.curtain": "Curtain",
+  "common.genre.malicious": "Malicious",
+  "common.genre.historical": "Historical",
+  "common.genre.love": "Love",
+  "common.genre.mysticism": "Mysticism",
+  "common.genre.mythical": "Mythical",
+  "common.genre.omegaverse": "Omegaverse",
+  "common.genre.parody": "Parody",
+  "common.genre.firstime": "Firstime",
+  "common.genre.fantasy": "Fantasy",
+  "common.genre.fluff": "Fluff",
+  "common.genre.fiction": "Fiction",
+  "common.genre.horrors": "Horrors",
+  "common.genre.soulmates": "Soulmates",
+  "common.genre.romance": "Romance",
+  "common.genre.psychology": "Psychology",
+  "common.genre.humdrum": "Humdrum"
 }

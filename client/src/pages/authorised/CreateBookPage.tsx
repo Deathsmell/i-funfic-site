@@ -1,9 +1,9 @@
-import React, {MouseEvent, useState} from "react";
+import React, {MouseEvent, useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId, selectorUsername} from "../../store/credential/credential.selectors";
 import {createBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
-import {BookGenres, IBook, ITagItem} from "../../../../interfaces";
+import {IBook, ITagItem} from "../../../../interfaces";
 import BookCard from "../../components/CreateBookPage/BookCard";
 import {FormattedMessage} from "react-intl";
 
@@ -18,6 +18,10 @@ const CreateBookPage: React.FC = () => {
     const tagsState = useState<Array<ITagItem>>([]);
     const gainersState = useState<Array<ITagItem>>([]);
 
+    useEffect(()=>{
+        console.log(gainersState[0])
+    },[gainersState[0]])
+
     const createBookHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
         const [annotation] = annotationState;
@@ -25,6 +29,7 @@ const CreateBookPage: React.FC = () => {
         const [title] = titleState;
         const [gainers] = gainersState;
         const [tags] = tagsState;
+        console.log(gainers,[...gainers.map(({value}) => value)])
         if (authorId && authorName) {
             const book: IBook = {
                 authorId,
@@ -32,7 +37,7 @@ const CreateBookPage: React.FC = () => {
                 title,
                 image,
                 authorName,
-                gainers: [...gainers.map(({value}) => value as BookGenres)],
+                gainers: [...gainers.map(({value}) => value)],
                 tags: [...tags.map(({value})=> value)]
             };
             dispatch(createBookFetch(book))

@@ -1,10 +1,14 @@
-import {Model, Sequelize,BuildOptions} from "sequelize";
-import {BookGenres, IBook} from "../interfaces";
+import {BuildOptions, Model, Sequelize} from "sequelize";
+import {IBook} from "../interfaces";
 
-export interface BookModel extends Model<IBook>,IBook {}
-export class Book extends Model<BookModel,IBook>{}
+export interface BookModel extends Model<IBook>, IBook {
+}
+
+export class Book extends Model<BookModel, IBook> {
+}
+
 export type BookStatic = typeof Model & {
-    new (values?: object, options?: BuildOptions): BookModel
+    new(values?: object, options?: BuildOptions): BookModel
 }
 
 type DataTypes = typeof import("sequelize/types/lib/data-types");
@@ -20,9 +24,9 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
             allowNull: false
         },
         tags: {
-          type: DataTypes.ARRAY(DataTypes.STRING),
-          allowNull: false,
-          defaultValue: []
+            type: DataTypes.ARRAY(DataTypes.STRING),
+            allowNull: false,
+            defaultValue: []
         },
         annotation: {
             type: DataTypes.STRING,
@@ -31,7 +35,8 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
         },
         rating: {
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: true,
+            defaultValue: 0
         },
         title: {
             type: DataTypes.STRING,
@@ -39,7 +44,7 @@ export const BookFactory = (sequelize: Sequelize, DataTypes: DataTypes): BookSta
             defaultValue: ""
         },
         gainers: {
-            type: DataTypes.ARRAY(DataTypes.ENUM(BookGenres.FANTASTIC, BookGenres.ACTION)),
+            type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: true,
             defaultValue: []
         },

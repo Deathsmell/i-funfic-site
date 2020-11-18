@@ -4,6 +4,7 @@ import bookWatcher from "./book/books.saga"
 import chapterWatcher from "./chapters/chapters.saga"
 import commentWatcher from "./comments/comments.saga"
 import websocketWatcher from "./websocket/websocket.saga"
+import genresWatcher from "./genres/genres.saga"
 
 export default function* rootSaga () {
     yield all([
@@ -12,5 +13,6 @@ export default function* rootSaga () {
         chapterWatcher(),
         commentWatcher(),
         websocketWatcher(),
+        genresWatcher(),
     ])
 }

@@ -72,20 +72,19 @@ const FilterRow: React.FC<Props> = ({
                                         enforceWhitelist
                         />
                     </div>
-                    <InputGroup.Append>
-                        <Button variant="outline-secondary"
-                                onClick={() => {
-                                    setOpen(!open)
-                                }}
-                        >
-                            <FormattedMessage id="filterrow.button.cloudtags"
-                                              defaultMessage="Cloud tags"
-                                              description="Cloud tags button"
-                            />
-                        </Button>
-                    </InputGroup.Append>
                 </InputGroup>
             </Row>
+            <Button variant="outline-secondary"
+                    onClick={() => {
+                        setOpen(!open)
+                    }}
+                    block
+            >
+                <FormattedMessage id="filterrow.button.cloudtags"
+                                  defaultMessage="Cloud tags"
+                                  description="Cloud tags button"
+                />
+            </Button>
             <Row className="justify-content-center">
                 <Collapse in={open}>
                     {

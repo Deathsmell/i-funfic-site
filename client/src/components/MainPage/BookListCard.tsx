@@ -76,7 +76,12 @@ const BookListCard: React.FC<IBookFromDb> = ({
                         </strong>
                         &nbsp;
                         {gainers && gainers.map((genre, index) =>
-                            <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)}
+                            <Badge key={index} className="mx-1" variant="secondary">
+                                <FormattedMessage id={`common.genre.${genre}`}
+                                                  defaultMessage={genre[0].toUpperCase() + genre.slice(1)}
+                                                  description="Genres badge content"
+                                />
+                            </Badge>)}
                     </Row>
                     <Row className="m-4">
                         <strong>

@@ -4,6 +4,8 @@ import {Card, Col, Container, FormControl, InputGroup, Row} from "react-bootstra
 import InputTagsField from "./InputTagsField";
 import {ITagItem} from "../../../../interfaces";
 import {FormattedMessage} from "react-intl";
+import {useSelector} from "react-redux";
+import {selectorGenres} from "../../store/genres/genres.selector";
 
 
 interface Props {
@@ -26,6 +28,8 @@ const BookCard: React.FC<Props> = ({
     const [annotation, setAnnotation] = annotationState
     const [title, setTitle] = titleState
     const [image, setImage] = imageState
+    const genres = useSelector(selectorGenres)
+
 
     const titleHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value)
@@ -72,7 +76,9 @@ const BookCard: React.FC<Props> = ({
                                     </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <div className={"flex-grow-1"}>
-                                    <InputTagsField itemsState={gainersState}
+                                    <InputTagsField key={"genres"}
+                                                    itemsState={gainersState}
+                                                    whitelist={genres.map((genre) => ({value: genre}))}
                                                     className={"rounded-right"}
                                                     enforceWhitelist={true}
                                     />
@@ -90,7 +96,8 @@ const BookCard: React.FC<Props> = ({
                                     </InputGroup.Text>
                                 </InputGroup.Prepend>
                                 <div className={"flex-grow-1"}>
-                                    <InputTagsField itemsState={tagsState}
+                                    <InputTagsField key={"tag"}
+                                                    itemsState={tagsState}
                                                     className={"rounded-right"}
                                     />
                                 </div>

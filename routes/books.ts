@@ -6,7 +6,7 @@ import {
     BOOKS_BY_USER_ID_URL,
     DELETE_AUTHOR_BOOK_URL, GET_ALL_BOOKS_ORDER_RATING_BY_TAGS_URL,
     GET_ALL_BOOKS_ORDER_RATING_URL,
-    GET_BOOK_URL, LIST_BOOKS_BY_TAGS_URL,
+    GET_BOOK_URL, GET_GENRES_URL, LIST_BOOKS_BY_TAGS_URL,
     LIST_BOOKS_URL,
 } from "../api"
 import {ensureAuthenticated} from "../config/passport";
@@ -23,4 +23,5 @@ export const booksRouter = (router: IRouter): void => {
     router.put(BOOK_UPDATE_URL,ensureAuthenticated, BookController.updateBook)
     router.delete(DELETE_AUTHOR_BOOK_URL,ensureAuthenticated, BookController.deleteBook)
     router.get(GET_TAGS_URL,BookController.getTagsCount)
+    router.get(GET_GENRES_URL, BookController.getAllGenres)
 }

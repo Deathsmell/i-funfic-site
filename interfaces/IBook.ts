@@ -5,7 +5,7 @@ export interface IBook {
     authorName: string,
     rating?: number,
     annotation: string,
-    gainers: BookGenres[],
+    gainers: string[],
     tags: string[]
     image?: string,
     updatedAt?: string
@@ -13,8 +13,3 @@ export interface IBook {
 }
 
 export interface IBookFromDb extends Required<IBook>{}
-
-export enum BookGenres {
-    ACTION = "ACTION",
-    FANTASTIC = "FANTASTIC",
-}

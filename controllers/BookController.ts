@@ -6,13 +6,22 @@ import {BodyIdRequest, ParamIdRequest} from "../interfaces/IAxiosRequest";
 import {
     IBookResponse,
     IBooksResponse,
-    IErrorResponse, ITagsResponse
+    IErrorResponse, IGenresResponse, ITagsResponse
 } from "../interfaces/IResponse";
 import BookService from "../services/BookService";
 import {IBookFromDb} from "../interfaces/IBook";
+import {genres} from "../config/genres";
 
 
 const BookController = {
+    getAllGenres: async (req: Request, res: Response<IGenresResponse | IErrorResponse>) => {
+        try {
+            res.status(200).json({genres, message: "Success get genres"})
+        } catch (e) {
+            console.error(e)
+            res.status(500).json({message: e.message})
+        }
+    },
     getAllOrderRating: async (req: Request, res: Response<IBooksResponse | IErrorResponse>) => {
         try {
             const books = await BookService.getAllOrderRating();

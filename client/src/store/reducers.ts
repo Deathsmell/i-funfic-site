@@ -6,6 +6,7 @@ import {RouterReducer, routerReducer} from "./router/history";
 import {CommentsReducer, commentsReducers} from "./comments/comments.reducers";
 import {WebsocketReducer, websocketReducer} from "./websocket/websocket.reducer"
 import {LocaleReducer, localeReducer} from "./locale/locale.reducer"
+import {GenresReducer,genresReducer} from "./genres/genres.reducer"
 
 interface IRootReducer {
     credential: CredentialReducer,
@@ -14,7 +15,8 @@ interface IRootReducer {
     chapters: ChapterReducer,
     comments: CommentsReducer,
     websocket: WebsocketReducer,
-    locale: LocaleReducer
+    locale: LocaleReducer,
+    genres: GenresReducer
 }
 
 const reducers: IRootReducer = {
@@ -25,6 +27,7 @@ const reducers: IRootReducer = {
     comments: commentsReducers,
     websocket: websocketReducer,
     locale: localeReducer,
+    genres: genresReducer,
 };
 export const rootReducers = combineReducers(reducers);
 

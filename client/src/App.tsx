@@ -11,6 +11,7 @@ import {selectorWebsocket} from "./store/websocket/websocket.selector";
 import {IntlProvider} from "react-intl";
 import {locales} from "./store/locale/locale.interfaces";
 import {selectorLocale} from "./store/locale/locale.selector";
+import {getGenres} from "./store/genres/genres.actions";
 
 const App: React.FC = () => {
 
@@ -22,6 +23,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         dispatch(checkAuth())
+        dispatch(getGenres())
         if (authorise && !ws) {
             dispatch(connecting())
         }

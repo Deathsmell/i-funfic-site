@@ -4,7 +4,7 @@ import {
     BOOKS_BY_USER_ID_URL,
     DELETE_AUTHOR_BOOK_URL, GET_ALL_BOOKS_ORDER_RATING_BY_TAGS_URL,
     GET_ALL_BOOKS_ORDER_RATING_URL,
-    GET_BOOK_URL, LIST_BOOKS_BY_TAGS_URL,
+    GET_BOOK_URL, GET_GENRES_URL, LIST_BOOKS_BY_TAGS_URL,
     LIST_BOOKS_URL,
     UPDATE_AUTHOR_BOOK_URL
 } from "@api"
@@ -28,6 +28,7 @@ export const BookApi = {
     getAllOrderRating: async (): IFetchResponse<IBooksResponse> =>
         await axiosInstance.get(GET_ALL_BOOKS_ORDER_RATING_URL),
     getAllOrderRatingByTags: async (tags: string[]): IFetchResponse<IBooksResponse> =>
-        await axiosInstance.post(GET_ALL_BOOKS_ORDER_RATING_BY_TAGS_URL,{tags}),
-
+        await axiosInstance.post(GET_ALL_BOOKS_ORDER_RATING_BY_TAGS_URL, {tags}),
+    getAllGenres: async (): IFetchResponse<IBooksResponse> =>
+        await axiosInstance.get(GET_GENRES_URL),
 }

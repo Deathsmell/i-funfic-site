@@ -5,11 +5,10 @@ import "@yaireo/tagify/dist/tagify.css"
 import {ITagItem} from "../../../../interfaces";
 
 
-
 interface Props {
     blacklist?: []
     maxTags?: number
-    whitelist?: Array<ITagItem>
+    whitelist?: Array<ITagItem | string | JSX.Element>
     placeholder?: string
     itemsState: [Array<ITagItem>, React.Dispatch<React.SetStateAction<Array<ITagItem>>>],
     className?: string
@@ -18,8 +17,8 @@ interface Props {
 }
 
 type TagifyProps = {
-    blacklist: Array<ITagItem>
-    whitelist: Array<ITagItem>
+    blacklist: Array<ITagItem | string[]>
+    whitelist: Array<ITagItem | string[]>
     placeholder: string
     enforceWhitelist: boolean
     maxTags: number
@@ -41,17 +40,7 @@ const InputTagsField: React.FC<Props> = ({
                                          }) => {
 
     const [tags, setTags] = itemsState
-    const [value, setValue] = useState<ITagItem[]>(tags);
-
-    useEffect(() => {
-        for (let tag of tags) {
-            const include = value.some(({value}) => value === tag.value);
-            if (!include) {
-                setValue(tags)
-                break
-            }
-        }
-    }, [tags])
+    const [value] = useState<ITagItem[]>(tags);
 
     const initialState: TagifyProps = {
         blacklist: [],
@@ -81,7 +70,6 @@ const InputTagsField: React.FC<Props> = ({
     }, [blacklist])
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        e.persist()
         const value = e.target.value;
         const values: Array<ITagItem> = value ? JSON.parse(value) : [];
         setTags(values)

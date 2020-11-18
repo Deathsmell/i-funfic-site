@@ -3,6 +3,7 @@ import {IBookFromDb} from "./IBook";
 import {IUserComment} from "./IComment";
 import {IChapterFromDb} from "./IChapter";
 import {ITagItem} from "./ITagsItem";
+import {GenresType} from "../config/genres";
 
 export interface IResponse {
     message?: string
@@ -55,4 +56,8 @@ export interface ITagsResponse extends IResponse {
 export interface IRatingResponse extends IResponse {
     set: boolean,
     rating: number
+}
+
+export interface IGenresResponse extends IResponse {
+    genres: GenresType
 }
