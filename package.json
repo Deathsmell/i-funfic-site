@@ -1,16 +1,21 @@
 {
   "name": "i-funfic-site",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "author": "Alexander Mitskevich <johndeathsmell@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "yarn":  ">=1.22.5"
+  },
   "scripts": {
+    "start": "NODE_ENV=production node app.js",
     "server:testprod": "yarn client:build && NODE_ENV=production ts-node app.ts",
     "server:start": "NODE_ENV=production ts-node app.ts",
     "server:dev": "nodemon app.ts",
     "client:dev": "yarn --cwd ./client start",
     "client:build": "yarn --cwd ./client build",
-    "dev": "concurrently \"yarn server:dev\" \"yarn client:dev\""
+    "dev": "concurrently \"yarn server:dev\" \"yarn client:dev\"",
+    "heroku": "yarn client:build && git add . && git commit -m \"Heroku deploy\" && git push heroku deploy:master"
   },
   "dependencies": {
     "@stomp/stompjs": "^6.0.0",

@@ -18,7 +18,7 @@ const CreateBookPage: React.FC = () => {
     const tagsState = useState<Array<ITagItem>>([]);
     const gainersState = useState<Array<ITagItem>>([]);
 
-    const isEmpty = (str?: string) => str && str.trim() === ""
+    const isEmpty = (str?: string) => str === null || str?.trim() === ""
 
     const createBookHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault()
@@ -38,6 +38,8 @@ const CreateBookPage: React.FC = () => {
                 tags: [...tags.map(({value})=> value)]
             };
             dispatch(createBookFetch(book))
+        } else {
+            console.warn("Some error when create book. Title or annotation field maybe empty")
         }
     }
 

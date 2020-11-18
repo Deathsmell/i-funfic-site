@@ -1,3 +1,5 @@
+import {isProduction, PORT} from "../config/constants";
+
 export * from "./auth"
 export * from "./book"
 export * from "./cloudinary"
@@ -9,5 +11,6 @@ export * from "./comment"
 export * from "./tags"
 export * from "./rating"
 
-export const BASE_URL = "http://localhost:5000"
+export const BASE_URL = isProduction ? "https://i-funfic.herokuapp.com" : `http://localhost:${PORT}`
+export const CLIENT_URL = isProduction ? BASE_URL : "http://localhost:3000"
 export const MAIN_PAGE_URL = "/"

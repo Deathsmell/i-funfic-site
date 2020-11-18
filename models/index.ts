@@ -37,7 +37,8 @@ function dbAuthenticate(mode: boolean) {
         await sequelize.sync({force: true})
             .then(async () => {
                 console.log("Sequelize synced ...")
-                if (!mode) {
+                // TODO: temporal. Set mode later
+                if (true) {
                     const bcryptPassword = await bcrypt.hash("123", 12);
                     const admin = await User.create({
                         username: "deathsmell",

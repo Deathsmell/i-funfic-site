@@ -6,7 +6,7 @@ import {jwtSecret} from "../config/constants";
 import {ICredentialState} from "../client/src/store/credential/credential.interfaces";
 import {IUser} from "../interfaces";
 import {sendMail} from "../config/mailsender";
-import {BASE_URL} from "../api";
+import {BASE_URL, CLIENT_URL} from "../api";
 import {IErrorResponse, IResponse} from "../interfaces/IResponse";
 import {User} from "../models";
 import {IUserFromDb} from "../interfaces/IUser";
@@ -21,7 +21,7 @@ const AuthController = {
                 const compared = bcrypt.compareSync(email,code);
                 if (compared) {
                     await User.update({confirm: true},{where: {id}})
-                    res.status(200).redirect("http://localhost:3000/login")
+                    res.status(200).redirect(`${CLIENT_URL}/login`)
                 }
             } else {
                 res.status(400).json({message: "Invalid credential information"})
