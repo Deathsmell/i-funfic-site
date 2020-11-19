@@ -41,7 +41,7 @@ const ChapterManagerButtons: React.FC<Props> = ({bookId}) => {
                             size="sm"
                             onClick={editHandler}
                     >
-                        <MdModeEdit size="25px" color="black"/>
+                        <MdModeEdit size="25px"/>
                     </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -60,7 +60,7 @@ const ChapterManagerButtons: React.FC<Props> = ({bookId}) => {
                             size="sm"
                             onClick={deleteHandler}
                     >
-                        <MdDeleteForever size="25px" color="black"/>
+                        <MdDeleteForever size="25px"/>
                     </Button>
                 </OverlayTrigger>
             </ButtonGroup>

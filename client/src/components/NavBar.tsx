@@ -13,6 +13,7 @@ import {FaSearch} from "react-icons/fa"
 import useWindowDimensions from "../hooks/useWindowDimensions";
 import {ILocaleState} from "../store/locale/locale.interfaces";
 import {setEnLocale, setRuLocale} from "../store/locale/locale.actions";
+import useDarkTheme from "../hooks/theme.hook";
 
 const mapState = ({locale}: RootState): { locale: ILocaleState } => ({locale})
 const mapDispatch = {setEn: setEnLocale, setRu: setRuLocale}
@@ -25,7 +26,7 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
     const {authorised, roles, image} = useSelector<RootState, ICredentialState>(({credential}) => credential);
     const dispatch = useDispatch();
     const {windowDimensions: {width}, breakPoint} = useWindowDimensions();
-
+    const {changeTheme,theme} = useDarkTheme();
 
     const pushHandler = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
@@ -48,7 +49,7 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
             dispatch(setEn())
         }
     }
-
+    
     const isAdmin = (role: Roles) => role.toUpperCase() === "ADMIN";
     return (
         <>
@@ -103,7 +104,9 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
                         ? (
                             <Form inline className="mr-4">
                                 <FormControl type="text" placeholder="Search" className="mr-2"/>
-                                <Button variant="outline-info">
+                                <Button variant="outline-info"
+
+                                >
                                     <FormattedMessage id="navbar.links.search"
                                                       defaultMessage="Search"
                                                       description="Search field"
@@ -115,10 +118,27 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
                             <FaSearch className="mr-2" style={{cursor: "pointer"}}/>
                         )
                 }
+                <div className="custom-control custom-switch">
+                    <input type="checkbox"
+                           className="custom-control-input"
+                           id="theme-switcher"
+                           checked={theme === "dark"}
+                    />
+                    <label className="custom-control-label"
+                           htmlFor="theme-switcher"
+                           id="theme-switcher-label"
+                           style={{cursor: "pointer"}}
+                           onClick={changeTheme}
+                    >
+                    </label>
+                </div>
+
                 <span className="text-white"
-                      style={{cursor:"pointer",textDecoration:"underline"}}
+                      style={{cursor: "pointer", textDecoration: "underline"}}
                       onClick={changeLocaleHandler}
-                >{locale.toUpperCase()}</span>
+                >
+                    {locale.toUpperCase()}
+                </span>
                 {authorised
                     ? (
                         <Image className="ml-2"

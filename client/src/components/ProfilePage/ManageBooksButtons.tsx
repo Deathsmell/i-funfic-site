@@ -49,7 +49,7 @@ const ManageBooksButtons: React.FC<Prop> = ({id}) => {
                     <Button variant="outline-info"
                             onClick={readHandler}
                     >
-                        <MdChromeReaderMode size="25px" color="black"/>
+                        <MdChromeReaderMode size="25px"/>
                     </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -66,7 +66,7 @@ const ManageBooksButtons: React.FC<Prop> = ({id}) => {
                     <Button variant="outline-warning"
                             onClick={editHandler}
                     >
-                        <MdModeEdit size="25px" color="black"/>
+                        <MdModeEdit size="25px"/>
                     </Button>
                 </OverlayTrigger>
                 <OverlayTrigger
@@ -84,7 +84,7 @@ const ManageBooksButtons: React.FC<Prop> = ({id}) => {
                     <Button variant="outline-danger"
                             onClick={deleteHandler}
                     >
-                        <MdDeleteForever size="25px" color="black"/>
+                        <MdDeleteForever size="25px"/>
                     </Button>
                 </OverlayTrigger>
             </ButtonGroup>

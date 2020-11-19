@@ -13,8 +13,8 @@ import {locales} from "./store/locale/locale.interfaces";
 import {selectorLocale} from "./store/locale/locale.selector";
 import {getGenres} from "./store/genres/genres.actions";
 
-const App: React.FC = () => {
 
+const App: React.FC = () => {
 
     const dispatch = useDispatch();
     const authorise = useSelector(selectorAuthorise);
@@ -31,12 +31,12 @@ const App: React.FC = () => {
 
     return (
         <>
-            <IntlProvider locale={locale} defaultLocale={"en"} messages={locales[locale]}>
-                <ConnectedRouter history={history}>
-                    <NavBar/>
-                    <Routes/>
-                </ConnectedRouter>
-            </IntlProvider>
+                <IntlProvider locale={locale} defaultLocale={"en"} messages={locales[locale]}>
+                    <ConnectedRouter history={history}>
+                        <NavBar/>
+                        <Routes/>
+                    </ConnectedRouter>
+                </IntlProvider>
         </>
     );
 }

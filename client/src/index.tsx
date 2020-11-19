@@ -6,7 +6,7 @@ import {persistor, store} from "./store";
 import App from './App';
 import "holderjs"
 import "moment/locale/ru"
-import './index.scss'
+import "./index.scss"
 
 
 const app = (
