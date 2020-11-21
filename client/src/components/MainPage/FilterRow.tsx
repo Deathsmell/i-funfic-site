@@ -57,7 +57,7 @@ const FilterRow: React.FC<Props> = ({
                             {
                                 sorting && sorting.map(({element}, index) => {
                                     return (
-                                        <Dropdown.Item key={index}
+                                        <Dropdown.Item key={index+"-filter-row"}
                                                        eventKey={index.toString()}
                                                        onSelect={changeSortHandler}
                                         >{element}</Dropdown.Item>

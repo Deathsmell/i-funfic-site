@@ -40,7 +40,7 @@ const ChaptersList: React.FC<Props> = ({
                     {chapters.sort((a, b) => a.number! - b.number!)
                         .map(({number, title}) => (
                             <ListGroup.Item action
-                                            key={number}
+                                            key={number+"chapter-item"}
                                             href={`#link${number}`}
                             >
                                 {number}. {title}

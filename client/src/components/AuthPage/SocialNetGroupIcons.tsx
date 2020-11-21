@@ -32,7 +32,7 @@ const SocialNetGroupIcons: React.FC = () => {
         <Row className="my-4 justify-content-center">
             {
                 logos.map((logo, index) =>
-                    <Image key={index}
+                    <Image key={logo.src + index}
                            {...logo}
                            width="40"
                            height="40"

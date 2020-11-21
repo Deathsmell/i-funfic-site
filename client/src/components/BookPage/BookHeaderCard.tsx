@@ -110,7 +110,7 @@ const BookHeaderCard: React.FC<IBookFromDb> = (
                             {
                                 gainers
                                 && gainers.map((genre, index) =>
-                                    <Badge key={index} className="mx-1" variant="secondary">{genre}</Badge>)
+                                    <Badge key={genre + index} className="mx-1" variant="secondary">{genre}</Badge>)
                             }
                         </Row>
                         <Row className="m-1">
@@ -121,7 +121,7 @@ const BookHeaderCard: React.FC<IBookFromDb> = (
                             {
                                 tags
                                 && tags.map((tag, index) =>
-                                    <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>)
+                                    <Badge key={tag + index} className="mx-1" variant="secondary">{tag}</Badge>)
                             }
                         </Row>
                         <Row className="m-1">

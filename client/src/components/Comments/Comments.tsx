@@ -32,9 +32,9 @@ const Comments: React.FC<PropsFromRedux & Props> = ({
                                                          text,
                                                          user: {username, image},
                                                          updatedAt
-                                                     }) => {
+                                                     },index) => {
                         return (
-                            <Comment key={updatedAt}
+                            <Comment key={updatedAt + "" + index}
                                      username={username}
                                      image={image}
                                      text={text}

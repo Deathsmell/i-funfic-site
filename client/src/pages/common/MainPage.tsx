@@ -68,7 +68,7 @@ const MainPage: React.FC<PropsFromRedux> = ({
                 && books.map((book) => {
 
                         return (
-                            <BookListCard key={book.id}
+                            <BookListCard key={book.id+"book-id"}
                                           {...book}
                             />
                         )

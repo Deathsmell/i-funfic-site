@@ -1,0 +1,1 @@
+export const THESAURUS_SEARCH_URL = "/thesaurus/search"

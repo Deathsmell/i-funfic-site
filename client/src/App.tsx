@@ -12,6 +12,7 @@ import {IntlProvider} from "react-intl";
 import {locales} from "./store/locale/locale.interfaces";
 import {selectorLocale} from "./store/locale/locale.selector";
 import {getGenres} from "./store/genres/genres.actions";
+import ThesaurusSelector from "./components/ThesaurusSelector";
 
 
 const App: React.FC = () => {
@@ -34,7 +35,9 @@ const App: React.FC = () => {
                 <IntlProvider locale={locale} defaultLocale={"en"} messages={locales[locale]}>
                     <ConnectedRouter history={history}>
                         <NavBar/>
-                        <Routes/>
+                        <ThesaurusSelector>
+                            <Routes/>
+                        </ThesaurusSelector>
                     </ConnectedRouter>
                 </IntlProvider>
         </>

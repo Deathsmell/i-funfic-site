@@ -74,7 +74,7 @@ const ListChapters: React.FC<Props> = ({
                 {
                     chapters && chapters.map(({number, title,bookId,updatedAt}) => {
                             return (
-                                <tr key={number}>
+                                <tr key={number + title}>
                                     <td>{number}</td>
                                     <td>{title}</td>
                                     <td>{moment(updatedAt).fromNow()}</td>

@@ -8,6 +8,7 @@ import {adminRouter} from "./admin";
 import {commentRouter} from "./comment"
 import {likeRouter} from "./like";
 import {ratingRouter} from "./rating";
+import {thesaurusRouter} from "./thesaurus";
 
 export const configRouter = (router: Router): void => {
     authRouter(router)
@@ -19,4 +20,5 @@ export const configRouter = (router: Router): void => {
     commentRouter(router)
     likeRouter(router)
     ratingRouter(router)
+    thesaurusRouter(router)
 }

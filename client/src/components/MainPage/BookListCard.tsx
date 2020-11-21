@@ -80,7 +80,7 @@ const BookListCard: React.FC<IBookFromDb> = ({
                             gainers
                             && gainers.map((genre, index) => {
                                     return (
-                                        <GenreBadge key={index}
+                                        <GenreBadge key={index + "-" + genre}
                                                     genre={genre}/>
                                     )
                                 }
@@ -98,7 +98,10 @@ const BookListCard: React.FC<IBookFromDb> = ({
                         {
                             tags
                             && tags.map((tag, index) =>
-                                <Badge key={index} className="mx-1" variant="secondary">{tag}</Badge>
+                                <Badge key={tag + "-" + index}
+                                       className="mx-1"
+                                       variant="secondary"
+                                >{tag}</Badge>
                             )
                         }
                     </Row>

@@ -89,7 +89,7 @@ const UsersTable: React.FC = () => {
                                         email
                                     }) => {
                         return (
-                            <tr key={id}>
+                            <tr key={id+"user-table-row"}>
                                 <td>{id}</td>
                                 <td>{username}</td>
                                 <td>{email}</td>

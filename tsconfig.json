@@ -5,5 +5,10 @@
     "./client",
     "./reserv"
   ],
-  "include": ["./"]
+  "include": ["./"],
+  "compilerOptions": {
+    "lib": [
+      "dom"
+    ]
+  }
 }

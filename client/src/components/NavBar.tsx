@@ -1,4 +1,4 @@
-import React, {MouseEvent} from "react";
+import React, {MouseEvent, useState} from "react";
 import {FormattedMessage} from "react-intl";
 import {Button, Form, FormControl, Image, Nav, Navbar} from "react-bootstrap";
 import mordorLogo from '../mordor_logo.png'
@@ -26,7 +26,8 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
     const {authorised, roles, image} = useSelector<RootState, ICredentialState>(({credential}) => credential);
     const dispatch = useDispatch();
     const {windowDimensions: {width}, breakPoint} = useWindowDimensions();
-    const {changeTheme,theme} = useDarkTheme();
+    const {changeTheme, theme} = useDarkTheme();
+    const [themeChecked, setThemeChecked] = useState(theme === "dark");
 
     const pushHandler = (event: MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault()
@@ -49,7 +50,12 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
             dispatch(setEn())
         }
     }
-    
+
+    const changeThemeHandler = () => {
+        changeTheme()
+        setThemeChecked(!themeChecked)
+    }
+
     const isAdmin = (role: Roles) => role.toUpperCase() === "ADMIN";
     return (
         <>
@@ -119,18 +125,15 @@ const NavBar: React.FC<PropsFromRedux> = ({locale, setRu, setEn}) => {
                         )
                 }
                 <div className="custom-control custom-switch">
-                    <input type="checkbox"
-                           className="custom-control-input"
-                           id="theme-switcher"
-                           checked={theme === "dark"}
-                    />
-                    <label className="custom-control-label"
-                           htmlFor="theme-switcher"
-                           id="theme-switcher-label"
-                           style={{cursor: "pointer"}}
-                           onClick={changeTheme}
-                    >
-                    </label>
+                    <Form>
+                        <Form.Check
+                            type="switch"
+                            id="custom-switch"
+                            checked={themeChecked}
+                            style={{cursor: "pointer"}}
+                            onChange={changeThemeHandler}
+                        />
+                    </Form>
                 </div>
 
                 <span className="text-white"

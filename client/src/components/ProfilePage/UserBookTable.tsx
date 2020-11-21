@@ -174,7 +174,7 @@ const UserBookTable: React.FC<Props> = ({
                     ? books.sort(sorter).filter(filterHandler).map(({title, id, rating}) =>
                         (
                             <tr className="book-table-row"
-                                key={id}
+                                key={id+"book"}
                             >
                                 <td>{id}</td>
                                 <td>{title}</td>
