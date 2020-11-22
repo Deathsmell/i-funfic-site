@@ -14,7 +14,7 @@ import {useSelector} from "react-redux";
 import {selectorAuthorise, selectorRoles} from "./store/credential/credential.selectors";
 import {isAdmin} from "./utils/adminUtils";
 import AdminCreateBookPage from "./pages/admin/AdminCreateBookPage";
-import TestPage from "./pages/TestPage";
+import AuthRedirect from "./pages/AuthRedirect";
 
 export const ApplicationMap = {
     MAIN_PAGE: "/",
@@ -30,6 +30,7 @@ export const ApplicationMap = {
     READ_BOOK_PAGE: "/book/read/:id",
     CREATE_CHAPTER_PAGE: "/chapter/create/:id",
     EDIT_CHAPTER_PAGE: "/chapter/edit/:id",
+    AUTH_REDIRECT_PAGE: "/auth/redirect"
 }
 
 export const createPath = (path: string) => (param: number | string) => path.replace(/:\w+$/, String(param))
@@ -61,7 +62,7 @@ const Routes: React.FC<Props> = ({}) => {
             <Route path={ApplicationMap.REGISTER_PAGE} component={AuthPage}/>
             <Route path={ApplicationMap.BOOK_PAGE} component={BookPage} exact/>
             <Route path={ApplicationMap.READ_BOOK_PAGE} component={ReadChaptersPage} exact/>
-            <Route path={"/test"} component={TestPage}/>
+            <Route path={ApplicationMap.AUTH_REDIRECT_PAGE} component={AuthRedirect}/>
         </>
     );
     const authorisePages = <>

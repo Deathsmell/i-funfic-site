@@ -2,7 +2,7 @@ import React, {MouseEvent, useState} from "react";
 import {useDispatch} from "react-redux";
 import {createBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
-import {BookGenres, IBook} from "../../../../interfaces";
+import { IBook} from "../../../../interfaces";
 import {useParams} from "react-router";
 import {UserApi} from "../../api";
 import BookCard from "../../components/CreateBookPage/BookCard";
@@ -34,7 +34,7 @@ const AdminCreateBookPage: React.FC = () => {
                 annotation,
                 title,
                 image,
-                gainers: [...gainers.map(({value}) => value as BookGenres)],
+                gainers: [...gainers.map(({value}) => value)],
                 tags: [...tags.map(({value}) => value)]
             }
             dispatch(createBookFetch(book))

@@ -1,10 +1,10 @@
 import {useEffect} from "react";
 import {ISubscribeBookMessage} from "../../../interfaces"
-import {IWSCommentMessage, IWSMessage} from "../../../interfaces/IWSMessage";
+import {IWSCommentMessage, IWSMessage} from "../../../interfaces";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorWebsocket} from "../store/websocket/websocket.selector";
 import {connecting} from "../store/websocket/websocket.actions";
-import {IUserComment} from "../../../interfaces/IComment";
+import {IUserComment} from "../../../interfaces";
 import {selectorAuthorise, selectorUserId} from "../store/credential/credential.selectors";
 
 export const useWS = () => {
@@ -28,9 +28,9 @@ export const useWS = () => {
                         handlers.forEach((handler) => {
                             handler(comment)
                         })
-                    } else console.error("EMPTY HANDLER", console.log(handlers))
+                    } else console.error("EMPTY HANDLER")
                 } catch (e) {
-                    console.log(data)
+                    console.error(e.message)
                 }
             }
         }

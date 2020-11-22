@@ -1,5 +1,7 @@
 export const REGISTRATION_URL = "/credential/registration"
 export const LOGIN_URL = "/credential/login"
+export const FACEBOOK_LOGIN_URL = "/credential/facebook"
+export const FACEBOOK_LOGIN_CALLBACK_URL = "/credential/facebook/callback"
 export const LOGOUT_URL = "/logout"
 export const CHECK_AUTH_URL = "/credential/check"
 export const CONFIRM_EMAIL_URL = "/confirm"

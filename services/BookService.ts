@@ -1,7 +1,7 @@
 import {Op} from "sequelize"
 import {IBook} from "../interfaces";
 import {Book} from "../models";
-import {IBookFromDb} from "../interfaces/IBook";
+import {IBookFromDb} from "../interfaces";
 
 
 const BookService = {
@@ -18,11 +18,11 @@ const BookService = {
         return await Book.findAll({where: {authorId: id}}) as IBookFromDb[]
     },
     getTagsCount: async (): Promise<{ value: string, count: number }[]> => {
-        const tags = await Book.findAll({attributes: ["tags"]}) as IBookFromDb[] as { tags: string[] }[];
+        const tags = await Book.findAll({attributes: ["tags"]}) as IBookFromDb[] as any;
         let result = {} as any
         tags
-            .flatMap(({tags}) => tags)
-            .forEach((value) => {
+            .flatMap(({tags}:{tags:any}) => tags)
+            .forEach((value:string) => {
                 result[value] = result[value] || result[value] === 0 ? result[value] + 1 : 0
             });
         return Object.entries<number>(result).map(([value, count]) => ({value, count}))

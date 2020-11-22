@@ -22,8 +22,13 @@ export const UserFactory = (sequelize: Sequelize, DataTypes: DataTypes): UserSta
             autoIncrement: true,
             primaryKey: true,
         },
+        facebookId: {
+          type: DataTypes.BIGINT,
+          allowNull: true
+        },
         username: {
             type: DataTypes.STRING,
+            unique: true,
             allowNull: false
         },
         email: {

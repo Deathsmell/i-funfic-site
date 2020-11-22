@@ -20,10 +20,16 @@ const router: Router = Router()
 
 
 app.use(cors({
-    origin: ["http://localhost:3000", "http://localhost:5000"],
+    origin: [
+        "http://localhost:3000",
+        "http://localhost:5000",
+        "https://www.facebook.com",
+        "https://www.facebook.com/v3.2/dialog/oauth?response_type=code&redirect_uri=http://localhost:5000/credential/facebook/callback&client_id=692013711286929",
+    ],
     credentials: true,
     optionsSuccessStatus: 200,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: true
 
 }))
 app.use(express.static("public"));

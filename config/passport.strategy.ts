@@ -2,12 +2,16 @@ import {Request} from "express"
 import {Strategy as LocalStrategy} from "passport-local"
 import {Strategy as CustomStrategy} from "passport-custom"
 import {ExtractJwt, Strategy as JwtStrategy} from "passport-jwt"
+import {Strategy as FacebookStrategy} from "passport-facebook"
 import bcrypt from "bcrypt"
 import {Op} from "sequelize";
 import {User} from "../models";
 import {IRegistrationData} from "../client/src/store/credential/credential.interfaces";
 import {IUser} from "../interfaces";
 import {IVerifiedCallback} from "./interfaces";
+import {facebookOptions} from "./secret";
+import {FACEBOOK_LOGIN_CALLBACK_URL} from "../api";
+
 
 
 export const signUp = new CustomStrategy(
@@ -53,7 +57,7 @@ export const login = new LocalStrategy(
             return done(null, false, {message: 'User not found'});
         }
 
-        if (!user.confirm){
+        if (!user.confirm) {
             console.error("User not confirm email")
             return done(null, false, {message: "User not confirm email"})
         }
@@ -79,7 +83,7 @@ export const login = new LocalStrategy(
             image: user.image,
             password: ""
         }
-        return done(null, userData, { message: 'Logged in Successfully' });
+        return done(null, userData, {message: 'Logged in Successfully'});
     }
 )
 
@@ -103,4 +107,37 @@ export const jwtStrategy = new JwtStrategy(
     }
 )
 
+
+export const facebookStrategy = new FacebookStrategy(
+    {
+        clientID: process.env.FACEBOOK_APP_ID || facebookOptions.appId,
+        clientSecret: process.env.FACEBOOK_APP_SECRET || facebookOptions.secret,
+        callbackURL: FACEBOOK_LOGIN_CALLBACK_URL,
+        enableProof: true
+    },
+    async (accessToken, refreshToken, profile, done) => {
+        console.log("STRT")
+        try {
+            const password = await bcrypt.hash(profile.id, 12);
+
+            const [user, created] = await User.findOrCreate({
+                where: {
+                    facebookId: profile.id
+                },
+                defaults: {
+                    password,
+                    username: profile.username || profile.id,
+                    email: "",
+                }
+            });
+            const message = created
+                ? {message: `Create new user: ${user.username}`}
+                : {message: `Successful login on facebookId: ${user.facebookId}`}
+            done(null, user, message)
+        } catch (e) {
+            console.error(e)
+            done(e, null, {message: "Some error then try get facebook authenticate"})
+        }
+    }
+)
 

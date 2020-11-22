@@ -25,7 +25,6 @@ function* getByBookIdWorker(action: ICommentsFetchActionByBookId) {
     try {
         const {data: {comments}}: AxiosResponse<IUserCommentsResponse> =
             yield call(CommentApi.getAllByBookId, action.id);
-        console.log(comments)
         yield put<ICommentsAction>(setComments(comments))
     } catch (e) {
         console.error(e)

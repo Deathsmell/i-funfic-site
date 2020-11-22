@@ -1,11 +1,10 @@
 import React, {MouseEvent} from "react";
-import Row from "react-bootstrap/Row";
-import Button from "react-bootstrap/Button";
+import {FormattedMessage} from "react-intl";
+import {Button, Row} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {selectorUserId} from "../../store/credential/credential.selectors";
 import {push} from "connected-react-router";
 import {ApplicationDynamicMap} from "../../routes";
-import {FormattedMessage} from "react-intl";
 
 interface Params {
     authorId: number,
@@ -29,13 +28,11 @@ const BookManagerButtons: React.FC<Params> = ({authorId, bookId}) => {
 
     const deleteHandler = (e: MouseEvent) => {
         e.preventDefault()
-        console.log("Create confirm modal windows. If user say yes delete book")
-        // dispatch(deleteBookFetch(bookId))
     }
 
     const addHandler = (e: MouseEvent) => {
         e.preventDefault()
-        console.log("Create new chapter")
+        dispatch(push(ApplicationDynamicMap.createChapterPage(bookId)))
     }
 
     return (

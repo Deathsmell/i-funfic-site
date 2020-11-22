@@ -1,17 +1,17 @@
 import {NextFunction, Request, Response} from "express"
 import {PassportStatic} from "passport"
 import {User} from "../models";
-import {IUser, Roles} from "../interfaces";
-import {jwtStrategy, login, signUp} from "./passport.strategy";
+import {IUser, IUserFromDb, Roles} from "../interfaces";
+import {facebookStrategy, jwtStrategy, login, signUp} from "./passport.strategy";
 import {isAdmin} from "../utils/adminUtils";
 import {IErrorResponse} from "../interfaces/IResponse";
-import {IUserFromDb} from "../interfaces/IUser";
 
 export const configPassport = (passport: PassportStatic) => {
 
     passport.use("jwt", jwtStrategy)
     passport.use("login", login)
     passport.use("signup", signUp)
+    passport.use("facebook", facebookStrategy)
 
     passport.serializeUser<IUser, number>((user, done) => {
         if (typeof user === "object") {
@@ -30,7 +30,7 @@ export const configPassport = (passport: PassportStatic) => {
         try {
             const userFromDB = await User.findOne({where: {id}}) as IUserFromDb | null;
             if (userFromDB) done(null, userFromDB)
-            else done(null,false)
+            else done(null, false)
         } catch (e) {
             done(e)
         }

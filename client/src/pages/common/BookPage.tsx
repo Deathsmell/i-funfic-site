@@ -21,16 +21,19 @@ const BookPage: React.FC = () => {
     const book = useSelector(selectorBook(Number(id)));
     const authorise = useSelector(selectorAuthorise);
     const {subscribeOnComment} = useWS();
+    const bookId = Number(id);
+
+    useEffect(() => {
+        dispatch(getAllChaptersFetch(bookId))
+    }, [])
 
     useEffect(function loadBooksContent() {
-        const bookId = Number(id);
         if (authorise) {
             dispatch(getCommentsByBookId(bookId))
             subscribeOnComment(bookId, (comment) => {
                 if (comment) dispatch(addComment(comment))
             })
         }
-        dispatch(getAllChaptersFetch(bookId))
     }, [authorise])
 
     const returnHandler = (e: MouseEvent) => {

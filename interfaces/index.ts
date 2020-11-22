@@ -1,17 +1,7 @@
-import {IUser,Roles} from "./IUser";
-import {BookGenres,IBook} from "./IBook";
-import {IChapter} from "./IChapter"
-import {IComment} from "./IComment";
-import {ISubscribeBookMessage} from "./IWSMessage";
-import {ITagItem} from "./ITagsItem";
+export * from "./IUser";
+export * from "./IBook";
+export * from "./IChapter"
+export * from "./IComment";
+export *  from "./IWSMessage";
+export * from "./ITagsItem";
 
-export {
-    IUser,
-    Roles,
-    IBook,
-    IChapter,
-    BookGenres,
-    IComment,
-    ISubscribeBookMessage,
-    ITagItem
-}

@@ -7,7 +7,7 @@ import {selectorBook} from "../../store/book/books.selectors";
 import {selectorChapters} from "../../store/chapters/chapters.selectors";
 import {updateBookFetch} from "../../store/book/books.actions";
 import {Button, Container, Row} from "react-bootstrap";
-import {BookGenres, ITagItem} from "../../../../interfaces";
+import { ITagItem} from "../../../../interfaces";
 import {FormattedMessage} from "react-intl";
 
 const EditBookPage: React.FC = () => {
@@ -33,7 +33,7 @@ const EditBookPage: React.FC = () => {
     useEffect(function updateBook() {
         if (updating && book) {
             let newTags = tags.map(({value}) => value)
-            let newGainers = gainers.map(({value}) => value as BookGenres)
+            let newGainers = gainers.map(({value}) => value)
             dispatch(updateBookFetch({...book, image, annotation, title, gainers: newGainers,tags: newTags}))
         }
         setUpdating(false)
